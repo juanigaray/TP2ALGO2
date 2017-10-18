@@ -1,22 +1,23 @@
 #include "Nodo.h"
 
-Nodo::Nodo(T dato){
+Nodo<T>::Nodo(T dato){
     this->dato = dato;
     this->siguiente = NULL;
 }
 
-Nodo::cambiarDato(T datoNuevo){
+Nodo<T>::cambiarDato(T datoNuevo){
     this->dato = datoNuevo;
 }
 
-Nodo::cambiarSiguiente(Nodo<T> *siguienteNuevo){
+Nodo<T>::cambiarSiguiente(Nodo<T> *siguienteNuevo){
     this->siguiente = siguienteNuevo;
 }
 
-Nodo::obtenerDato(){
+Nodo<T>::obtenerDato(){
     return this->dato;
 }
 
-Nodo::obtenerSiguiente(){
+Nodo<T>::obtenerSiguiente(){
     return this->siguiente;
 }
+ 
