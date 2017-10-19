@@ -33,6 +33,7 @@ class Dibujante{
 	//Post: La imagen tiene todos sus casilleros dibujados como cubiertos.
 	void inicializarImagen(uint cantidadDeColumnas, uint cantidadDeFilas);
 
+	char* strAPChar(std::string cadena);
 
   public:
 

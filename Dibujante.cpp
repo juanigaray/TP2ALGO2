@@ -48,11 +48,11 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 
 	BMP cuadrante;
 
-	std::string strNombre = "src/ImagenesFuente/" + queDibujar + ".bmp";
+	std::string nombre = directorioDeImagenesFuente + queDibujar + ".bmp";
 
-	char* nombreCompatible = &strNombre[0];
+	char* nombreCompatible = &nombre[0];
 
-	cuadrante.ReadFromFile(nombreCompatible);
+	cuadrante.ReadFromFile( nombreCompatible );
 	cuadrante.CreateStandardColorTable();
 
 	for ( uint yRelativoDePixel = 0; yRelativoDePixel < alturaDeCuadrante; yRelativoDePixel++){
@@ -63,26 +63,27 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 
 			xAbsolutoDePixel = xRelativoDePixel + (columna * anchoDeCuadrante) + anchoDeMargenIzquierdo;
 
-			if (queDibujar != "bandera"){
+			//Si es bandera, tengo que asignarle el color del jugador al icono.
+			if (	queDibujar == "bandera"
+					&& 	cuadrante(xRelativoDePixel, yRelativoDePixel)->Red == 255
+					&&	cuadrante(xRelativoDePixel, yRelativoDePixel)->Blue == 255
+					&&	cuadrante(xRelativoDePixel, yRelativoDePixel)->Green == 255 ){
+
+				imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Red = cuadrante.GetColor(jugador).Red;
+				imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Blue = cuadrante.GetColor(jugador).Blue;
+				imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Green = cuadrante.GetColor(jugador).Green;
+
+			//Si el pixel es generico, lo copio de la imagen fuente
+			} else {
 
 				//Copio el pixel de la fuente a la imagen.
 				PixelToPixelCopy(	cuadrante,	xRelativoDePixel, yRelativoDePixel,
 									imagen, 	xAbsolutoDePixel, yAbsolutoDePixel);
-			} else {
-				if (	cuadrante(xRelativoDePixel, yRelativoDePixel)->Red == 255
-					&&	cuadrante(xRelativoDePixel, yRelativoDePixel)->Blue == 255
-					&&	cuadrante(xRelativoDePixel, yRelativoDePixel)->Green == 255  ){
 
-					imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Red = cuadrante.GetColor(jugador).Red;
-					imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Blue = cuadrante.GetColor(jugador).Blue;
-					imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Green = cuadrante.GetColor(jugador).Green;
-
-				}
 			}
 		}
 	}
 }
-
 
 void Dibujante::inicializarImagen(uint cantidadDeColumnas, uint cantidadDeFilas){
 	for(uint filaActual = 0; filaActual < cantidadDeFilas; filaActual++){
@@ -98,10 +99,9 @@ void Dibujante::dibujarTablero(){
 	std::ostringstream numero;
 	numero << ordinalDeDibujo;
 	std::string nombreDeArchivo = "Imagen " + numero.str() +".bmp";
-
 	char* nombreCompatible = &nombreDeArchivo[0];
 
-	imagen.WriteToFile(nombreCompatible);
+	imagen.WriteToFile( nombreCompatible );
 
 	ordinalDeDibujo++;
 
