@@ -10,10 +10,10 @@
 
 int main(){
 
-	Dibujante dibujante(1,1);
+	Dibujante dibujante(3,3);
 	dibujante.cambiarCuadrante(0, 0, "0");
-//	dibujante.cambiarCuadrante(6, 5, "bandera", 1);
-//	dibujante.cambiarCuadrante(6, 4, "bandera", 2);
+	dibujante.cambiarCuadrante(3, 3, "bandera", 1);
+	dibujante.cambiarCuadrante(4, 4, "bandera", 2);
 //	dibujante.cambiarCuadrante(6, 3, "bandera", 3);
 //	dibujante.cambiarCuadrante(6, 2, "4");
 //	dibujante.cambiarCuadrante(6, 1, "5");

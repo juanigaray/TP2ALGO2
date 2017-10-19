@@ -30,21 +30,24 @@ class Dibujante{
 
 	std::string directorioDeImagenesFuente;
 
-	//Post: La imagen tiene todos sus casilleros dibujados como cubiertos.
-	void inicializarImagen(uint cantidadDeColumnas, uint cantidadDeFilas);
 
-	char* strAPChar(std::string cadena);
+	//Pre: Es usado por el constructor. Se le pasan dos naturales.
+	//Post:
+	void inicializarCasilleros(uint cantidadDeColumnas, uint cantidadDeFilas);
+
+	//Pre: Es usado por el constructor. Se le pasan dos naturales.
+	//Post: La imagen tiene todos sus casilleros dibujados como cubiertos.
+	//		Se crean los margenes de la imagen con lugar para anotar los puntajes de los jugadores.
+	void inicializarImagen(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores);
 
   public:
 
 
 	//Pre: Se pasan la cantidad de filas y de columnas del tablero, que son numeros naturales.
-	//	   Si se pasan argumentos para las dimensiones de los margenes, deben ser naturales.
+	//		Si se pasa el numero de jugadores, es natural tambien.
 	//Post: Se crea un dibujante que solo va a crear la imagen con los casilleros, sin margenes
-	//		Si se pasaron
-	Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas,
-			  uint anchoDeMargenIzqPedido = 0, uint anchoMargenDerPedido = 0,
-			  uint alturaDeMargenSupPedido = 0, uint alturaDeMargenInfPedido = 0);
+	//		Si se paso el numero de jugadores, crea el espacio donde poner sus puntajes.
+	Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores = 1);
 
 
 
@@ -53,8 +56,10 @@ class Dibujante{
 	//		( informarNumeroDeDibujo() - 1 )
 	uint informarNumeroDeDibujo();
 
-	//Pre:
-	//Post:
+	//Pre: el numero de fila o columna esta dentro del rango [0 ... ( filas o columnas del tablero - 1) ]
+	//		queDibujar es un string con el nombre del archivo fuente sin ".bmp".
+	//		Por default, se aceptan los numeros del cero al ocho, "boom", "cubierto" y "bandera".
+	//Post: Se redibuja el cuadrante en la posicion indicada con el tipo de casillero pedido.
 	void cambiarCuadrante(uint fila, uint columna, std::string queDibujar, uint jugador = 0);
 
 	//Post:	Guarda una nueva imagen BMP con los cambios aplicados al tablero.
