@@ -19,10 +19,11 @@ class Dibujante{
 
 	uint alturaDeCuadrante;
 	uint anchoDeCuadrante;
-	uint anchoDeMargenIzquierdo;
-	uint anchoDeMargenDerecho;
+
+	uint anchoDeMargenLateral;
 	uint alturaDeMargenSuperior;
 	uint alturaDeMargenInferior;
+
 	uint pixelesDeAncho;
 	uint pixelesDeAlto;
 
@@ -34,6 +35,8 @@ class Dibujante{
 	//Pre: Es usado por el constructor. Se le pasan dos naturales.
 	//Post:
 	void inicializarCasilleros(uint cantidadDeColumnas, uint cantidadDeFilas);
+
+	void inicializarMargenes(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores);
 
 	//Pre: Es usado por el constructor. Se le pasan dos naturales.
 	//Post: La imagen tiene todos sus casilleros dibujados como cubiertos.

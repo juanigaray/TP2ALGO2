@@ -18,19 +18,19 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	alturaDeCuadrante = ejemploDeImagenFuente.TellHeight();
 	anchoDeCuadrante = ejemploDeImagenFuente.TellWidth();
 
-	anchoDeMargenIzquierdo = anchoDeCuadrante * 2;
-	anchoDeMargenDerecho = anchoDeCuadrante * 2;
+	std::cout << alturaDeCuadrante;
 
-	//En el margen superior se van a anotar los puntajes de cada jugador.
-	alturaDeMargenSuperior = cantidadDeJugadores * alturaDeCuadrante * 2;
+	anchoDeMargenLateral = anchoDeCuadrante * 2;
+
 	alturaDeMargenInferior = alturaDeCuadrante * 2;
+	//En el margen superior se van a anotar los puntajes de cada jugador.
+	alturaDeMargenSuperior = cantidadDeJugadores * alturaDeMargenInferior;
 
-	pixelesDeAncho = (anchoDeCuadrante * cantidadDeFilas) + anchoDeMargenIzquierdo + anchoDeMargenDerecho;
+
+	pixelesDeAncho = (anchoDeCuadrante * cantidadDeFilas) + 2 * anchoDeMargenLateral;
 	pixelesDeAlto = (alturaDeCuadrante * cantidadDeColumnas) + alturaDeMargenSuperior + alturaDeMargenInferior;
 
-
-
-	//Se pasan al reves en setsize
+	//Se pasan al reves los parametros en setsize
 	imagen.SetSize(pixelesDeAlto, pixelesDeAncho);
 	inicializarImagen(cantidadDeColumnas, cantidadDeFilas, cantidadDeJugadores);
 
@@ -61,7 +61,9 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 
 		for (uint xRelativoDePixel = 0; xRelativoDePixel < anchoDeCuadrante; xRelativoDePixel++){
 
-			xAbsolutoDePixel = xRelativoDePixel + (columna * anchoDeCuadrante) + anchoDeMargenIzquierdo;
+			xAbsolutoDePixel = xRelativoDePixel + (columna * anchoDeCuadrante) + anchoDeMargenLateral;
+
+
 
 			//Si es bandera, tengo que asignarle el color del jugador al icono.
 			if (	queDibujar == "bandera"
@@ -94,9 +96,15 @@ void Dibujante::inicializarCasilleros(uint cantidadDeColumnas, uint cantidadDeFi
 	}
 }
 
+void Dibujante::inicializarMargenes(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
+		//Lo mejor sería dividir también los márgenes en celdas con una imagen precargada.
+		//Me queda de tarea.
+
+}
+
 void Dibujante::inicializarImagen(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
 	inicializarCasilleros(cantidadDeColumnas, cantidadDeFilas);
-	inicializarMargenes();
+	inicializarMargenes(cantidadDeColumnas, cantidadDeFilas, cantidadDeJugadores);
 
 }
 
