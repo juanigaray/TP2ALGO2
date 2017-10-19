@@ -13,11 +13,35 @@ class Lista
 
     Nodo<T> *cursor;
 
+
+    //Devuelve el nodo de la posicion buscada
+    obtenerNodo(int posicion);
+
   public:
     /*
      * post: Lista vacía.
      */
     Lista();
+
+    /*
+     * post: deja el cursor de la Lista preparado para hacer un nuevo
+     *       recorrido sobre sus elementos.
+     */
+    void iniciarCursor();
+
+    /*
+     * pre : No se agregan ni se quitan elementos de la lista
+     * post: Mueve al siguiente elemento, devuelve si hay proximo o no
+     */
+    bool avanzarCursor();
+
+
+    /*
+     * pre : el cursor esta posicionado en un elemento de la lista
+     * post: devuelve el elemento en la posición del cursor.
+     *
+     */
+    T obtenerCursor();
 
     /*
      * post: indica si la Lista tiene algún elemento.
@@ -44,5 +68,10 @@ class Lista
      * post: remueve de la Lista el elemento en la posición indicada.
      */
     void removerNodo(unsigned int posicion);
+      
+     /*
+      * post: libera los recursos asociados a la Lista.
+      */
+    ~Lista();
 
 }
