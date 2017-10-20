@@ -11,15 +11,73 @@
 class Presentador{
   private:
 
+	uint dificultad;
+	uint cantJugadores;
+	std::string* listaDeNombresDeJugadores;
+	uint filas;
+	uint columnas;
+
+
+	/*
+	 * Post: Pide las dimensiones del tablero hasta recibir datos validos.
+	 */
+	void pedirDimensiones();
+
+	/*
+	 * Post: Pide cantidad y nombres de los jugadores hasta recibir datos validos.
+	 */
+	void pedirDatosDeJugadores();
+
+	/*
+	 * Post: Pide el nivel de dificultad  hasta recibir datos validos (1, 2 o 3).
+	 */
+	void pedirDificultad();
+
 
   public:
-	void mostrarPresentacion();
+
+	/*
+	 * Post: Se crea un presentador listo para pedir los datos del juego.
+	 */
+	Presentador();
+
+	//void mostrarPresentacion();
+
+	/* Post: Pide datos de jugadores y dimensiones de tablero hasta recibir datos validos.
+	 */
 	void pedirDatosDeJuego();
-	void devolverColumnas();
-	void devolverFilas();
-	void devolverNumeroDeJugadores();
-	void devolverDificultad();
-	bool jugarDeNuevo();
+
+	/* Pre: Se corrio pedirDatosDeJuego().
+	 * Post: Devuelve el numero de columnas ingresado por el usuario.
+	 */
+	uint devolverColumnas();
+
+	/* Pre: Se corrio pedirDatosDeJuego().
+	 * Post: Devuelve el numero de filas ingresado por el usuario.
+	 */
+	uint devolverFilas();
+
+	/* Pre: Se corrio pedirDatosDeJuego().
+	 * Post: Devuelve el numero de jugadores pedido por el usuario.
+	 */
+	uint devolverNumeroDeJugadores();
+
+	/* Pre: Se corrio pedirDatosDeJuego().
+	 * Post: Devuelve el numero de dificultad pedido por el usuario.
+	 */
+	uint devolverDificultad();
+
+	/*
+	 * Post: Consulta al usuario si quiere jugar una nueva partida.
+	 */
+	void consultarSiJugarDeNuevo();
+
+	/* Pre: Se corrio consultarSiJugarDeNuevo().
+	 * Post: Devuelve la eleccion del usuario.
+	 */
+	bool devolverSiJugarDeNuevo();
+
+	~Presentador();
 
 }
 

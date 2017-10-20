@@ -40,7 +40,8 @@ int main(){
 
 			sigueLaPartida = ( ! arbitro.terminoElJuego() );
 		}
-		jugarDeNuevo = presentador.jugarDeNuevo();
+		presentador.consultarSiJugarDeNuevo();
+		jugarDeNuevo = presentador.devolverSiJugarDeNuevo();
 	}
 
 	return 0;
