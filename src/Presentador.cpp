@@ -4,9 +4,100 @@
  *  Created on: Oct 20, 2017
  *      Author: juan
  */
-#include <stdio.h>      /* printf, fgets */
-#include <stdlib.h>     /* atoi */
+
 #include "Presentador.h"
+
+/*
+ * 					Privados:
+ *
+ */
+
+uint Presentador::pedirNumero(std::string mensaje){
+
+	uint numeroIngresado;
+
+	std::cout << mensaje << std::endl;
+	std::cin >> numeroIngresado;
+	if(numeroIngresado == 0){
+		std::cout << "El numero debe ser mayor a cero!" << std::endl;
+		this->pedirNumero(mensaje);
+	}
+	return numeroIngresado;
+}
+
+uint Presentador::pedirNumero(std::string mensaje, uint numeroMaximo){
+
+	uint numeroIngresado;
+
+	std::cout << mensaje << std::endl;
+	std::cin >> numeroIngresado;
+	if(numeroIngresado == 0 || numeroIngresado > numeroMaximo){
+		std::cout << "Numero no valido! " << std::endl;
+		this->pedirNumero(mensaje);
+	}
+	return numeroIngresado;
+}
+
+void Presentador::pedirDimensionesDelTablero(){
+
+	this->filas = this->pedirNumero("Ingrese el numero de filas: ");
+	this->columnas = this->pedirNumero("Ingrese el numero de columnas: ");
+}
+
+void Presentador::pedirNumeroDeJugadores(){
+
+	this->cantJugadores = this->pedirNumero("Ingrese la cantidad de jugadores: ");
+	this->listaDeNombresDeJugadores = new std::string [this->cantJugadores];
+}
+
+void Presentador::pedirNombresDeJugadores(){
+
+	bool estaseguro;
+	char decision;
+	std::string nombreDeJugador;
+
+	for(uint numeroDeNombre = 0;
+			 numeroDeNombre < devolverNumeroDeJugadores();
+			 numeroDeNombre++){
+
+		estaseguro = false;
+
+		while(! estaseguro){}
+		std::cout 	<< "Ingrese el nombre del jugador "
+					<<  (numeroDeNombre + 1)
+					<< ": ";
+
+		std::cin 	>> nombreDeJugador;
+
+		std::cout 	<< std::endl
+					<< "El nombre del jugador "
+					<<  (numeroDeNombre + 1)
+					<< " es "
+					<< nombreDeJugador
+					<< ". Esta seguro de que quiere conservar ese nombre? (S/N)"
+					<< std::endl;
+
+		std::cin 	>> decision;
+		if( decision == 's' || decision == 'S'){
+			listaDeNombresDeJugadores[numeroDeNombre] = nombreDeJugador;
+			estaseguro = true;
+		}
+	}
+}
+
+void Presentador::pedirDatosDeJugadores(){
+	pedirNumeroDeJugadores();
+	pedirNombresDeJugadores();
+}
+
+void Presentador::pedirDificultad(){
+	this->dificultad = pedirNumero("Ingrese la dificultad deseada (del 1 al 3): ", 3);
+}
+
+/*
+ * 					Publicos:
+ *
+ */
 
 Presentador::Presentador(){
 
@@ -15,62 +106,54 @@ Presentador::Presentador(){
 	listaDeNombresDeJugadores = 0;
 	filas = 1;
 	columnas = 1;
+	jugarDeNuevo = true;
 
 }
 
-
-void Presentador::pedirDimensiones(){
-
-
+void Presentador::pedirDatosDeJuego(){
+	this->pedirDificultad();
+	this->pedirDatosDeJugadores();
+	this->pedirDimensionesDelTablero();
 }
 
-void Presentador::pedirNumeroDeJugadores(){
-	std::string entrada;
-	std::cout << "Ingrese la cantidad de jugadores (mayor a cero): " << std::endl;
-	std::cin >> entrada;
+uint Presentador::devolverColumnas(){
+	return this->columnas;
+}
 
-	uint numJugadores = atoi(entrada.c_str());
-	if ( numJugadores > 0  ){
-		this->cantJugadores = numJugadores;
+uint Presentador::devolverFilas(){
+	return this->filas;
+}
 
-	} else {
-		this->pedirNumeroDeJugadores();
+uint Presentador::devolverNumeroDeJugadores(){
+	return this->cantJugadores;
+}
+
+uint Presentador::devolverDificultad(){
+	return this->dificultad;
+}
+
+std::string* Presentador::devolverNombresDeLosJugadores(){
+	return this->listaDeNombresDeJugadores;
+}
+
+void Presentador::declararFinDelJuego(){
+	std::cout << "Juego terminado!" << std::endl;
+}
+
+void Presentador::consultarSiJugarDeNuevo(){
+	bool decision;
+	std::cout 	<< "Desea jugar de nuevo? (S/N): "
+				<< std::endl;
+
+	std::cin 	>> decision;
+	if( decision == 's' || decision == 'S'){
+		this->jugarDeNuevo = true;
 	}
-
-	this->listaDeNombresDeJugadores = new std::string [this->cantJugadores];
 }
 
-void Presentador::pedirNombresDeJugadores(){
-
-	std::string nombreDeJugador;
-
-	for(uint numeroDeNombre = 0;
-			 numeroDeNombre < devolverNumeroDeJugadores();
-			 numeroDeNombre++){
-
-		std::cout 	<< "Ingrese el nombre del jugador"
-					<<  (numeroDeNombre + 1)
-					<< ": ";
-
-		std::cin 	>> nombreDeJugador;
-
-		listaDeNombresDeJugadores[numeroDeNombre] = nombreDeJugador;
-
-	}
+bool Presentador::devolverSiJugarDeNuevo(){
+	return this->jugarDeNuevo;
 }
-
-
-void Presentador::pedirDatosDeJugadores(){
-	pedirNumeroDeJugadores();
-	pedirNombresDeJugadores();
-}
-
-
-
-void Presentador::pedirDificultad(){
-
-}
-
 
 Presentador::~Presentador(){
 	delete [] listaDeNombresDeJugadores;
