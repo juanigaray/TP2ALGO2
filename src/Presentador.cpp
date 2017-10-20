@@ -26,18 +26,18 @@ void Presentador::pedirDimensiones(){
 
 void Presentador::pedirNumeroDeJugadores(){
 	std::string entrada;
-	std::cout << "Ingrese la cantidad de jugadores: " << std::endl;
+	std::cout << "Ingrese la cantidad de jugadores (mayor a cero): " << std::endl;
 	std::cin >> entrada;
 
-	if ( validarNumeros(entrada) ){
-		uint numJugadores = atoi(entrada.c_str()); //Que es atoi?
+	uint numJugadores = atoi(entrada.c_str());
+	if ( numJugadores > 0  ){
 		this->cantJugadores = numJugadores;
 
-	} else { // si no es un numero vuelve a llamar
+	} else {
 		this->pedirNumeroDeJugadores();
 	}
 
-	listaDeNombresDeJugadores = new std::string [this->cantJugadores];
+	this->listaDeNombresDeJugadores = new std::string [this->cantJugadores];
 }
 
 void Presentador::pedirNombresDeJugadores(){
@@ -48,11 +48,15 @@ void Presentador::pedirNombresDeJugadores(){
 			 numeroDeNombre < devolverNumeroDeJugadores();
 			 numeroDeNombre++){
 
-		listaDeNombresDeJugadores[numeroDeNombre] = pedirNombre();
+		std::cout 	<< "Ingrese el nombre del jugador"
+					<<  (numeroDeNombre + 1)
+					<< ": ";
+
+		std::cin 	>> nombreDeJugador;
+
+		listaDeNombresDeJugadores[numeroDeNombre] = nombreDeJugador;
 
 	}
-
-
 }
 
 

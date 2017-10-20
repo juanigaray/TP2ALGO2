@@ -17,6 +17,7 @@ class Presentador{
 	uint filas;
 	uint columnas;
 
+	bool esNumero(std::string& cadena)
 
 	/*
 	 * Post: Pide las dimensiones del tablero hasta recibir datos validos.
