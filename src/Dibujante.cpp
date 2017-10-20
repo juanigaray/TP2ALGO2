@@ -6,11 +6,46 @@
  */
 #include "Dibujante.h"
 
+/*
+ * 		Privado
+ */
+
+void Dibujante::inicializarCasilleros(uint cantidadDeColumnas, uint cantidadDeFilas){
+
+	for(uint filaActual = 0; filaActual < cantidadDeFilas; filaActual++){
+		for(uint columnaActual = 0; columnaActual < cantidadDeColumnas; columnaActual++){
+			cambiarCuadrante(columnaActual, filaActual, "cubierto");
+		}
+	}
+}
+
+void Dibujante::inicializarMargenes(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
+	inicializarmargenSuperior();
+
+}
+
+void Dibujante::inicializarImagen(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
+
+	uint pixelesDeAncho = (cantidadDeFilas + columnasMargenIzquierdo + columnasMargenDerecho) * anchoDeCuadrante;
+	uint pixelesDeAlto = (cantidadDeColumnas + filasMargenInferior + filasMargenInferior) * alturaDeCuadrante;
+
+	imagen.SetSize(pixelesDeAlto, pixelesDeAncho);
+	inicializarCasilleros(cantidadDeColumnas, cantidadDeFilas);
+	inicializarMargenes(cantidadDeColumnas, cantidadDeFilas, cantidadDeJugadores);
+}
+
+
+/*
+ * 		Publico
+ */
 
 Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
 
-	ordinalDeDibujo = 0;
 	directorioDeImagenesFuente = "src/ImagenesFuente/";
+
+	columnas = cantidadDeColumnas;
+	filas = cantidadDeFilas;
+	ordinalDeDibujo = 1;
 
 	BMP ejemploDeImagenFuente;
 	ejemploDeImagenFuente.ReadFromFile("src/ImagenesFuente/0.bmp");
@@ -18,20 +53,11 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	alturaDeCuadrante = ejemploDeImagenFuente.TellHeight();
 	anchoDeCuadrante = ejemploDeImagenFuente.TellWidth();
 
-	std::cout << alturaDeCuadrante;
+	columnasMargenIzquierdo = 2;
+	columnasMargenDerecho = 2;
+	filasMargenInferior = 2;
+	filasMargenSuperior= 2 * (cantidadDeJugadores + 1);
 
-	anchoDeMargenLateral = anchoDeCuadrante * 2;
-
-	alturaDeMargenInferior = alturaDeCuadrante * 2;
-	//En el margen superior se van a anotar los puntajes de cada jugador.
-	alturaDeMargenSuperior = cantidadDeJugadores * alturaDeMargenInferior;
-
-
-	pixelesDeAncho = (anchoDeCuadrante * cantidadDeFilas) + 2 * anchoDeMargenLateral;
-	pixelesDeAlto = (alturaDeCuadrante * cantidadDeColumnas) + alturaDeMargenSuperior + alturaDeMargenInferior;
-
-	//Se pasan al reves los parametros en setsize
-	imagen.SetSize(pixelesDeAlto, pixelesDeAncho);
 	inicializarImagen(cantidadDeColumnas, cantidadDeFilas, cantidadDeJugadores);
 
 }
@@ -39,7 +65,6 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 uint Dibujante::informarNumeroDeDibujo(){
 	return ordinalDeDibujo;
 }
-
 
 void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar, uint jugador){
 
@@ -57,13 +82,11 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 
 	for ( uint yRelativoDePixel = 0; yRelativoDePixel < alturaDeCuadrante; yRelativoDePixel++){
 
-		yAbsolutoDePixel = yRelativoDePixel + (fila * alturaDeCuadrante) + alturaDeMargenSuperior;
+		yAbsolutoDePixel = yRelativoDePixel + (fila + filasMargenSuperior) * alturaDeCuadrante;
 
 		for (uint xRelativoDePixel = 0; xRelativoDePixel < anchoDeCuadrante; xRelativoDePixel++){
 
-			xAbsolutoDePixel = xRelativoDePixel + (columna * anchoDeCuadrante) + anchoDeMargenLateral;
-
-
+			xAbsolutoDePixel = xRelativoDePixel + (columna + columnasMargenIzquierdo) * anchoDeCuadrante;
 
 			//Si es bandera, tengo que asignarle el color del jugador al icono.
 			if (	queDibujar == "bandera"
@@ -77,37 +100,18 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 
 			//Si el pixel es generico, lo copio de la imagen fuente
 			} else {
-
 				//Copio el pixel de la fuente a la imagen.
 				PixelToPixelCopy(	cuadrante,	xRelativoDePixel, yRelativoDePixel,
 									imagen, 	xAbsolutoDePixel, yAbsolutoDePixel);
-
 			}
 		}
 	}
 }
 
-void Dibujante::inicializarCasilleros(uint cantidadDeColumnas, uint cantidadDeFilas){
+void cambiarPuntaje(uint puntaje, uint jugador){
 
-	for(uint filaActual = 0; filaActual < cantidadDeFilas; filaActual++){
-		for(uint columnaActual = 0; columnaActual < cantidadDeColumnas; columnaActual++){
-			cambiarCuadrante(columnaActual, filaActual, "cubierto");
-			}
-	}
-}
-
-void Dibujante::inicializarMargenes(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
-		//Lo mejor sería dividir también los márgenes en celdas con una imagen precargada.
-		//Me queda de tarea.
 
 }
-
-void Dibujante::inicializarImagen(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
-	inicializarCasilleros(cantidadDeColumnas, cantidadDeFilas);
-	inicializarMargenes(cantidadDeColumnas, cantidadDeFilas, cantidadDeJugadores);
-
-}
-
 
 void Dibujante::dibujarTablero(){
 

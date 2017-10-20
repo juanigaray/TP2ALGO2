@@ -20,12 +20,13 @@ class Dibujante{
 	uint alturaDeCuadrante;
 	uint anchoDeCuadrante;
 
-	uint anchoDeMargenLateral;
-	uint alturaDeMargenSuperior;
-	uint alturaDeMargenInferior;
+	uint columnas;
+	uint filas;
+	uint columnasMargenIzquierdo;
+	uint columnasMargenDerecho;
+	uint filasMargenInferior;
+	uint filasMargenSuperior;
 
-	uint pixelesDeAncho;
-	uint pixelesDeAlto;
 
 	BMP imagen;
 
