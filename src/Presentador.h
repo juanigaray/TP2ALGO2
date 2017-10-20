@@ -7,7 +7,7 @@
 
 #ifndef PRESENTADOR_H_
 #define PRESENTADOR_H_
-
+typedef unsigned int uint;
 class Presentador{
   private:
 
@@ -22,6 +22,17 @@ class Presentador{
 	 * Post: Pide las dimensiones del tablero hasta recibir datos validos.
 	 */
 	void pedirDimensiones();
+
+	/*
+	 * Post: Pide cantidad de jugadores hasta recibir un dato valido.
+	 */
+	void pedirNumeroDeJugadores();
+
+	/*
+	 * Post: Pide cantidad de jugadores hasta recibir
+	 * "devolverNumeroDeJugadores()" datos validos.
+	 */
+	void pedirNombresDeJugadores();
 
 	/*
 	 * Post: Pide cantidad y nombres de los jugadores hasta recibir datos validos.

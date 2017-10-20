@@ -11,11 +11,15 @@
 class Arbitro{
   private:
 
-
-
+	uint dificultad;
+	uint cantJugadores;
+	uint filaMaxima;
+	uint columnaMaxima;
 
   public:
-	Arbitro(uint dificultad, uint numeroDeJugadores);
+
+	Arbitro(uint dificultad, uint numeroDeJugadores, uint filas, uint columnas);
+
 	uint devolverColumnaDeJugada();
 	uint devolverFilaDeJugada();
 	std::string devolverTipoDeJugada();

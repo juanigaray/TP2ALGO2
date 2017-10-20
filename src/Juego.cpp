@@ -5,20 +5,10 @@ void menuPrincipal();
 bool validarNumeros(string cadena);
 
 
-Juego::Juego(){
-
-	this->dificultad = 1;
-	this->cantJugadores = 0;
-	this->filas = 0;
-	this->columnas = 0;
-
-}
-
-
 void Juego::pedirJugadores(){
 
 	string entrada;
-	cout << "Ingresar la cantidad de jugadores: " ;
+	cout << "Ingrese la cantidad de jugadores: " ;
 	cin >> entrada;
 
 	if (validarNumeros(entrada)){
