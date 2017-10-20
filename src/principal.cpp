@@ -18,8 +18,6 @@ int main(){
 		presentador.pedirDatosDeJuego();
 		while(sigueLaPartida){
 
-
-
 			Dibujante dibujante( presentador.devolverColumnas(),
 								 presentador.devolverFilas(),
 								 presentador.devolverNumeroDeJugadores() );
