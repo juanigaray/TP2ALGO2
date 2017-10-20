@@ -14,7 +14,7 @@ int main(){
 
 	while(jugarDeNuevo){
 		Presentador presentador;
-		presentador.mostrarPresentacion();
+		//presentador.mostrarPresentacion();
 		presentador.pedirDatosDeJuego();
 		while(sigueLaPartida){
 
@@ -25,7 +25,9 @@ int main(){
 								 presentador.devolverNumeroDeJugadores() );
 
 			Arbitro arbitro( presentador.devolverDificultad(),
-							 presentador.devolverNumeroDeJugadores() );
+							 presentador.devolverNumeroDeJugadores(),
+							 presentador.devolverFilas(),
+							 presentador.devolverColumnas());
 
 			arbitro.declararTurno();
 			arbitro.tomarJugada();
