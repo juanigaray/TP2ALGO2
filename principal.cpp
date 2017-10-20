@@ -9,22 +9,39 @@
 
 
 int main(){
+	bool jugarDeNuevo = true;
+	bool sigueLaPartida = true;
 
-	Dibujante dibujante(3,3);
-	dibujante.cambiarCuadrante(0, 0, "0");
-	dibujante.cambiarCuadrante(3, 3, "bandera", 1);
-	dibujante.cambiarCuadrante(4, 4, "bandera", 2);
-//	dibujante.cambiarCuadrante(6, 3, "bandera", 3);
-//	dibujante.cambiarCuadrante(6, 2, "4");
-//	dibujante.cambiarCuadrante(6, 1, "5");
-//	dibujante.cambiarCuadrante(6, 0, "boom");
-//	dibujante.cambiarCuadrante(5, 0, "6");
-//	dibujante.cambiarCuadrante(5, 1, "7");
-//	dibujante.cambiarCuadrante(5, 2, "8");
-//	dibujante.cambiarCuadrante(5, 3, "bandera");
+	while(jugarDeNuevo){
+		Presentador presentador;
+		presentador.mostrarPresentacion();
+		presentador.pedirDatosDeJuego();
+		while(sigueLaPartida){
 
 
-	dibujante.dibujarTablero();
+
+			Dibujante dibujante( presentador.devolverColumnas(),
+								 presentador.devolverFilas(),
+								 presentador.devolverNumeroDeJugadores() );
+
+			Arbitro arbitro( presentador.devolverDificultad(),
+							 presentador.devolverNumeroDeJugadores() );
+
+			arbitro.declararTurno();
+			arbitro.tomarJugada();
+			dibujante.cambiarCuadrante( arbitro.devolverColumnaDeJugada(),
+										arbitro.devolverFilaDeJugada(),
+										arbitro.devolverTipoDeJugada(),
+										arbitro.devolverTurno() );
+
+			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
+										arbitro.devolverTurno() );
+			dibujante.dibujarTablero();
+
+			sigueLaPartida = ( ! arbitro.terminoElJuego() );
+		}
+		jugarDeNuevo = presentador.jugarDeNuevo();
+	}
 
 	return 0;
 }

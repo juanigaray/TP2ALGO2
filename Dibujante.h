@@ -65,6 +65,8 @@ class Dibujante{
 	//Post: Se redibuja el cuadrante en la posicion indicada con el tipo de casillero pedido.
 	void cambiarCuadrante(uint fila, uint columna, std::string queDibujar, uint jugador = 0);
 
+	void cambiarPuntaje(uint puntaje, uint jugador);
+
 	//Post:	Guarda una nueva imagen BMP con los cambios aplicados al tablero.
 	//		El nombre de la imagen se crea de acuerdo a cuantas veces se llamo este metodo.
 	void dibujarTablero();
