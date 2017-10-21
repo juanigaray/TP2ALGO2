@@ -25,7 +25,8 @@ int main(){
 			Arbitro arbitro( presentador.devolverDificultad(),
 							 presentador.devolverNumeroDeJugadores(),
 							 presentador.devolverFilas(),
-							 presentador.devolverColumnas());
+							 presentador.devolverColumnas(),
+				       			 presentador.devolverNombresDeLosJugadores() );
 
 			arbitro.declararTurno();
 			arbitro.tomarJugada();
