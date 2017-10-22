@@ -15,6 +15,9 @@ class Arbitro{
 	uint cantJugadores;
 	uint filaMaxima;
 	uint columnaMaxima;
+	//Lista listaDeNombresDeJugadores;
+	//Lista listaDeBombas;
+	//Lista listaDeBanderas;
 
   public:
 	/* Pre: Se le pasan numeros naturales.
