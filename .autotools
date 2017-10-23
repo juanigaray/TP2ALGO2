@@ -2,7 +2,7 @@
 <configurations>
 <configuration id="org.eclipse.linuxtools.cdt.autotools.core.configuration.build.819303976">
 <option id="configure" value="configure"/>
-<option id="configdir" value=""/>
+<option id="configdir" value="src"/>
 <option id="cache-file" value=""/>
 <option id="help" value="false"/>
 <option id="no-create" value="false"/>
@@ -42,7 +42,7 @@
 </configuration>
 <configuration id="org.eclipse.linuxtools.cdt.autotools.core.configuration.build.debug.1295415619">
 <option id="configure" value="configure"/>
-<option id="configdir" value=""/>
+<option id="configdir" value="src"/>
 <option id="cache-file" value=""/>
 <option id="help" value="false"/>
 <option id="no-create" value="false"/>

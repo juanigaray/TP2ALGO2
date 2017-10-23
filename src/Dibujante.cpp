@@ -23,7 +23,7 @@ void Dibujante::inicializarmargenSuperior(){
 
 }
 
-void Dibujante::inicializarmargenSuperior(){
+void Dibujante::inicializarmargenInferior(){
 
 }
 
@@ -129,8 +129,7 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 	}
 }
 
-void cambiarPuntaje(uint puntaje, uint jugador){
-
+void Dibujante::cambiarPuntaje(uint puntaje, uint jugador){
 
 }
 

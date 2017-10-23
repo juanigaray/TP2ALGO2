@@ -7,13 +7,17 @@
 
 #ifndef PRESENTADOR_H_
 #define PRESENTADOR_H_
+#include <iostream>
+
 typedef unsigned int uint;
+typedef std::string cadena;
+
 class Presentador{
   private:
 
 	uint dificultad;
 	uint cantJugadores;
-	std::string* listaDeNombresDeJugadores;
+	cadena* listaDeNombresDeJugadores;
 	uint filas;
 	uint columnas;
 	bool jugarDeNuevo;
@@ -110,7 +114,7 @@ class Presentador{
 
 	~Presentador();
 
-}
+};
 
 
 

@@ -1,15 +1,18 @@
 /*
- * principal.cpp
+ * ppal.cpp
  *
- *  Created on: Sep 5, 2017
+ *  Created on: Oct 23, 2017
  *      Author: juan
  */
 
-#include "Dibujante.h"
-
 typedef unsigned int uint;
 
+#include "Presentador.h"
+#include "Dibujante.h"
+#include "Arbitro.h"
+
 int main(){
+
 	bool jugarDeNuevo = true;
 	bool sigueLaPartida = true;
 
@@ -37,7 +40,7 @@ int main(){
 										arbitro.devolverTurno() );
 
 			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
-										arbitro.devolverTurno() );
+										arbitro.devolverTurno()  );
 			dibujante.dibujarTablero();
 
 			sigueLaPartida = ( ! arbitro.terminoElJuego() );
@@ -46,6 +49,6 @@ int main(){
 		jugarDeNuevo = presentador.devolverSiJugarDeNuevo();
 	}
 
+
 	return 0;
 }
-

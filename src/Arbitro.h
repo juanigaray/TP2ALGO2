@@ -19,6 +19,11 @@ class Arbitro{
 	uint cantJugadores;
 	uint filaMaxima;
 	uint columnaMaxima;
+
+	uint columnaDeJugada;
+	uint filaDeJugada;
+
+	bool finDeJuego;
 	//Lista listaDeNombresDeJugadores;
 	//Lista listaDeBombas;
 	//Lista listaDeBanderas;
@@ -55,6 +60,9 @@ class Arbitro{
 	 */
 	uint devolverTurno();
 	
+	/*
+	 *
+	 */
 	void declararTurno();
 	
 	/*

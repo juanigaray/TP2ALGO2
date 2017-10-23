@@ -10,6 +10,8 @@
 #include "EasyBMP/EasyBMP.h"
 #include <sstream>
 
+typedef unsigned int uint;
+
 class Dibujante{
 
   private:
@@ -38,7 +40,7 @@ class Dibujante{
 	void inicializarCasilleros(uint cantidadDeColumnas, uint cantidadDeFilas);
 
 	void inicializarmargenSuperior();
-	void inicializarmargenSuperior();
+	void inicializarmargenInferior();
 	void inicializarmargenIzquierdo();
 	void inicializarmargenDerecho();
 

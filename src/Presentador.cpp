@@ -7,11 +7,16 @@
 
 #include "Presentador.h"
 
-/*
- * 					Privados:
- *
- */
+Presentador::Presentador(){
 
+	dificultad = 1;
+	cantJugadores = 1;
+	listaDeNombresDeJugadores = 0;
+	filas = 1;
+	columnas = 1;
+	jugarDeNuevo = true;
+
+}
 uint Presentador::pedirNumero(std::string mensaje){
 
 	uint numeroIngresado;
@@ -94,22 +99,6 @@ void Presentador::pedirDificultad(){
 	this->dificultad = pedirNumero("Ingrese la dificultad deseada (del 1 al 3): ", 3);
 }
 
-/*
- * 					Publicos:
- *
- */
-
-Presentador::Presentador(){
-
-	dificultad = 1;
-	cantJugadores = 1;
-	listaDeNombresDeJugadores = 0;
-	filas = 1;
-	columnas = 1;
-	jugarDeNuevo = true;
-
-}
-
 void Presentador::pedirDatosDeJuego(){
 	this->pedirDificultad();
 	this->pedirDatosDeJugadores();
@@ -141,7 +130,7 @@ void Presentador::declararFinDelJuego(){
 }
 
 void Presentador::consultarSiJugarDeNuevo(){
-	bool decision;
+	char decision;
 	std::cout 	<< "Desea jugar de nuevo? (S/N): "
 				<< std::endl;
 
