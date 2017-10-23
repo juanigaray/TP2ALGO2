@@ -4,11 +4,15 @@
  *  Created on: Oct 19, 2017
  *      Author: juan
  */
-
 #ifndef ARBITRO_H_
 #define ARBITRO_H_
+#include <sstream>
+
+typedef unsigned int uint;
+typedef std::string cadena;
 
 class Arbitro{
+
   private:
 
 	uint dificultad;
@@ -23,7 +27,7 @@ class Arbitro{
 	/* Pre: Se le pasan numeros naturales.
 	 * Post: Crea un arbitro listo para pasarle jugadas
 	 */
-	Arbitro(uint dificultad, uint numeroDeJugadores, uint filas, uint columnas, std::string* listaDeJugadores);
+	Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* listaDeNombresDeJugadores);
 	
 	/*
 	 * Post: Le toma la jugada al usuario. 
@@ -63,11 +67,7 @@ class Arbitro{
 	 * Post: 
 	 */
 	bool terminoElJuego();
-	
 
-	
-
-	
 };
 
 

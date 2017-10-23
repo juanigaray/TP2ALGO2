@@ -19,8 +19,27 @@ void Dibujante::inicializarCasilleros(uint cantidadDeColumnas, uint cantidadDeFi
 	}
 }
 
+void Dibujante::inicializarmargenSuperior(){
+
+}
+
+void Dibujante::inicializarmargenSuperior(){
+
+}
+
+void Dibujante::inicializarmargenIzquierdo(){
+
+}
+
+void Dibujante::inicializarmargenDerecho(){
+
+}
+
 void Dibujante::inicializarMargenes(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
 	inicializarmargenSuperior();
+	inicializarmargenSuperior();
+	inicializarmargenIzquierdo();
+	inicializarmargenDerecho();
 
 }
 
@@ -42,6 +61,8 @@ void Dibujante::inicializarImagen(uint cantidadDeColumnas, uint cantidadDeFilas,
 Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
 
 	directorioDeImagenesFuente = "src/ImagenesFuente/";
+	directorioDeCasilleros = "Casilleros/";
+	directorioDeMargenes = "Margenes";
 
 	columnas = cantidadDeColumnas;
 	filas = cantidadDeFilas;

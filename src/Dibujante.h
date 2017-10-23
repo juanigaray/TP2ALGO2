@@ -10,8 +10,6 @@
 #include "EasyBMP/EasyBMP.h"
 #include <sstream>
 
-typedef unsigned int uint;
-
 class Dibujante{
 
   private:
@@ -31,11 +29,18 @@ class Dibujante{
 	BMP imagen;
 
 	std::string directorioDeImagenesFuente;
+	std::string directorioDeCasilleros;
+	std::string directorioDeMargenes;
 
 	/* Pre: Es usado por el constructor. Se le pasan dos naturales.
 	 * Post:
 	 */
 	void inicializarCasilleros(uint cantidadDeColumnas, uint cantidadDeFilas);
+
+	void inicializarmargenSuperior();
+	void inicializarmargenSuperior();
+	void inicializarmargenIzquierdo();
+	void inicializarmargenDerecho();
 
 	/*
 	 *

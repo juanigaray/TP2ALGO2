@@ -7,6 +7,7 @@
 
 #include "Dibujante.h"
 
+typedef unsigned int uint;
 
 int main(){
 	bool jugarDeNuevo = true;

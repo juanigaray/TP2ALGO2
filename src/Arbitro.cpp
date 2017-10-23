@@ -6,17 +6,17 @@
  *      Author: juan
  */
  
- #include "Arbitro.h"
+#include "Arbitro.h"
  
-Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, std::string* listaDeNombresDeJugadores){
+Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* listaDeNombresDeJugadores){
 
 	dificultad = dificultadPedida;
 	cantJugadores = numeroDeJugadores;
 	filaMaxima = filas;
 	columnaMaxima = columnas;
-	listaDeJugadores.inicializar(listaDeNombresDeJugadores);
-	listaDeBombas.inicializar(dificultad);
-	listaDeBanderas.inicializar();
+//	listaDeJugadores.inicializar(listaDeNombresDeJugadores);
+//	listaDeBombas.inicializar(dificultad);
+//	listaDeBanderas.inicializar();
 }
 
 void Arbitro::tomarJugada(){
