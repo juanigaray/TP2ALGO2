@@ -76,12 +76,12 @@ class Dibujante{
 	 * 		queDibujar es un string con el nombre del archivo fuente sin ".bmp".
 	 * 		Por default, se aceptan los numeros del cero al ocho, "boom", "cubierto" y "bandera".
 	 */
-	void cambiarCuadrante(uint fila, uint columna, std::string queDibujar, uint jugador = 0);
+	void cambiarCuadrante(uint fila, uint columna, std::string queDibujar, uint jugador = 0, bool margen = false);
 
 	/*
 	 *
 	 */
-	void cambiarPuntaje(uint puntaje, uint jugador);
+	void cambiarPuntaje(int puntaje, uint jugador);
 
 	/*Post:	Guarda una nueva imagen BMP con los cambios aplicados al tablero.
 	 * El nombre de la imagen se crea de acuerdo a cuantas veces se llamo este metodo.

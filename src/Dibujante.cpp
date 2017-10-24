@@ -62,14 +62,14 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 
 	directorioDeImagenesFuente = "src/ImagenesFuente/";
 	directorioDeCasilleros = "Casilleros/";
-	directorioDeMargenes = "Margenes";
+	directorioDeMargenes = "Margenes/";
 
 	columnas = cantidadDeColumnas;
 	filas = cantidadDeFilas;
 	ordinalDeDibujo = 1;
 
 	BMP ejemploDeImagenFuente;
-	ejemploDeImagenFuente.ReadFromFile("src/ImagenesFuente/0.bmp");
+	ejemploDeImagenFuente.ReadFromFile("src/ImagenesFuente/Casilleros/0.bmp");
 
 	alturaDeCuadrante = ejemploDeImagenFuente.TellHeight();
 	anchoDeCuadrante = ejemploDeImagenFuente.TellWidth();
@@ -87,14 +87,23 @@ uint Dibujante::informarNumeroDeDibujo(){
 	return ordinalDeDibujo;
 }
 
-void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar, uint jugador){
+void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar, uint jugador, bool margen){
 
 	uint yAbsolutoDePixel = 0;
 	uint xAbsolutoDePixel = 0;
 
 	BMP cuadrante;
+	std::string subdirectorio;
 
-	std::string nombre = directorioDeImagenesFuente + queDibujar + ".bmp";
+	if(margen){
+		subdirectorio = directorioDeMargenes;
+	}else{
+		subdirectorio = directorioDeCasilleros;
+	}
+
+	std::string nombre = directorioDeImagenesFuente + subdirectorio + queDibujar + ".bmp";
+
+	std::cout << nombre << std::endl;
 
 	char* nombreCompatible = &nombre[0];
 
@@ -129,8 +138,11 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 	}
 }
 
-void Dibujante::cambiarPuntaje(uint puntaje, uint jugador){
+void Dibujante::cambiarPuntaje(int puntaje, uint jugador){
+	if (puntaje != -1 ){
+		//
 
+	}
 }
 
 void Dibujante::dibujarTablero(){
@@ -143,7 +155,6 @@ void Dibujante::dibujarTablero(){
 	imagen.WriteToFile( nombreCompatible );
 
 	ordinalDeDibujo++;
-
 }
 
 

@@ -12,11 +12,12 @@ Presentador::Presentador(){
 	dificultad = 1;
 	cantJugadores = 1;
 	listaDeNombresDeJugadores = 0;
-	filas = 1;
-	columnas = 1;
+	filas = 10;
+	columnas = 10;
 	jugarDeNuevo = true;
 
 }
+
 uint Presentador::pedirNumero(std::string mensaje){
 
 	uint numeroIngresado;
@@ -67,25 +68,26 @@ void Presentador::pedirNombresDeJugadores(){
 
 		estaseguro = false;
 
-		while(! estaseguro){}
-		std::cout 	<< "Ingrese el nombre del jugador "
-					<<  (numeroDeNombre + 1)
-					<< ": ";
+		while(! estaseguro){
+			std::cout 	<< "Ingrese el nombre del jugador "
+						<<  (numeroDeNombre + 1)
+						<< ": ";
 
-		std::cin 	>> nombreDeJugador;
+			std::cin 	>> nombreDeJugador;
 
-		std::cout 	<< std::endl
-					<< "El nombre del jugador "
-					<<  (numeroDeNombre + 1)
-					<< " es "
-					<< nombreDeJugador
-					<< ". Esta seguro de que quiere conservar ese nombre? (S/N)"
-					<< std::endl;
+			std::cout 	<< std::endl
+						<< "El nombre del jugador "
+						<<  (numeroDeNombre + 1)
+						<< " es "
+						<< nombreDeJugador
+						<< ". Esta seguro de que quiere conservar ese nombre? (S/N)"
+						<< std::endl;
 
-		std::cin 	>> decision;
-		if( decision == 's' || decision == 'S'){
-			listaDeNombresDeJugadores[numeroDeNombre] = nombreDeJugador;
-			estaseguro = true;
+			std::cin 	>> decision;
+			if( decision == 's' || decision == 'S'){
+				listaDeNombresDeJugadores[numeroDeNombre] = nombreDeJugador;
+				estaseguro = true;
+			}
 		}
 	}
 }

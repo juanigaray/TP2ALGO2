@@ -17,20 +17,22 @@ int main(){
 	bool sigueLaPartida = true;
 
 	while(jugarDeNuevo){
+
 		Presentador presentador;
 		//presentador.mostrarPresentacion();
 		presentador.pedirDatosDeJuego();
-		while(sigueLaPartida){
 
-			Dibujante dibujante( presentador.devolverColumnas(),
-								 presentador.devolverFilas(),
-								 presentador.devolverNumeroDeJugadores() );
-
-			Arbitro arbitro( presentador.devolverDificultad(),
-							 presentador.devolverNumeroDeJugadores(),
+		Dibujante dibujante( presentador.devolverColumnas(),
 							 presentador.devolverFilas(),
-							 presentador.devolverColumnas(),
-				       		 presentador.devolverNombresDeLosJugadores() );
+							 presentador.devolverNumeroDeJugadores() );
+
+		Arbitro arbitro( presentador.devolverDificultad(),
+						 presentador.devolverNumeroDeJugadores(),
+						 presentador.devolverFilas(),
+						 presentador.devolverColumnas(),
+			       		 presentador.devolverNombresDeLosJugadores() );
+
+		while(sigueLaPartida){
 
 			arbitro.declararTurno();
 			arbitro.tomarJugada();
@@ -48,7 +50,5 @@ int main(){
 		presentador.consultarSiJugarDeNuevo();
 		jugarDeNuevo = presentador.devolverSiJugarDeNuevo();
 	}
-
-
 	return 0;
 }

@@ -28,6 +28,28 @@ class Arbitro{
 	//Lista listaDeBombas;
 	//Lista listaDeBanderas;
 
+	/*
+	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
+	 * 		 Devuelve el numero ingresado.
+	 */
+	uint pedirNumero(std::string mensaje);
+
+	/*
+	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
+	 * 		 Devuelve el numero ingresado.
+	 */
+	uint pedirNumero(std::string mensaje, uint numeroMaximo);
+
+	/*
+	 *
+	 */
+	void tomarTipoDeJugada();
+
+	/*
+	 *
+	 */
+	void tomarUbicacionDeJugada();
+
   public:
 	/* Pre: Se le pasan numeros naturales.
 	 * Post: Crea un arbitro listo para pasarle jugadas
