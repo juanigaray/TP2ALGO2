@@ -15,18 +15,21 @@ typedef unsigned int uint;
 class Dibujante{
 
   private:
-	uint ordinalDeDibujo;
+	uint numeroDeDibujo;
 
 	uint alturaDeCuadrante;
 	uint anchoDeCuadrante;
 
-	uint columnas;
-	uint filas;
-	uint columnasMargenIzquierdo;
-	uint columnasMargenDerecho;
-	uint filasMargenInferior;
-	uint filasMargenSuperior;
+	uint columnasDelTablero;
+	uint filasDelTablero;
 
+	uint columnaInicialTablero;
+	uint columnaFinalTablero;
+	uint filaInicialTablero;
+	uint filaFinalTablero;
+
+	uint columnasTotalesImagen;
+	uint filasTotalesImagen;
 
 	BMP imagen;
 
@@ -37,23 +40,29 @@ class Dibujante{
 	/* Pre: Es usado por el constructor. Se le pasan dos naturales.
 	 * Post:
 	 */
-	void inicializarCasilleros(uint cantidadDeColumnas, uint cantidadDeFilas);
-
-	void inicializarmargenSuperior();
-	void inicializarmargenInferior();
-	void inicializarmargenIzquierdo();
-	void inicializarmargenDerecho();
+	void inicializarCasilleros();
 
 	/*
 	 *
 	 */
-	void inicializarMargenes(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores);
+	void inicializarMargen(uint filaInicial, uint filaFinal, uint columnaInicial, uint columnaFinal);
+
+	/*
+	 *
+	 */
+	void inicializarMargenes(uint cantidadDeJugadores);
 
 	/*Pre: Es usado por el constructor. Se le pasan dos naturales.
 	 * Post: La imagen tiene todos sus casilleros dibujados como cubiertos.
 	 *	Se crean los margenes de la imagen con lugar para anotar los puntajes de los jugadores.
 	 */
-	void inicializarImagen(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores);
+	void inicializarImagen(uint cantidadDeJugadores) {
+		uint pixelesDeAncho = columnasTotalesImagen * anchoDeCuadrante;
+		uint pixelesDeAlto = filasTotalesImagen * alturaDeCuadrante;
+		imagen.SetSize(pixelesDeAlto, pixelesDeAncho);
+		inicializarCasilleros();
+		inicializarMargenes(cantidadDeJugadores);
+	}
 
   public:
 

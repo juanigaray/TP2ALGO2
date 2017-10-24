@@ -6,67 +6,25 @@
  */
 #include "Dibujante.h"
 
-/*
- * 		Privado
- */
-
-void Dibujante::inicializarCasilleros(uint cantidadDeColumnas, uint cantidadDeFilas){
-
-	for(uint filaActual = 0; filaActual < cantidadDeFilas; filaActual++){
-		for(uint columnaActual = 0; columnaActual < cantidadDeColumnas; columnaActual++){
-			cambiarCuadrante(columnaActual, filaActual, "cubierto");
-		}
-	}
-}
-
-void Dibujante::inicializarmargenSuperior(){
-
-}
-
-void Dibujante::inicializarmargenInferior(){
-
-}
-
-void Dibujante::inicializarmargenIzquierdo(){
-
-}
-
-void Dibujante::inicializarmargenDerecho(){
-
-}
-
-void Dibujante::inicializarMargenes(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
-	inicializarmargenSuperior();
-	inicializarmargenSuperior();
-	inicializarmargenIzquierdo();
-	inicializarmargenDerecho();
-
-}
-
-void Dibujante::inicializarImagen(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
-
-	uint pixelesDeAncho = (cantidadDeFilas + columnasMargenIzquierdo + columnasMargenDerecho) * anchoDeCuadrante;
-	uint pixelesDeAlto = (cantidadDeColumnas + filasMargenInferior + filasMargenInferior) * alturaDeCuadrante;
-
-	imagen.SetSize(pixelesDeAlto, pixelesDeAncho);
-	inicializarCasilleros(cantidadDeColumnas, cantidadDeFilas);
-	inicializarMargenes(cantidadDeColumnas, cantidadDeFilas, cantidadDeJugadores);
-}
-
-
-/*
- * 		Publico
- */
-
 Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
 
 	directorioDeImagenesFuente = "src/ImagenesFuente/";
 	directorioDeCasilleros = "Casilleros/";
 	directorioDeMargenes = "Margenes/";
+	numeroDeDibujo = 1;
 
-	columnas = cantidadDeColumnas;
-	filas = cantidadDeFilas;
-	ordinalDeDibujo = 1;
+	columnasDelTablero = cantidadDeColumnas;
+	filasDelTablero = cantidadDeFilas;
+
+	columnaInicialTablero = 2;
+	columnaFinalTablero = columnasDelTablero + columnaInicialTablero;
+	filaInicialTablero = 2 * (cantidadDeJugadores + 1);
+	filaFinalTablero = filasDelTablero + filaInicialTablero;
+
+	columnasTotalesImagen = columnaFinalTablero + 2;
+	filasTotalesImagen = filaFinalTablero + 2;
+
+
 
 	BMP ejemploDeImagenFuente;
 	ejemploDeImagenFuente.ReadFromFile("src/ImagenesFuente/Casilleros/0.bmp");
@@ -74,17 +32,39 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	alturaDeCuadrante = ejemploDeImagenFuente.TellHeight();
 	anchoDeCuadrante = ejemploDeImagenFuente.TellWidth();
 
-	columnasMargenIzquierdo = 2;
-	columnasMargenDerecho = 2;
-	filasMargenInferior = 2;
-	filasMargenSuperior= 2 * (cantidadDeJugadores + 1);
 
-	inicializarImagen(cantidadDeColumnas, cantidadDeFilas, cantidadDeJugadores);
+
+	inicializarImagen(cantidadDeJugadores);
 
 }
 
+void Dibujante::inicializarCasilleros(){
+
+	for(uint filaActual = 0; filaActual < filasDelTablero; filaActual++){
+		for(uint columnaActual = 0; columnaActual < columnasDelTablero; columnaActual++){
+			cambiarCuadrante(columnaActual, filaActual, "cubierto");
+		}
+	}
+}
+
+void Dibujante::inicializarMargen(uint desdeFila, uint hastaFila, uint desdeColumna, uint hastaColumna){
+
+
+}
+
+void Dibujante::inicializarMargenes(uint cantidadDeJugadores){
+	//Sup
+	inicializarMargen(0, filaInicialTablero, 0, columnasTotalesImagen);
+	//Izq
+	inicializarMargen(filaInicialTablero, filaFinalTablero, 0, columnaInicialTablero);
+	//Inf
+	inicializarMargen(filaFinalTablero, filasTotalesImagen, 0, columnasTotalesImagen);
+	//Der
+	inicializarMargen(filaInicialTablero, filaFinalTablero, columnaFinalTablero, columnasTotalesImagen);
+}
+
 uint Dibujante::informarNumeroDeDibujo(){
-	return ordinalDeDibujo;
+	return numeroDeDibujo;
 }
 
 void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar, uint jugador, bool margen){
@@ -99,11 +79,12 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 		subdirectorio = directorioDeMargenes;
 	}else{
 		subdirectorio = directorioDeCasilleros;
+
+		fila += filaInicialTablero;
+		columna += columnaInicialTablero;
 	}
 
 	std::string nombre = directorioDeImagenesFuente + subdirectorio + queDibujar + ".bmp";
-
-	std::cout << nombre << std::endl;
 
 	char* nombreCompatible = &nombre[0];
 
@@ -112,11 +93,11 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 
 	for ( uint yRelativoDePixel = 0; yRelativoDePixel < alturaDeCuadrante; yRelativoDePixel++){
 
-		yAbsolutoDePixel = yRelativoDePixel + (fila + filasMargenSuperior) * alturaDeCuadrante;
+		yAbsolutoDePixel = yRelativoDePixel + fila * alturaDeCuadrante;
 
 		for (uint xRelativoDePixel = 0; xRelativoDePixel < anchoDeCuadrante; xRelativoDePixel++){
 
-			xAbsolutoDePixel = xRelativoDePixel + (columna + columnasMargenIzquierdo) * anchoDeCuadrante;
+			xAbsolutoDePixel = xRelativoDePixel + columna * anchoDeCuadrante;
 
 			//Si es bandera, tengo que asignarle el color del jugador al icono.
 			if (	queDibujar == "bandera"
@@ -148,13 +129,13 @@ void Dibujante::cambiarPuntaje(int puntaje, uint jugador){
 void Dibujante::dibujarTablero(){
 
 	std::ostringstream numero;
-	numero << ordinalDeDibujo;
+	numero << numeroDeDibujo;
 	std::string nombreDeArchivo = "Imagen " + numero.str() +".bmp";
 	char* nombreCompatible = &nombreDeArchivo[0];
 
 	imagen.WriteToFile( nombreCompatible );
 
-	ordinalDeDibujo++;
+	numeroDeDibujo++;
 }
 
 
