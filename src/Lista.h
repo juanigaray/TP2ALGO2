@@ -10,9 +10,9 @@ class Lista
   private:
 	Nodo<T>* primero;
 
-	unsigned int tamanio;
+    unsigned int tamanio;
 
-	Nodo<T>* cursor;
+   Nodo<T>* cursor;
 
 
     //Devuelve el nodo de la posicion buscada

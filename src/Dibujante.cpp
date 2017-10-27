@@ -18,11 +18,11 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 
 	columnaInicialTablero = 2;
 	columnaFinalTablero = columnasDelTablero + columnaInicialTablero;
-	filaInicialTablero = 2 * (cantidadDeJugadores + 1);
+	filaInicialTablero = ;
 	filaFinalTablero = filasDelTablero + filaInicialTablero;
 
 	columnasTotalesImagen = columnaFinalTablero + 2;
-	filasTotalesImagen = filaFinalTablero + 2;
+	filasTotalesImagen = filaFinalTablero + 2 * (cantidadDeJugadores + 1);
 
 
 

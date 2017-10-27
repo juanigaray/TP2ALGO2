@@ -6,7 +6,11 @@
  */
 #ifndef ARBITRO_H_
 #define ARBITRO_H_
+
 #include <sstream>
+#include "Lista.h"
+#include "Jugador.h"
+
 
 typedef unsigned int uint;
 typedef std::string cadena;
@@ -25,9 +29,12 @@ class Arbitro{
 
 	bool finDeJuego;
 	
-	Lista listaDeJugadores;
-	Lista listaDeBombas;
-	Lista listaDeBanderas;
+	Lista<Jugador> listaDeJugadores;
+	Lista<Bomba> listaDeBombas;
+	Lista<Bandera> listaDeBanderas;
+
+	void inicializarListaDeJugadores();
+	void inicializarListaDeBombas();
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
