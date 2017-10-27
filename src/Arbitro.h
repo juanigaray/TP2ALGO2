@@ -10,7 +10,8 @@
 #include <sstream>
 #include "Lista.h"
 #include "Jugador.h"
-
+#include "Bomba.h"
+#include "Bandera.h"
 
 typedef unsigned int uint;
 typedef std::string cadena;
@@ -34,6 +35,7 @@ class Arbitro{
 	Lista<Bandera> listaDeBanderas;
 
 	void inicializarListaDeJugadores();
+
 	void inicializarListaDeBombas();
 
 	/*

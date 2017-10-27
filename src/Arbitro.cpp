@@ -69,7 +69,7 @@ void Arbitro::tomarUbicacionDeJugada(){
 void Arbitro::tomarJugada(){
 	//modularizar e implementar
 	uint opcionElegida;
-	std::cout << "Si desea colocar o quitar una bandera, bla bla bla" << std::endl;
+	std::cout << "Si desea colocar o quitar una bandera, bla bla bla" << std::endl; //JAJAJJAJAJJAJAJJA
 	std::cin >> opcionElegida;
 	tomarTipoDeJugada();
 	tomarUbicacionDeJugada();
