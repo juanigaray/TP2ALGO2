@@ -16,15 +16,14 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	columnasDelTablero = cantidadDeColumnas;
 	filasDelTablero = cantidadDeFilas;
 
-	columnaInicialTablero = 2;
-	columnaFinalTablero = columnasDelTablero + columnaInicialTablero;
-	filaInicialTablero = ;
-	filaFinalTablero = filasDelTablero + filaInicialTablero;
+	//Dejo espacio para que se escriba "Jugador" hztalmente
+	if(cantidadDeColumnas > 8){
+		columnasTotalesImagen = cantidadDeColumnas;
+	} else {
+		columnasTotalesImagen = 8;
+	}
 
-	columnasTotalesImagen = columnaFinalTablero + 2;
-	filasTotalesImagen = filaFinalTablero + 2 * (cantidadDeJugadores + 1);
-
-
+	filasTotalesImagen = filasDelTablero + 2 * (cantidadDeJugadores + 1);
 
 	BMP ejemploDeImagenFuente;
 	ejemploDeImagenFuente.ReadFromFile("src/ImagenesFuente/Casilleros/0.bmp");
@@ -32,9 +31,19 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	alturaDeCuadrante = ejemploDeImagenFuente.TellHeight();
 	anchoDeCuadrante = ejemploDeImagenFuente.TellWidth();
 
-
-
 	inicializarImagen(cantidadDeJugadores);
+
+}
+
+void Dibujante::inicializarImagen(uint cantidadDeJugadores){
+
+	uint pixelesDeAncho = columnasTotalesImagen * anchoDeCuadrante;
+	uint pixelesDeAlto = filasTotalesImagen * alturaDeCuadrante;
+
+	imagen.SetSize(pixelesDeAlto,pixelesDeAncho);
+
+	inicializarCasilleros();
+	inicializarMargen(cantidadDeJugadores);
 
 }
 
@@ -42,25 +51,29 @@ void Dibujante::inicializarCasilleros(){
 
 	for(uint filaActual = 0; filaActual < filasDelTablero; filaActual++){
 		for(uint columnaActual = 0; columnaActual < columnasDelTablero; columnaActual++){
-			cambiarCuadrante(columnaActual, filaActual, "cubierto");
+			cambiarCuadrante(columnaActual, filaActual, "cubierto", 0, false);
 		}
 	}
 }
 
-void Dibujante::inicializarMargen(uint desdeFila, uint hastaFila, uint desdeColumna, uint hastaColumna){
+void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 
+	uint columnaDeCuadrante;
+	cambiarCuadrante(0, filasDelTablero,"margen", 0, true);
+	cambiarCuadrante(1, filasDelTablero,"J", 0, true);
+	cambiarCuadrante(2, filasDelTablero,"U", 0, true);
+	cambiarCuadrante(3, filasDelTablero,"G", 0, true);
+	cambiarCuadrante(4, filasDelTablero,"A", 0, true);
+	cambiarCuadrante(5, filasDelTablero,"D", 0, true);
+	cambiarCuadrante(6, filasDelTablero,"O", 0, true);
+	cambiarCuadrante(7, filasDelTablero,"R", 0, true);
+	cambiarCuadrante(8, filasDelTablero,"margen", 0, true);
 
-}
-
-void Dibujante::inicializarMargenes(uint cantidadDeJugadores){
-	//Sup
-	inicializarMargen(0, filaInicialTablero, 0, columnasTotalesImagen);
-	//Izq
-	inicializarMargen(filaInicialTablero, filaFinalTablero, 0, columnaInicialTablero);
-	//Inf
-	inicializarMargen(filaFinalTablero, filasTotalesImagen, 0, columnasTotalesImagen);
-	//Der
-	inicializarMargen(filaInicialTablero, filaFinalTablero, columnaFinalTablero, columnasTotalesImagen);
+	for(uint filaDeCuadrante = filasDelTablero + 1; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
+		for(columnaDeCuadrante = 0; columnaDeCuadrante <= columnasTotalesImagen; columnaDeCuadrante++){
+			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, "margen", 0, true);
+		}
+	}
 }
 
 uint Dibujante::informarNumeroDeDibujo(){
@@ -79,17 +92,15 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 		subdirectorio = directorioDeMargenes;
 	}else{
 		subdirectorio = directorioDeCasilleros;
-
-		fila += filaInicialTablero;
-		columna += columnaInicialTablero;
 	}
 
 	std::string nombre = directorioDeImagenesFuente + subdirectorio + queDibujar + ".bmp";
-
 	char* nombreCompatible = &nombre[0];
-
 	cuadrante.ReadFromFile( nombreCompatible );
-	cuadrante.CreateStandardColorTable();
+
+	if (queDibujar == "bandera"){
+		cuadrante.CreateStandardColorTable();
+	}
 
 	for ( uint yRelativoDePixel = 0; yRelativoDePixel < alturaDeCuadrante; yRelativoDePixel++){
 

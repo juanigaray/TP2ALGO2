@@ -23,11 +23,6 @@ class Dibujante{
 	uint columnasDelTablero;
 	uint filasDelTablero;
 
-	uint columnaInicialTablero;
-	uint columnaFinalTablero;
-	uint filaInicialTablero;
-	uint filaFinalTablero;
-
 	uint columnasTotalesImagen;
 	uint filasTotalesImagen;
 
@@ -45,33 +40,21 @@ class Dibujante{
 	/*
 	 *
 	 */
-	void inicializarMargen(uint filaInicial, uint filaFinal, uint columnaInicial, uint columnaFinal);
-
-	/*
-	 *
-	 */
-	void inicializarMargenes(uint cantidadDeJugadores);
+	void inicializarMargen(uint cantidadDeJugadores);
 
 	/*Pre: Es usado por el constructor. Se le pasan dos naturales.
 	 * Post: La imagen tiene todos sus casilleros dibujados como cubiertos.
 	 *	Se crean los margenes de la imagen con lugar para anotar los puntajes de los jugadores.
 	 */
-	void inicializarImagen(uint cantidadDeJugadores) {
-		uint pixelesDeAncho = columnasTotalesImagen * anchoDeCuadrante;
-		uint pixelesDeAlto = filasTotalesImagen * alturaDeCuadrante;
-		imagen.SetSize(pixelesDeAlto, pixelesDeAncho);
-		inicializarCasilleros();
-		inicializarMargenes(cantidadDeJugadores);
-	}
+	void inicializarImagen(uint cantidadDeJugadores);
 
   public:
 
-	/*Pre: 	Se pasan la cantidad de filas y de columnas del tablero, que son numeros naturales.
-	 * 		Si se pasa el numero de jugadores, es natural tambien.
-	 * Post: Se crea un dibujante que solo va a crear la imagen con los casilleros, sin margenes
-	 *		 Si se paso el numero de jugadores, crea el espacio donde poner sus puntajes.
+	/*
+	 * Post: El dibujante crea su imagen lista para ser dibujada y modificada
+	 *		 Crea el espacio donde poner los puntajes de los jugadores.
 	 */
-	Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores = 1);
+	Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores);
 
 	/*
 	 * Post: Devuelve el numero correspondiente al dibujo que se esta preparando.
@@ -85,7 +68,7 @@ class Dibujante{
 	 * 		queDibujar es un string con el nombre del archivo fuente sin ".bmp".
 	 * 		Por default, se aceptan los numeros del cero al ocho, "boom", "cubierto" y "bandera".
 	 */
-	void cambiarCuadrante(uint fila, uint columna, std::string queDibujar, uint jugador = 0, bool margen = false);
+	void cambiarCuadrante(uint fila, uint columna, std::string queDibujar, uint jugador, bool margen);
 
 	/*
 	 *
