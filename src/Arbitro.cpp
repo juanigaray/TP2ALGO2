@@ -8,6 +8,7 @@
  
 #include "Arbitro.h"
 #include <iostream>
+#include "DatosComplejos/Lista.h"
  
 Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* listaDeNombresDeJugadores){
 
@@ -21,9 +22,10 @@ Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint
 	filaDeJugada = 0;
 
 	finDeJuego = false;
-//	listaDeJugadores.inicializar(listaDeNombresDeJugadores);
-//	listaDeBombas.inicializar(dificultad);
-//	listaDeBanderas.inicializar();
+	
+	listaDeJugadores.inicializar(listaDeNombresDeJugadores);
+	listaDeBombas.inicializar(dificultad);
+	listaDeBanderas.inicializar();
 }
 
 uint Arbitro::pedirNumero(std::string mensaje){
