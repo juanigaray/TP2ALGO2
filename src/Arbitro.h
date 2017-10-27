@@ -24,9 +24,10 @@ class Arbitro{
 	uint filaDeJugada;
 
 	bool finDeJuego;
-	//Lista listaDeNombresDeJugadores;
-	//Lista listaDeBombas;
-	//Lista listaDeBanderas;
+	
+	Lista listaDeJugadores;
+	Lista listaDeBombas;
+	Lista listaDeBanderas;
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
