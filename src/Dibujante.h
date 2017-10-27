@@ -21,6 +21,7 @@ class Dibujante{
 	uint anchoDeCuadrante;
 
 	uint columnasDelTablero;
+	uint columnasMinimas;
 	uint filasDelTablero;
 
 	uint columnasTotalesImagen;

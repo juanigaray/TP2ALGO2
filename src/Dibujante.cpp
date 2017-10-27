@@ -12,15 +12,15 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	directorioDeCasilleros = "Casilleros/";
 	directorioDeMargenes = "Margenes/";
 	numeroDeDibujo = 1;
-
+	columnasMinimas = 9;
 	columnasDelTablero = cantidadDeColumnas;
 	filasDelTablero = cantidadDeFilas;
 
 	//Dejo espacio para que se escriba "Jugador" hztalmente
-	if(cantidadDeColumnas > 8){
+	if(cantidadDeColumnas > columnasMinimas){
 		columnasTotalesImagen = cantidadDeColumnas;
 	} else {
-		columnasTotalesImagen = 8;
+		columnasTotalesImagen = columnasMinimas;
 	}
 
 	filasTotalesImagen = filasDelTablero + 2 * (cantidadDeJugadores + 1);
@@ -40,11 +40,10 @@ void Dibujante::inicializarImagen(uint cantidadDeJugadores){
 	uint pixelesDeAncho = columnasTotalesImagen * anchoDeCuadrante;
 	uint pixelesDeAlto = filasTotalesImagen * alturaDeCuadrante;
 
-	imagen.SetSize(pixelesDeAlto,pixelesDeAncho);
+	imagen.SetSize(pixelesDeAncho, pixelesDeAlto);
 
 	inicializarCasilleros();
 	inicializarMargen(cantidadDeJugadores);
-
 }
 
 void Dibujante::inicializarCasilleros(){
@@ -59,6 +58,8 @@ void Dibujante::inicializarCasilleros(){
 void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 
 	uint columnaDeCuadrante;
+	uint filaDeCuadrante;
+
 	cambiarCuadrante(0, filasDelTablero,"margen", 0, true);
 	cambiarCuadrante(1, filasDelTablero,"J", 0, true);
 	cambiarCuadrante(2, filasDelTablero,"U", 0, true);
@@ -67,11 +68,22 @@ void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 	cambiarCuadrante(5, filasDelTablero,"D", 0, true);
 	cambiarCuadrante(6, filasDelTablero,"O", 0, true);
 	cambiarCuadrante(7, filasDelTablero,"R", 0, true);
-	cambiarCuadrante(8, filasDelTablero,"margen", 0, true);
 
-	for(uint filaDeCuadrante = filasDelTablero + 1; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
-		for(columnaDeCuadrante = 0; columnaDeCuadrante <= columnasTotalesImagen; columnaDeCuadrante++){
+	for(columnaDeCuadrante = 8; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
+		cambiarCuadrante(columnaDeCuadrante, filasDelTablero,"margen", 0, true);
+	}
+
+	for(filaDeCuadrante = filasDelTablero + 1; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
+		for(columnaDeCuadrante = 0; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
 			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, "margen", 0, true);
+		}
+	}
+
+	if(columnasDelTablero < columnasMinimas){
+		for(uint columnaSobrante = columnasDelTablero; columnaSobrante < columnasMinimas; columnaSobrante++){
+			for(uint filaSobrante = 0; filaSobrante < filasDelTablero; filaSobrante++){
+				cambiarCuadrante(columnaSobrante, filaSobrante, "margen", 0, true);
+			}
 		}
 	}
 }
