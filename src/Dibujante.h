@@ -21,6 +21,7 @@ class Dibujante{
 	uint anchoDeCuadrante;
 
 	uint columnasDelTablero;
+	uint columnasMinimas;
 	uint filasDelTablero;
 
 	uint columnasTotalesImagen;
@@ -31,11 +32,17 @@ class Dibujante{
 	std::string directorioDeImagenesFuente;
 	std::string directorioDeCasilleros;
 	std::string directorioDeMargenes;
+	std::string directorioDePuntajes;
 
 	/* Pre: Es usado por el constructor. Se le pasan dos naturales.
 	 * Post:
 	 */
 	void inicializarCasilleros();
+
+	/*
+	 *
+	 */
+	void inicializarPuntajes(uint cantidadDeJugadores);
 
 	/*
 	 *
