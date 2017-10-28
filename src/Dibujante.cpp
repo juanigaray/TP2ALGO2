@@ -11,8 +11,9 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	directorioDeImagenesFuente = "src/ImagenesFuente/";
 	directorioDeCasilleros = "Casilleros/";
 	directorioDeMargenes = "Margenes/";
+	directorioDePuntajes = "Puntajes/";
 	numeroDeDibujo = 1;
-	columnasMinimas = 9;
+	columnasMinimas = 15;
 	columnasDelTablero = cantidadDeColumnas;
 	filasDelTablero = cantidadDeFilas;
 
@@ -55,25 +56,40 @@ void Dibujante::inicializarCasilleros(){
 	}
 }
 
+void Dibujante::inicializarPuntajes(uint cantidadDeJugadores){
+
+
+	for(uint nroJugador = 1; nroJugador <= cantidadDeJugadores; nroJugador++){
+
+		uint filaDelJugador = filasDelTablero + 2 * nroJugador;
+		cambiarCuadrante(1, filaDelJugador,"J", 0, true);
+		cambiarCuadrante(2, filaDelJugador,"U", 0, true);
+		cambiarCuadrante(3, filaDelJugador,"G", 0, true);
+		cambiarCuadrante(4, filaDelJugador,"A", 0, true);
+		cambiarCuadrante(5, filaDelJugador,"D", 0, true);
+		cambiarCuadrante(6, filaDelJugador,"O", 0, true);
+		cambiarCuadrante(7, filaDelJugador,"R", 0, true);
+
+		if(nroJugador < 10){
+			//Podria ser mejorado, ver cuando ande todo
+			std::ostringstream numero;
+			numero << nroJugador;
+			cambiarCuadrante(8, filaDelJugador, numero.str() , 0, true);
+		}
+
+	}
+}
+
 void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 
 	uint columnaDeCuadrante;
 	uint filaDeCuadrante;
 
-	cambiarCuadrante(0, filasDelTablero,"margen", 0, true);
-	cambiarCuadrante(1, filasDelTablero,"J", 0, true);
-	cambiarCuadrante(2, filasDelTablero,"U", 0, true);
-	cambiarCuadrante(3, filasDelTablero,"G", 0, true);
-	cambiarCuadrante(4, filasDelTablero,"A", 0, true);
-	cambiarCuadrante(5, filasDelTablero,"D", 0, true);
-	cambiarCuadrante(6, filasDelTablero,"O", 0, true);
-	cambiarCuadrante(7, filasDelTablero,"R", 0, true);
-
-	for(columnaDeCuadrante = 8; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
+	for(columnaDeCuadrante = columnasMinimas; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
 		cambiarCuadrante(columnaDeCuadrante, filasDelTablero,"margen", 0, true);
 	}
 
-	for(filaDeCuadrante = filasDelTablero + 1; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
+	for(filaDeCuadrante = filasDelTablero; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
 		for(columnaDeCuadrante = 0; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
 			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, "margen", 0, true);
 		}
@@ -86,6 +102,8 @@ void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 			}
 		}
 	}
+
+	inicializarPuntajes(cantidadDeJugadores);
 }
 
 uint Dibujante::informarNumeroDeDibujo(){
@@ -144,8 +162,12 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 
 void Dibujante::cambiarPuntaje(int puntaje, uint jugador){
 	if (puntaje != -1 ){
-		//
+		std::string nombreDeArchivo;
+		//Buscar como castear int a str
+		if (puntaje < 10){
 
+
+		}
 	}
 }
 
