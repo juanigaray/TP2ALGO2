@@ -34,9 +34,16 @@ class Arbitro{
 	Lista<Bomba> listaDeBombas;
 	Lista<Bandera> listaDeBanderas;
 
+	/*
+	 * Post inicializa la lista de jugadores
+	 */
 	void inicializarListaDeJugadores();
 
-	void inicializarListaDeBombas();
+	/*
+	 * Post inicializa la lista de bombas acorde al nivel
+	 * con la cantidad de bombas para cada nivel
+	 */
+	void inicializarListaDeBombas(int dificultad);
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
@@ -60,6 +67,10 @@ class Arbitro{
 	 */
 	void tomarUbicacionDeJugada();
 
+	void crearBombas(int cantBombas);
+
+	bool existeBomba(Bomba bomba);
+
   public:
 	/* Pre: Se le pasan numeros naturales.
 	 * Post: Crea un arbitro listo para pasarle jugadas
@@ -78,7 +89,7 @@ class Arbitro{
 	uint devolverColumnaDeJugada();
 	
 	/*
-	 * Post: Devuelve en que columna se realizo la ultima jugada tomada.
+	 * Post: Devuelve en que fila se realizo la ultima jugada tomada.
 	 */
 	uint devolverFilaDeJugada();
 	

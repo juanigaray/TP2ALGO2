@@ -1,11 +1,10 @@
-#ifndef LISTA_H_
-#define LISTA_H_
-#endif
 #include "Nodo.h"
 #include <iostream>
+#ifndef LISTA_H_
+#define LISTA_H_
+
 template <class T>
-class Lista
-{
+class Lista{
 
   private:
 	Nodo<T>* primero;
@@ -16,56 +15,24 @@ class Lista
 
 
     //Devuelve el nodo de la posicion buscada
-   	Nodo<T>* obtenerNodo(int posicion){
-   	    Nodo<T> *actual = this->primero;
-   	    for (int i = 1; i < posicion; i++) {
-   	        actual = actual->obtenerSiguiente();
-   	    }
-   	 std::cout << "nodo obtenido" << std::endl;
-
-   	    return actual;
-   	}
+   	Nodo<T>* obtenerNodo(int posicion);
 
   public:
     /*
      * post: Lista vacía.
      */
-    Lista(){
-        primero = NULL;
-        tamanio = 0;
-        cursor = NULL;
-        std::cout << "Lista creada" << std::endl;
-    }
+    Lista();
 
     /*
      * post: deja el cursor de la Lista preparado para hacer un nuevo
      *       recorrido sobre sus elementos.
      */
-    void iniciarCursor(){
-        this->cursor = NULL;
-        std::cout << "Cursor iniciado" << std::endl;
-    }
-
+    void iniciarCursor();
     /*
      * pre : No se agregan ni se quitan elementos de la lista
      * post: Mueve al siguiente elemento, devuelve si hay proximo o no
      */
-    bool avanzarCursor(){
-
-        if (cursor == NULL) {
-
-            cursor = primero;
-
-        } else {
-
-           cursor = cursor->obtenerSiguiente();
-        }
-
-        /* pudo avanzar si el cursor ahora apunta a un nodo */
-        std::cout << "Cursor avanzado" << std::endl;
-
-        return (cursor != NULL);
-    }
+    bool avanzarCursor();
 
 
     /*
@@ -73,7 +40,79 @@ class Lista
      * post: devuelve el elemento en la posición del cursor.
      *
      */
-    T obtenerCursor(){
+    T obtenerCursor();
+
+    /*
+     * post: indica si la Lista tiene algún elemento.
+     */
+    bool estaVacia();
+
+    /*
+     * post: devuelve la cantidad de elementos que tiene la Lista.
+     */
+    unsigned int contarElementos();
+    /*
+     * post: agrega el elemento al final de la Lista, en la posición:
+     *       contarElementos() + 1.
+     */
+    void agregarElemento(T elemento);
+
+    /*
+     * pre : posición pertenece al intervalo: [1, contarElementos()]
+     * post: devuelve el elemento en la posición indicada.
+     */
+    T obtener(unsigned int posicion);
+
+    /*
+     * pre : posición pertenece al intervalo: [1, contarElementos()]
+     * post: remueve de la Lista el elemento en la posición indicada.
+     */
+    void removerNodo(unsigned int posicion);
+      
+     /*
+      * post: libera los recursos asociados a la Lista.
+      */
+    ~Lista();
+
+};
+
+template<class T>Nodo<T>* Lista<T>::obtenerNodo(int posicion){
+	    Nodo<T> *actual = this->primero;
+	    for (int i = 1; i < posicion; i++) {
+	        actual = actual->obtenerSiguiente();
+	    }
+	 std::cout << "nodo obtenido" << std::endl;
+
+	    return actual;
+	}
+
+
+template<class T> Lista<T>::Lista(){
+        primero = NULL;
+        tamanio = 0;
+        cursor = NULL;
+        std::cout << "Lista creada" << std::endl;
+    }
+
+
+template<class T>void Lista<T>::iniciarCursor(){
+    this->cursor = NULL;
+    std::cout << "Cursor iniciado" << std::endl;
+}
+
+template<class T> bool Lista<T>::avanzarCursor(){
+
+        if (cursor == NULL) {
+            cursor = primero;
+        } else {
+           cursor = cursor->obtenerSiguiente();
+        }
+        std::cout << "Cursor avanzado" << std::endl;
+
+        return (cursor != NULL);
+    }
+
+template<class T> T Lista<T>::obtenerCursor(){
 
     T elemento;
 
@@ -86,27 +125,19 @@ class Lista
     return elemento;
 }
 
-    /*
-     * post: indica si la Lista tiene algún elemento.
-     */
-    bool estaVacia(){
+
+template<class T> bool Lista<T>::estaVacia(){
     	std::cout << "Esta vacia?" << std::endl;
         return (primero == NULL);
     }
 
-    /*
-     * post: devuelve la cantidad de elementos que tiene la Lista.
-     */
-    unsigned int contarElementos(){
+template<class T> unsigned int Lista<T>::contarElementos(){
     	std::cout << "elementos contados" << std::endl;
     	return tamanio;
 
     }
-    /*
-     * post: agrega el elemento al final de la Lista, en la posición:
-     *       contarElementos() + 1.
-     */
-    void agregarElemento(T elemento){
+
+template<class T> void Lista<T>::agregarElemento(T elemento){
    		Nodo<T> *nuevo = new Nodo<T>(elemento);
         int posicion = tamanio;
     	if(estaVacia()){
@@ -120,50 +151,37 @@ class Lista
 
     }
 
-    /*
-     * pre : posición pertenece al intervalo: [1, contarElementos()]
-     * post: devuelve el elemento en la posición indicada.
-     */
-    T obtener(unsigned int posicion){
-    	std::cout << "Dato obtenido" << std::endl;
+template<class T> T Lista<T>::obtener(unsigned int posicion){
+  	std::cout << "Dato obtenido" << std::endl;
 
-        return obtenerNodo(posicion)->obtenerDato();
+      return obtenerNodo(posicion)->obtenerDato();
+  }
+template<class T> void Lista<T>::removerNodo(unsigned int posicion){
+       Nodo<T> *nodoARemover;
+       if(posicion == 1){
+           nodoARemover = primero;
+           primero->cambiarSiguiente(nodoARemover);
+       }
+       else{
+           Nodo<T> * anterior = obtenerNodo(posicion - 1);
+           nodoARemover = anterior->obtenerSiguiente();
+           anterior->cambiarSiguiente(nodoARemover->obtenerSiguiente());
+       }
+       delete nodoARemover;
+       tamanio --;
+       std::cout << "Nodo Removido" << std::endl;
+
+   }
+template<class T>Lista<T>:: ~Lista(){
+
+    while (primero != NULL) {
+
+        Nodo<T>* aBorrar = primero;
+        primero = primero->obtenerSiguiente();
+        std::cout << "Nodo Borrado" << std::endl;
+
+        delete aBorrar;
     }
+}
 
-    /*
-     * pre : posición pertenece al intervalo: [1, contarElementos()]
-     * post: remueve de la Lista el elemento en la posición indicada.
-     */
-    void removerNodo(unsigned int posicion){
-        Nodo<T> *nodoARemover;
-        if(posicion == 1){
-            nodoARemover = primero;
-            primero->cambiarSiguiente(nodoARemover);
-        }
-        else{
-            Nodo<T> * anterior = obtenerNodo(posicion - 1);
-            nodoARemover = anterior->obtenerSiguiente();
-            anterior->cambiarSiguiente(nodoARemover->obtenerSiguiente());
-        }
-        delete nodoARemover;
-        tamanio --;
-        std::cout << "Nodo Removido" << std::endl;
-
-    }
-      
-     /*
-      * post: libera los recursos asociados a la Lista.
-      */
-    ~Lista(){
-
-        while (primero != NULL) {
-
-            Nodo<T>* aBorrar = primero;
-            primero = primero->obtenerSiguiente();
-            std::cout << "Nodo Borrado" << std::endl;
-
-            delete aBorrar;
-        }
-    }
-
-};
+#endif

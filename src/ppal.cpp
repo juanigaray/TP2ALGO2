@@ -10,7 +10,7 @@ typedef unsigned int uint;
 #include "Presentador.h"
 #include "Dibujante.h"
 #include "Arbitro.h"
-#include "DatosComplejos/Lista.h"
+#include "Lista.h"
 
 int main(){
 
@@ -40,7 +40,7 @@ int main(){
 			dibujante.cambiarCuadrante( arbitro.devolverColumnaDeJugada(),
 										arbitro.devolverFilaDeJugada(),
 										arbitro.devolverTipoDeJugada(),
-										arbitro.devolverTurno() );
+										arbitro.devolverTurno());
 
 			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
 										arbitro.devolverTurno()  );

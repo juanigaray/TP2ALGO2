@@ -1,7 +1,7 @@
 #ifndef BOMBA_H
 #define BOMBA_H
-#endif
 
+#include "Jugador.h"
 typedef int Coordenada[2];
 class Bomba{
 private:
@@ -11,6 +11,9 @@ public:
 
 	//POST CREA LA BOMBA CON LAS COORDENADAS
 	Bomba(int coordeanadaX, int coordenadaY);
+
+	//POST CREA LA BOMBA VACIA
+	Bomba();
 
 	//POST DEVUELVE COORDENADA X
 	int obtenerCoordenadaX();
@@ -28,3 +31,4 @@ public:
 	void eliminarJugador(Jugador jugador);
 
 };
+#endif

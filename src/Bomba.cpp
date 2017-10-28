@@ -5,6 +5,10 @@ Bomba::Bomba(int coordenadaX, int coordenadaY){
 	this-> coordenadas[1] = coordenadaY;
 }
 
+Bomba::Bomba(){
+
+}
+
 void Bomba::cambiarCoordenadaX(int nuevaX){
 	this->coordenadas[0] = nuevaX;
 }

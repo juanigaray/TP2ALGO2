@@ -1,7 +1,7 @@
-#ifndef JUGADOR_H_
-#define JUGADOR_H_
+#ifndef JUGADOR_H
+#define JUGADOR_H
 
-
+#include <iostream>
 class Jugador{
 
 	private:
@@ -48,4 +48,5 @@ class Jugador{
 		/// se puede sacar d la lista de jugadores en vez de guardarlo aca
 };
 
-#endif /* JUGADOR_H_ */
+
+#endif

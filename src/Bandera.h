@@ -26,7 +26,7 @@ public:
 	int obtenerCoordenadaY();
 
 	//POST DEVUELVE SI ESTA bienColocada
-	bool bienColocada();
+	bool banderaBienColocada();
 
 	//POST VALIDA Y CAMBIA bienColocada
 	void validarColocacion(Lista<Bomba>* bombas);

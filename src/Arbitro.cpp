@@ -8,7 +8,8 @@
  
 #include "Arbitro.h"
 #include <iostream>
-
+#include <stdlib.h>
+#include <time.h>
  
 Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* listaDeNombresDeJugadores){
 
@@ -69,7 +70,7 @@ void Arbitro::tomarUbicacionDeJugada(){
 void Arbitro::tomarJugada(){
 	//modularizar e implementar
 	uint opcionElegida;
-	std::cout << "Si desea colocar o quitar una bandera, bla bla bla" << std::endl; //JAJAJJAJAJJAJAJJA
+	std::cout << "Si desea colocar o quitar una bandera, bla bla bla" << std::endl;
 	std::cin >> opcionElegida;
 	tomarTipoDeJugada();
 	tomarUbicacionDeJugada();
@@ -108,4 +109,41 @@ int Arbitro::devolverPuntaje(){
 
 bool Arbitro::terminoElJuego(){
 	return finDeJuego;
+}
+void Arbitro::inicializarListaDeJugadores(){
+
+}
+void Arbitro::inicializarListaDeBombas(int dificultad){
+	if(dificultad == 1){
+		crearBombas(15);
+	}else if(dificultad == 2){
+		crearBombas(30);
+	}else{
+		crearBombas(50);
+	}
+}
+void Arbitro::crearBombas(int cantBombas)
+{
+	while (cantBombas != 0)
+	{
+		int fila = rand() % (filaMaxima);
+		int columna = rand() % (columnaMaxima) ;
+		Bomba bomba(fila, columna);
+		if(!existeBomba(bomba)){
+		this->listaDeBombas.agregarElemento(bomba);
+		}
+		cantBombas--;
+	}
+}
+bool Arbitro::existeBomba(Bomba bomba){
+	this->listaDeBombas.iniciarCursor();
+	 while (listaDeBombas.avanzarCursor()) {
+		 Bomba bombaEnLista = listaDeBombas.obtenerCursor();
+		 if(bomba.obtenerCoordenadaX() == bombaEnLista.obtenerCoordenadaX()
+				 && bomba.obtenerCoordenadaY() == bombaEnLista.obtenerCoordenadaY()){
+			 return true;
+		 }
+	    }
+
+	return false;
 }

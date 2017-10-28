@@ -1,7 +1,7 @@
 #include "Jugador.h"
-using namespace std;
 
-Jugador::Jugador(string nom){
+
+Jugador::Jugador(std::string nom){
 	this->eliminado = false;
 	this->puntaje = 0;
 	this->nombre = nom;
@@ -23,7 +23,7 @@ int Jugador::consultarPuntaje(){
 	return this->puntaje;
 }
 
-string Jugador::consultarNombre(){
+std::string Jugador::consultarNombre(){
 	return this->nombre;
 }
 
