@@ -35,9 +35,9 @@ class Arbitro{
 	Lista<Bandera> listaDeBanderas;
 
 	/*
-	 * Post inicializa la lista de jugadores
+	 * Post inicializa la lista de jugadores con los jugadores creados
 	 */
-	void inicializarListaDeJugadores();
+	void inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores);
 
 	/*
 	 * Post inicializa la lista de bombas acorde al nivel
@@ -67,8 +67,15 @@ class Arbitro{
 	 */
 	void tomarUbicacionDeJugada();
 
+	/*
+	 * crea aleatoriamente la cantidad de bombas que reciba el parametro
+	 * mayores a cero
+	 */
 	void crearBombas(int cantBombas);
 
+	 /*
+	  * Checkea que no existe una bomba en ese lugar
+	  */
 	bool existeBomba(Bomba bomba);
 
   public:
@@ -99,9 +106,11 @@ class Arbitro{
 	std::string devolverTipoDeJugada();
 	
 	/*
+	 * PRE; La lista debe estar iniciada con el cursor iniciado
 	 * Post: Devuelve el numero de jugador que realizo la ultima jugada.
+	 * No avanza el cursor
 	 */
-	uint devolverTurno();
+	Jugador devolverTurno();
 	
 	/*
 	 *

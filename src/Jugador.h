@@ -9,13 +9,16 @@ class Jugador{
 		int puntaje;
 		bool eliminado;
 		std::string nombre;
-
+		int numeroJugador;
 	public:
 
 		/* pre:
 		 * post: Crea un jugador con valores iniciales y su nombre
 		 */
-		Jugador(std::string nom);
+		Jugador(std::string nom, int numeroJugador);
+
+		Jugador();
+
 
 		/*
 		 * post: Asigna el puntaje al jugador
@@ -37,6 +40,11 @@ class Jugador{
 		 * post: Devuelve el puntaje del jugador
 		 */
 		int consultarPuntaje();
+
+		/* pre:
+		 * post: Devuelve el numero del jugador
+		 */
+		int consultarNumero();
 
 		/*
 		 * post Devuelve el estado del jugador

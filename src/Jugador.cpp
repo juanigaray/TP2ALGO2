@@ -1,10 +1,11 @@
 #include "Jugador.h"
 
 
-Jugador::Jugador(std::string nom){
+Jugador::Jugador(std::string nom, int numJugador){
 	this->eliminado = false;
 	this->puntaje = 0;
 	this->nombre = nom;
+	this->numeroJugador = numJugador;
 }
 
 void Jugador::asignarEstado(bool opcion){

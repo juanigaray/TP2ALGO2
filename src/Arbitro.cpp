@@ -89,20 +89,19 @@ std::string Arbitro::devolverTipoDeJugada(){
 	return "bandera";
 }
 	
-uint Arbitro::devolverTurno(){
-	//Sacar de la lista
-	return 0;
+Jugador Arbitro::devolverTurno(){
+	return listaDeJugadores.obtenerCursor();
 }
 	
 void Arbitro::declararTurno(){
-	//De lista sacar string con nombre del jugador
-	std::cout << "Es el turno del jugador " << std::endl;
+	Jugador jugador = listaDeJugadores.obtenerCursor();
+	std::cout << "Es el turno del jugador "<< jugador.consultarNombre() << std::endl;
 
 }
 	
 int Arbitro::devolverPuntaje(){
-	//El jugador deberia tener una variable "diferencia de puntaje".
-	//Si es cero,
+		//El jugador deberia tener una variable "diferencia de puntaje".
+		//Si es cero,
 	return -1;
 	//De lo contrario, devuelve el puntaje.
 }
@@ -110,16 +109,20 @@ int Arbitro::devolverPuntaje(){
 bool Arbitro::terminoElJuego(){
 	return finDeJuego;
 }
-void Arbitro::inicializarListaDeJugadores(){
-
+void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores){
+	for(int i = 0; i < cantidadJugadores; i++){
+	Jugador jugador(nombres[0], i);
+	listaDeJugadores.agregarElemento(jugador);
+	}
 }
 void Arbitro::inicializarListaDeBombas(int dificultad){
+
 	if(dificultad == 1){
-		crearBombas(15);
+		crearBombas((filaMaxima * columnaMaxima) / 4);
 	}else if(dificultad == 2){
-		crearBombas(30);
+		crearBombas((filaMaxima * columnaMaxima) / 3);
 	}else{
-		crearBombas(50);
+		crearBombas((filaMaxima * columnaMaxima) / 2);
 	}
 }
 void Arbitro::crearBombas(int cantBombas)
