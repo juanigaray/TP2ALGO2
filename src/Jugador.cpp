@@ -13,7 +13,7 @@ void Jugador::asignarEstado(bool opcion){
 }
 
 void Jugador::asignarPuntaje(int puntos){
-	this->puntaje = puntos;
+	this->puntaje += puntos;
 }
 
 bool Jugador::consultarEstado(){

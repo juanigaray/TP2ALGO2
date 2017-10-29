@@ -22,6 +22,7 @@ class Jugador{
 
 		/*
 		 * post: Asigna el puntaje al jugador
+		 * la variable puntos es la cantidad de pntos que hizo en el turno
 		 */
 		void asignarPuntaje(int puntos);
 

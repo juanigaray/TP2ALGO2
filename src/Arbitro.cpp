@@ -99,11 +99,11 @@ void Arbitro::declararTurno(){
 
 }
 	
-int Arbitro::devolverPuntaje(){
-		//El jugador deberia tener una variable "diferencia de puntaje".
-		//Si es cero,
+int Arbitro::devolverPuntaje(int puntos, Jugador recienJugo){
+	if(puntos == 0)
 	return -1;
-	//De lo contrario, devuelve el puntaje.
+	recienJugo.asignarPuntaje(puntos);
+	return recienJugo.consultarPuntaje();
 }
 
 bool Arbitro::terminoElJuego(){
