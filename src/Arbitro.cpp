@@ -13,16 +13,18 @@
  
 Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* listaDeNombresDeJugadores){
 
-	dificultad = dificultadPedida;
-	cantJugadores = numeroDeJugadores;
+	this->dificultad = dificultadPedida;
+	this->cantJugadores = numeroDeJugadores;
 
-	filaMaxima = filas;
-	columnaMaxima = columnas;
+	this->filaMaxima = filas;
+	this->columnaMaxima = columnas;
 
-	columnaDeJugada = 0;
-	filaDeJugada = 0;
+	this->columnaDeJugada = 0;
+	this->filaDeJugada = 0;
 
-	finDeJuego = false;
+	this->finDeJuego = false;
+	
+	this->inicializarListaDeBombas();
 }
 
 uint Arbitro::pedirNumero(std::string mensaje){
@@ -51,29 +53,74 @@ uint Arbitro::pedirNumero(std::string mensaje, uint numeroMaximo){
 	return numeroIngresado;
 }
 
-void Arbitro::tomarTipoDeJugada(){
+uint Arbitro::tomarTipoDeJugada(){
 	std::string pedido = "Ingrese el numero de la opcion elegida: \n";
 	std::string opcion1 = "1) Colocar / quitar bandera \n";
 	std::string opcion2 = "2) Descubrir casillero \n";
 	std::string mensajeDeOpciones = pedido + opcion1 + opcion2;
 
 	uint tipoDeJugada = pedirNumero(mensajeDeOpciones, 3);
+	
+	return tipoDeJugada;
 
 }
 
 void Arbitro::tomarUbicacionDeJugada(){
-	filaDeJugada = pedirNumero("Por favor, ingrese la fila donde desea realizar la jugada");
-	columnaDeJugada = pedirNumero("Por favor, ingrese la columna donde desea realizar la jugada");
+	this->filaDeJugada = pedirNumero("Por favor, ingrese la fila donde desea realizar la jugada");
+	this->columnaDeJugada = pedirNumero("Por favor, ingrese la columna donde desea realizar la jugada");
+	if ( (filaDeJugada > this->filaMaxima) || (columnaDeJugada > this->columnaMaxima) )
+		this->tomarUbicacionDeJugada();
 }
 
+	
 
 void Arbitro::tomarJugada(){
-	//modularizar e implementar
-	uint opcionElegida;
-	std::cout << "Si desea colocar o quitar una bandera, bla bla bla" << std::endl;
-	std::cin >> opcionElegida;
-	tomarTipoDeJugada();
+	jugador = declararTurno();
+	
+	int puntaje;
+	uint opcionElegida = tomarTipoDeJugada();
+	/*aca ya tengo la jugada
+	 1 colocar o quitar bandera
+	 2 descubrir casillero*/
 	tomarUbicacionDeJugada();
+	//evaluar la jugada
+	if (opcionElegida == 1){
+		Bandera unaBandera (filaDeJugada, columnaDeJugada, jugador.consultarNombre());
+		//si no hay bandera poner bandera
+		if (!this->existeBandera(unaBandera)){
+				//agrego la bandera
+				this->listaDeBanderas.agregarElemento(unaBandera);
+				if (unaBandera.bienColocada()){ // es una bandera donde hay bomba
+					puntaje = Puntaje.devolverPuntos;
+				} else { // no hay bomba ahi
+					puntaje = -Puntaje.devolverPuntos;
+				}
+				jugador.asignarPuntaje(puntaje);
+			
+		} else { // existe entonces 
+			
+				// si no pertenece a este jugador entonces la quita		
+				Jugador propietarioBandera = unaBandera.obtenerJugador;
+				if (jugador.consultarNombre == propietarioBandera){ //es el mismo
+					// eliminar bandera de la lista 
+					/********* hacer una funcion ******/
+				} else { // es otro, caso en que corrige jugada del otro
+					if (unaBandera.bienColocada()){ // es una bandera donde hay bomba
+						// la quita pero le resta puntos porque si habia bomba
+						puntaje = -Puntaje.devolverPuntosEspeciales;
+					
+					} else { // era una bandera mal puesta
+						puntaje = Puntaje.devolverPuntosEspeciales;
+					}
+					//eliminar bandera de la lista
+					jugador.asignarPuntaje(puntaje);
+				}
+		}
+		
+	} else { //opcion 2
+		// ver si las coordenadas son validas
+		
+		
 }
 
 uint Arbitro::devolverColumnaDeJugada(){
@@ -115,16 +162,19 @@ void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores
 	listaDeJugadores.agregarElemento(jugador);
 	}
 }
-void Arbitro::inicializarListaDeBombas(int dificultad){
 
-	if(dificultad == 1){
-		crearBombas((filaMaxima * columnaMaxima) / 4);
-	}else if(dificultad == 2){
-		crearBombas((filaMaxima * columnaMaxima) / 3);
-	}else{
-		crearBombas((filaMaxima * columnaMaxima) / 2);
+void Arbitro::inicializarListaDeBombas(){
+	if(this->dificultad == 1){
+		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.15);
+	} else {
+		if(this->dificultad == 2){
+				crearBombas((this->filaMaxima * this->columnaMaxima) * 0.25);
+			} else {
+				crearBombas((this->filaMaxima * this->columnaMaxima) * 0.35);
+			}
 	}
 }
+
 void Arbitro::crearBombas(int cantBombas)
 {
 	while (cantBombas != 0)
@@ -139,14 +189,43 @@ void Arbitro::crearBombas(int cantBombas)
 	}
 }
 bool Arbitro::existeBomba(Bomba bomba){
-	this->listaDeBombas.iniciarCursor();
+	 this->listaDeBombas.iniciarCursor();
 	 while (listaDeBombas.avanzarCursor()) {
 		 Bomba bombaEnLista = listaDeBombas.obtenerCursor();
 		 if(bomba.obtenerCoordenadaX() == bombaEnLista.obtenerCoordenadaX()
 				 && bomba.obtenerCoordenadaY() == bombaEnLista.obtenerCoordenadaY()){
 			 return true;
 		 }
-	    }
+	 }
 
 	return false;
 }
+
+bool Arbitro::existeBandera(Bandera bandera){
+	 this->listaDeBanderas.iniciarCursor();
+	 while (listaDeBanderas.avanzarCursor()) {
+		 Bandera banderaEnLista = listaDeBanderas.obtenerCursor();
+		 if(bandera.obtenerCoordenadaX() == banderaEnLista.obtenerCoordenadaX()
+				 && badera.obtenerCoordenadaY() == banderaEnLista.obtenerCoordenadaY()){
+			 return true;
+		 }
+	 }
+
+	return false;
+}
+
+//al destapar un casillero
+	//si hay bomba
+		jugador.asignarEstado = true; (perdio)
+		
+//poner bandera
+	//si hay bomba
+		sumar puntaje.devolverPuntos
+		// sino (no hay)
+			restar puntaje.devolverPuntos
+
+//si bandera y corrige al jugador...
+	// si no hay bomba
+		sumarle puntaje.devolverPuntosEspeciales
+		//sino (la bandera estaba bien colocada)
+			restarle puntaje.devolverPuntosEspeciales
