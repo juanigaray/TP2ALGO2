@@ -114,7 +114,7 @@ uint Dibujante::informarNumeroDeDibujo(){
 	return numeroDeDibujo;
 }
 
-void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar, uint jugador, bool margen){
+void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar, uint jugador, bool esMargen){
 
 	uint yAbsolutoDePixel = 0;
 	uint xAbsolutoDePixel = 0;
@@ -122,7 +122,7 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 	BMP cuadrante;
 	std::string subdirectorio;
 
-	if(margen){
+	if(esMargen){
 		subdirectorio = directorioDeMargenes;
 	}else{
 		subdirectorio = directorioDeCasilleros;

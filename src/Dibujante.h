@@ -40,18 +40,18 @@ class Dibujante{
 	void inicializarCasilleros();
 
 	/*
-	 *
+	 * Post: Se muestran todos los jugadores con sus puntajes en 0.
 	 */
 	void inicializarPuntajes(uint cantidadDeJugadores);
 
 	/*
-	 *
+	 * Post: El tableroo tiene un margen inferior donde se van a dibujar los puntajes.
 	 */
 	void inicializarMargen(uint cantidadDeJugadores);
 
-	/*Pre: Es usado por el constructor. Se le pasan dos naturales.
+	/*
 	 * Post: La imagen tiene todos sus casilleros dibujados como cubiertos.
-	 *	Se crean los margenes de la imagen con lugar para anotar los puntajes de los jugadores.
+	 * 		 Se crean los margenes de la imagen con lugar para anotar los puntajes de los jugadores.
 	 */
 	void inicializarImagen(uint cantidadDeJugadores);
 
@@ -65,25 +65,25 @@ class Dibujante{
 
 	/*
 	 * Post: Devuelve el numero correspondiente al dibujo que se esta preparando.
-	 * Es decir, la cantidad de dibujos que ya se hicieron es ( informarNumeroDeDibujo() - 1 )
 	 */
 	uint informarNumeroDeDibujo();
 
-	/* Pre: el numero de fila o columna esta dentro del rango [0 ... ( filas o columnas del tablero - 1) ]
-	 *
-	 * Post: Se redibuja el cuadrante en la posicion indicada con el tipo de casillero pedido.
-	 * 		queDibujar es un string con el nombre del archivo fuente sin ".bmp".
+	/* Pre: el numero de fila (o columna) esta dentro del rango [0 .. filas (o columnas) del tablero - 1 ]
+	 * 	    queDibujar es un string con el nombre del archivo fuente sin ".bmp".
 	 * 		Por default, se aceptan los numeros del cero al ocho, "boom", "cubierto" y "bandera".
-	 */
-	void cambiarCuadrante(uint fila, uint columna, std::string queDibujar, uint jugador, bool margen);
-
-	/*
 	 *
+	 * Post: Se superpone el cuadrante en la posicion indicada con el tipo de casillero pedido.
+	 *
+	 */
+	void cambiarCuadrante(uint fila, uint columna, std::string queDibujar, uint jugador, bool esMargen);
+
+	/* Pre: El nroJugador esta entre 1 y el nro de jugadores pasados al crear el tablero.
+	 * Post: Dibuja el puntaje pasado a la derecha del numero de jugador.
 	 */
 	void cambiarPuntaje(int puntaje, uint nroJugador);
 
-	/*Post:	Guarda una nueva imagen BMP con los cambios aplicados al tablero.
-	 * El nombre de la imagen se crea de acuerdo a cuantas veces se llamo este metodo.
+	/* Post:	Guarda una nueva imagen BMP con los cambios aplicados al tablero.
+	 * 			El nombre de la imagen se crea de acuerdo a cuantas veces se llamo este metodo.
 	 */
 	void dibujarTablero();
 
