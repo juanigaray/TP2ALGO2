@@ -13,7 +13,7 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	directorioDeMargenes = "Margenes/";
 	directorioDePuntajes = "Puntajes/";
 	numeroDeDibujo = 1;
-	columnasMinimas = 15;
+	columnasMinimas = 20;
 	columnasDelTablero = cantidadDeColumnas;
 	filasDelTablero = cantidadDeFilas;
 
@@ -70,13 +70,17 @@ void Dibujante::inicializarPuntajes(uint cantidadDeJugadores){
 		cambiarCuadrante(6, filaDelJugador,"O", 0, true);
 		cambiarCuadrante(7, filaDelJugador,"R", 0, true);
 
-		if(nroJugador < 10){
-			//Podria ser mejorado, ver cuando ande todo
-			std::ostringstream numero;
-			numero << nroJugador;
-			cambiarCuadrante(8, filaDelJugador, numero.str() , 0, true);
-		}
+		std::ostringstream ostrJugador;
+		ostrJugador << nroJugador;
+		std::string strJugador = ostrJugador.str();
 
+		for(uint cifra = 0; cifra < strJugador.size() ; cifra++ ){
+
+			std::string directorio = strJugador.substr(cifra, 1);
+
+			cambiarCuadrante( 9 + cifra  , filaDelJugador, directorio , 0, true);
+		}
+		cambiarPuntaje(0, nroJugador);
 	}
 }
 
@@ -160,12 +164,26 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 	}
 }
 
-void Dibujante::cambiarPuntaje(int puntaje, uint jugador){
+void Dibujante::cambiarPuntaje(int puntaje, uint nroJugador){
 	if (puntaje != -1 ){
-		std::string nombreDeArchivo;
-		//Buscar como castear int a str
-		if (puntaje < 10){
 
+		uint filaDelJugador = filasDelTablero + 2 * nroJugador;
+
+		std::ostringstream ostrJugador;
+		ostrJugador << nroJugador;
+		std::string strJugador = ostrJugador.str();
+
+
+		std::ostringstream ostrPuntaje;
+		ostrPuntaje << puntaje;
+		std::string strPuntaje = ostrPuntaje.str();
+
+
+		for(uint cifra = 0; cifra < strPuntaje.size() ; cifra++ ){
+
+			std::string directorio =  directorioDePuntajes + strPuntaje.substr(cifra, 1);
+
+			cambiarCuadrante( 15 + cifra  , filaDelJugador, directorio , 0, true);
 
 		}
 	}

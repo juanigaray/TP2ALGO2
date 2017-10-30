@@ -80,7 +80,7 @@ class Dibujante{
 	/*
 	 *
 	 */
-	void cambiarPuntaje(int puntaje, uint jugador);
+	void cambiarPuntaje(int puntaje, uint nroJugador);
 
 	/*Post:	Guarda una nueva imagen BMP con los cambios aplicados al tablero.
 	 * El nombre de la imagen se crea de acuerdo a cuantas veces se llamo este metodo.
