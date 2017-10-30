@@ -30,4 +30,7 @@ public:
 
 	//POST VALIDA Y CAMBIA bienColocada
 	void validarColocacion(Lista<Bomba>* bombas);
+
+	//POST DEVUELVE EL JUGADOR QUE COLOCO LA BANDERA
+	Jugador* obtenerJugador();
 };

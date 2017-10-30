@@ -26,8 +26,6 @@ Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint
 	this->finDeJuego = false;
 	
 	this->inicializarListaDeBombas();
-	
-	Puntaje puntajes(this->dificultad);
 }
 
 uint Arbitro::pedirNumero(std::string mensaje){
@@ -79,7 +77,7 @@ void Arbitro::tomarUbicacionDeJugada(){
 
 void Arbitro::tomarJugada(){
 	Jugador jugador = this->devolverTurno();
-	
+	Puntaje puntajes (this->dificultad);
 	int puntajeJugador;
 	uint opcionElegida = tomarTipoDeJugada();
 	/*aca ya tengo la jugada
@@ -88,33 +86,33 @@ void Arbitro::tomarJugada(){
 	tomarUbicacionDeJugada();
 	//evaluar la jugada
 	if (opcionElegida == 1){
-		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, jugador.consultarNombre());
+		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, &jugador);
 							
 		//si no hay bandera poner bandera
 		if (!this->existeBandera(unaBandera)){
 				//agrego la bandera
 				this->listaDeBanderas.agregarElemento(unaBandera);
 				if (unaBandera.bienColocada()){ // es una bandera donde hay bomba
-					puntajeJugador = puntajes.devolverPuntos;
+					puntajeJugador = puntajes.devolverPuntos();
 				} else { // no hay bomba ahi
-					puntajeJugador = -puntajes.devolverPuntos;
+					puntajeJugador = -puntajes.devolverPuntos();
 				}
 				jugador.asignarPuntaje(puntajeJugador);
 			
 		} else { // existe entonces 
 			
 				// si no pertenece a este jugador entonces la quita		
-				Jugador propietarioBandera = unaBandera.obtenerJugador;
+				Jugador* propietarioBandera = unaBandera.obtenerJugador();
 				if (jugador.consultarNombre == propietarioBandera){ //es el mismo
 					// eliminar bandera de la lista 
 					/********* hacer una funcion ******/
 				} else { // es otro, caso en que corrige jugada del otro
 					if (unaBandera.bienColocada()){ // es una bandera donde hay bomba
 						// la quita pero le resta puntos porque si habia bomba
-						puntajeJugador = -puntajes.devolverPuntosEspeciales;
+						puntajeJugador = -puntajes.devolverPuntosEspeciales();
 					
 					} else { // era una bandera mal puesta
-						puntajeJugador = puntajes.devolverPuntosEspeciales;
+						puntajeJugador = puntajes.devolverPuntosEspeciales();
 					}
 					//eliminar bandera de la lista
 					jugador.asignarPuntaje(puntajeJugador);
@@ -131,6 +129,7 @@ void Arbitro::tomarJugada(){
 			//mostrar bombas circundantes
 		
 		
+}
 }
 
 uint Arbitro::devolverColumnaDeJugada(){
