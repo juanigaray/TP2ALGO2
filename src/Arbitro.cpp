@@ -7,6 +7,7 @@
  */
  
 #include "Arbitro.h"
+#include "Puntaje.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -25,6 +26,8 @@ Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint
 	this->finDeJuego = false;
 	
 	this->inicializarListaDeBombas();
+	
+	Puntaje puntajes(this->dificultad);
 }
 
 uint Arbitro::pedirNumero(std::string mensaje){
@@ -75,9 +78,9 @@ void Arbitro::tomarUbicacionDeJugada(){
 	
 
 void Arbitro::tomarJugada(){
-	jugador = declararTurno();
+	Jugador jugador = this->devolverTurno();
 	
-	int puntaje;
+	int puntajeJugador;
 	uint opcionElegida = tomarTipoDeJugada();
 	/*aca ya tengo la jugada
 	 1 colocar o quitar bandera
@@ -85,17 +88,18 @@ void Arbitro::tomarJugada(){
 	tomarUbicacionDeJugada();
 	//evaluar la jugada
 	if (opcionElegida == 1){
-		Bandera unaBandera (filaDeJugada, columnaDeJugada, jugador.consultarNombre());
+		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, jugador.consultarNombre());
+							
 		//si no hay bandera poner bandera
 		if (!this->existeBandera(unaBandera)){
 				//agrego la bandera
 				this->listaDeBanderas.agregarElemento(unaBandera);
 				if (unaBandera.bienColocada()){ // es una bandera donde hay bomba
-					puntaje = Puntaje.devolverPuntos;
+					puntajeJugador = puntajes.devolverPuntos;
 				} else { // no hay bomba ahi
-					puntaje = -Puntaje.devolverPuntos;
+					puntajeJugador = -puntajes.devolverPuntos;
 				}
-				jugador.asignarPuntaje(puntaje);
+				jugador.asignarPuntaje(puntajeJugador);
 			
 		} else { // existe entonces 
 			
@@ -107,28 +111,34 @@ void Arbitro::tomarJugada(){
 				} else { // es otro, caso en que corrige jugada del otro
 					if (unaBandera.bienColocada()){ // es una bandera donde hay bomba
 						// la quita pero le resta puntos porque si habia bomba
-						puntaje = -Puntaje.devolverPuntosEspeciales;
+						puntajeJugador = -puntajes.devolverPuntosEspeciales;
 					
 					} else { // era una bandera mal puesta
-						puntaje = Puntaje.devolverPuntosEspeciales;
+						puntajeJugador = puntajes.devolverPuntosEspeciales;
 					}
 					//eliminar bandera de la lista
-					jugador.asignarPuntaje(puntaje);
+					jugador.asignarPuntaje(puntajeJugador);
 				}
 		}
 		
 	} else { //opcion 2
 		// ver si las coordenadas son validas
 		
+	//al destapar un casillero
+	//si hay bomba
+		jugador.asignarEstado = true; // (perdio)
+		// sino 
+			//mostrar bombas circundantes
+		
 		
 }
 
 uint Arbitro::devolverColumnaDeJugada(){
-	return columnaDeJugada;
+	return columnaDeJugada-1;
 }
 
 uint Arbitro::devolverFilaDeJugada(){
-	return filaDeJugada;
+	return filaDeJugada-1;
 }
 	
 std::string Arbitro::devolverTipoDeJugada(){
@@ -149,7 +159,7 @@ void Arbitro::declararTurno(){
 int Arbitro::devolverPuntaje(int puntos, Jugador recienJugo){
 	if(puntos == 0)
 	return -1;
-	recienJugo.asignarPuntaje(puntos);
+	recienJugo.asignarPuntaje(puntos); // ???
 	return recienJugo.consultarPuntaje();
 }
 
@@ -206,26 +216,10 @@ bool Arbitro::existeBandera(Bandera bandera){
 	 while (listaDeBanderas.avanzarCursor()) {
 		 Bandera banderaEnLista = listaDeBanderas.obtenerCursor();
 		 if(bandera.obtenerCoordenadaX() == banderaEnLista.obtenerCoordenadaX()
-				 && badera.obtenerCoordenadaY() == banderaEnLista.obtenerCoordenadaY()){
+				 && bandera.obtenerCoordenadaY() == banderaEnLista.obtenerCoordenadaY()){
 			 return true;
 		 }
 	 }
 
 	return false;
 }
-
-//al destapar un casillero
-	//si hay bomba
-		jugador.asignarEstado = true; (perdio)
-		
-//poner bandera
-	//si hay bomba
-		sumar puntaje.devolverPuntos
-		// sino (no hay)
-			restar puntaje.devolverPuntos
-
-//si bandera y corrige al jugador...
-	// si no hay bomba
-		sumarle puntaje.devolverPuntosEspeciales
-		//sino (la bandera estaba bien colocada)
-			restarle puntaje.devolverPuntosEspeciales

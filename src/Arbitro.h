@@ -58,7 +58,7 @@ class Arbitro{
 	 */
 	uint pedirNumero(std::string mensaje, uint numeroMaximo);
 
-	/*
+	/*para cancer de
 	 *
 	 */
 	uint tomarTipoDeJugada();
@@ -139,6 +139,11 @@ class Arbitro{
 	 * Post: 
 	 */
 	bool terminoElJuego();
+	
+	/*
+	 * Post
+	 */
+	//eliminarBandera();
 
 };
 
