@@ -76,7 +76,7 @@ void Arbitro::tomarUbicacionDeJugada(){
 	
 
 void Arbitro::tomarJugada(){
-	Jugador jugador = this->devolverTurno();
+	this->jugadorActual = this->devolverTurno();
 	Puntaje puntajes (this->dificultad);
 	int puntajeJugador;
 	uint opcionElegida = tomarTipoDeJugada();
@@ -86,7 +86,7 @@ void Arbitro::tomarJugada(){
 	tomarUbicacionDeJugada();
 	//evaluar la jugada
 	if (opcionElegida == 1){
-		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, &jugador);
+		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, &jugadorActual);
 							
 		//si no hay bandera poner bandera
 		if (!this->existeBandera(unaBandera)){
@@ -97,13 +97,13 @@ void Arbitro::tomarJugada(){
 				} else { // no hay bomba ahi
 					puntajeJugador = -puntajes.devolverPuntos();
 				}
-				jugador.asignarPuntaje(puntajeJugador);
+				jugadorActual.asignarPuntaje(puntajeJugador);
 			
 		} else { // existe entonces 
 			
 				// si no pertenece a este jugador entonces la quita		
 				Jugador* propietarioBandera = unaBandera.obtenerJugador();
-				if (jugador.consultarNombre == propietarioBandera){ //es el mismo
+				if (jugadorActual.consultarNombre == propietarioBandera){ //es el mismo
 					// eliminar bandera de la lista 
 					/********* hacer una funcion ******/
 				} else { // es otro, caso en que corrige jugada del otro
@@ -124,7 +124,7 @@ void Arbitro::tomarJugada(){
 		
 	//al destapar un casillero
 	//si hay bomba
-		jugador.asignarEstado = true; // (perdio)
+		jugadorActual.asignarEstado = true; // (perdio)
 		// sino 
 			//mostrar bombas circundantes
 		
@@ -155,11 +155,14 @@ void Arbitro::declararTurno(){
 
 }
 	
-int Arbitro::devolverPuntaje(int puntos, Jugador recienJugo){
-	if(puntos == 0)
-	return -1;
-	recienJugo.asignarPuntaje(puntos); // ???
-	return recienJugo.consultarPuntaje();
+int Arbitro::devolverPuntaje(){  ////// MODIFICADO
+	int puntajeJugador = jugadorActual.consultarPuntaje();
+	if (puntajeJugador <= 0) {
+		return -1;
+	} else {
+		return puntajeJugador;
+	}
+	
 }
 
 bool Arbitro::terminoElJuego(){
