@@ -7,6 +7,13 @@
 	this->bienColocada = false;
 }
 
+	Bandera::Bandera(){
+		this->bienColocada = false;
+		this->coordenadas[0] = 0;
+		this->coordenadas[1] = 0;
+		this->jugador = 0;
+
+	}
 	//POST CAMBIA COORDENADA X
 	void Bandera::cambiarCoordenadaX(int coordX){
 		this->coordenadas[0] = coordX;

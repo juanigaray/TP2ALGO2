@@ -12,15 +12,14 @@ class Puntaje{
 
 	uint puntos;
 	uint puntosEspeciales;
-	
-
-	/* Pre puntaje recibe la dificultad
-	 * Post inicializa los puntajes de acuerdo a la dificultad
-	 */
-	Puntaje(uint dificultad);
 
 
   public:
+
+	/* Pre puntaje recibe la dificultad
+		 * Post inicializa los puntajes de acuerdo a la dificultad
+		 */
+		Puntaje(uint dificultad);
   
   	/* 
 	 * Post devuelve puntaje estandar

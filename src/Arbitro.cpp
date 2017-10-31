@@ -77,7 +77,7 @@ void Arbitro::tomarUbicacionDeJugada(){
 
 void Arbitro::tomarJugada(){
 	Jugador jugador = this->devolverTurno();
-	Puntaje puntajes (this->dificultad);
+	Puntaje puntajes(this->dificultad);
 	int puntajeJugador;
 	uint opcionElegida = tomarTipoDeJugada();
 	/*aca ya tengo la jugada
@@ -92,7 +92,7 @@ void Arbitro::tomarJugada(){
 		if (!this->existeBandera(unaBandera)){
 				//agrego la bandera
 				this->listaDeBanderas.agregarElemento(unaBandera);
-				if (unaBandera.bienColocada()){ // es una bandera donde hay bomba
+				if (unaBandera.banderaBienColocada()){ // es una bandera donde hay bomba
 					puntajeJugador = puntajes.devolverPuntos();
 				} else { // no hay bomba ahi
 					puntajeJugador = -puntajes.devolverPuntos();
@@ -103,11 +103,11 @@ void Arbitro::tomarJugada(){
 			
 				// si no pertenece a este jugador entonces la quita		
 				Jugador* propietarioBandera = unaBandera.obtenerJugador();
-				if (jugador.consultarNombre == propietarioBandera){ //es el mismo
+				if (jugador.consultarNombre() == propietarioBandera->consultarNombre()){ //es el mismo
 					// eliminar bandera de la lista 
 					/********* hacer una funcion ******/
 				} else { // es otro, caso en que corrige jugada del otro
-					if (unaBandera.bienColocada()){ // es una bandera donde hay bomba
+					if (unaBandera.banderaBienColocada()){ // es una bandera donde hay bomba
 						// la quita pero le resta puntos porque si habia bomba
 						puntajeJugador = -puntajes.devolverPuntosEspeciales();
 					
@@ -124,7 +124,7 @@ void Arbitro::tomarJugada(){
 		
 	//al destapar un casillero
 	//si hay bomba
-		jugador.asignarEstado = true; // (perdio)
+		jugador.asignarEstado(true); // (perdio)
 		// sino 
 			//mostrar bombas circundantes
 		
@@ -139,12 +139,12 @@ uint Arbitro::devolverColumnaDeJugada(){
 uint Arbitro::devolverFilaDeJugada(){
 	return filaDeJugada-1;
 }
-	
+
 std::string Arbitro::devolverTipoDeJugada(){
 	//Sacar del objeto Jugada
 	return "bandera";
 }
-	
+
 Jugador Arbitro::devolverTurno(){
 	return listaDeJugadores.obtenerCursor();
 }

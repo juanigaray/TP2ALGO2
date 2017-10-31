@@ -40,7 +40,8 @@ int main(){
 			dibujante.cambiarCuadrante( arbitro.devolverColumnaDeJugada(),
 										arbitro.devolverFilaDeJugada(),
 										arbitro.devolverTipoDeJugada(),
-										arbitro.devolverTurno());
+										arbitro.devolverTurno(),
+										false);
 
 			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
 										arbitro.devolverTurno()  );
