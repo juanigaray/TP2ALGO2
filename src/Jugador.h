@@ -2,6 +2,7 @@
 #define JUGADOR_H
 
 #include <iostream>
+
 class Jugador{
 
 	private:
@@ -9,7 +10,7 @@ class Jugador{
 		int puntaje;
 		bool eliminado;
 		std::string nombre;
-		int numeroJugador;
+		unsigned int numeroJugador;
 	public:
 
 		/* pre:
@@ -45,7 +46,7 @@ class Jugador{
 		/* pre:
 		 * post: Devuelve el numero del jugador
 		 */
-		int consultarNumero();
+		unsigned int consultarNumero();
 
 		/*
 		 * post Devuelve el estado del jugador

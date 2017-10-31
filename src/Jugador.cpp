@@ -28,3 +28,6 @@ std::string Jugador::consultarNombre(){
 	return this->nombre;
 }
 
+unsigned int Jugador::consultarNumero(){
+    return this->numeroJugador;
+}

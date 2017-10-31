@@ -5,13 +5,12 @@
  *  Created on: Oct 22, 2017
  *      Author: juan
  */
- 
+
 #include "Arbitro.h"
-#include "Puntaje.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
- 
+
 Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* listaDeNombresDeJugadores){
 
 	this->dificultad = dificultadPedida;
@@ -24,7 +23,7 @@ Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint
 	this->filaDeJugada = 0;
 
 	this->finDeJuego = false;
-	
+
 	this->inicializarListaDeBombas();
 }
 
@@ -61,7 +60,7 @@ uint Arbitro::tomarTipoDeJugada(){
 	std::string mensajeDeOpciones = pedido + opcion1 + opcion2;
 
 	uint tipoDeJugada = pedirNumero(mensajeDeOpciones, 3);
-	
+
 	return tipoDeJugada;
 
 }
@@ -73,20 +72,23 @@ void Arbitro::tomarUbicacionDeJugada(){
 		this->tomarUbicacionDeJugada();
 }
 
-	
+
 
 void Arbitro::tomarJugada(){
 	// obtener el jugador
 	this->listaDeJugadores.iniciarCursor();
 	bool salir = false;
+
+
 	while ( (listaDeJugadores.avanzarCursor()) && (!salir) ) {
 		this->jugadorActual = listaDeJugadores.obtenerCursor();
-			 if(jugadorActual.consultarNumero() == this->devolverTurno()){
+        if(jugadorActual.consultarNumero() == this->devolverTurno()){
 				 salir = true;
-			 }
-		 }
 
-	this->jugadorActual = this->devolverTurno();
+				 this->jugadorActual = jugadorActual;
+        }
+    }
+
 	Puntaje puntajes (this->dificultad);
 	int puntajeJugador;
 	uint opcionElegida = tomarTipoDeJugada();
@@ -97,7 +99,7 @@ void Arbitro::tomarJugada(){
 	//evaluar la jugada
 	if (opcionElegida == 1){
 		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, &jugadorActual);
-							
+
 		//si no hay bandera poner bandera
 		if (!this->existeBandera(unaBandera)){
 				//agrego la bandera
@@ -109,10 +111,10 @@ void Arbitro::tomarJugada(){
 					puntajeJugador = -puntajes.devolverPuntos();
 				}
 				this->jugadorActual.asignarPuntaje(puntajeJugador);
-			
-		} else { // existe entonces 
-			
-				// si no pertenece a este jugador entonces la quita		
+
+		} else { // existe entonces
+
+				// si no pertenece a este jugador entonces la quita
 				Jugador* propietarioBandera = unaBandera.obtenerJugador();
 				if (this->jugadorActual.consultarNombre() == propietarioBandera->consultarNombre()){ //es el mismo
 					// elimina bandera de la lista cuando sale
@@ -123,7 +125,7 @@ void Arbitro::tomarJugada(){
 						// la quita cuando sale pero le resta puntos porque si habia bomba
 						puntajeJugador = -puntajes.devolverPuntosEspeciales();
 						this->tipoDeJugada = "cubierto";
-					
+
 					} else { // era una bandera mal puesta
 						puntajeJugador = puntajes.devolverPuntosEspeciales();
 					}
@@ -132,9 +134,9 @@ void Arbitro::tomarJugada(){
 				// elimina la bandera
 				this->eliminarBandera(unaBandera);
 		}
-		
+
 	} else { //opcion 2
-		
+
 		// ver si las coordenadas son validas
 		Bomba supuestaBomba(this->columnaDeJugada, this->filaDeJugada);
 		//si hay bomba
@@ -160,15 +162,15 @@ std::string Arbitro::devolverTipoDeJugada(){
 }
 
 uint Arbitro::devolverTurno(){
-	return listaDeJugadores.obtenerCursor().consultarNumero;
+	return (uint)listaDeJugadores.obtenerCursor().consultarNumero();
 }
-	
+
 void Arbitro::declararTurno(){
 	Jugador jugador = listaDeJugadores.obtenerCursor();
 	std::cout << "Es el turno del jugador "<< jugador.consultarNombre() << std::endl;
 
 }
-	
+
 int Arbitro::devolverPuntaje(){
 	int puntajeJugador = jugadorActual.consultarPuntaje();
 	if (puntajeJugador <= 0) {
@@ -176,7 +178,7 @@ int Arbitro::devolverPuntaje(){
 	} else {
 		return puntajeJugador;
 	}
-	
+
 }
 
 bool Arbitro::terminoElJuego(){
