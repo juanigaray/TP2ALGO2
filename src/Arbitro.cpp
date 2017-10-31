@@ -77,7 +77,7 @@ void Arbitro::tomarUbicacionDeJugada(){
 
 void Arbitro::tomarJugada(){
 	this->jugadorActual = this->devolverTurno();
-	Puntaje puntajes (this->dificultad);
+	Puntaje puntajes(this->dificultad);
 	int puntajeJugador;
 	uint opcionElegida = tomarTipoDeJugada();
 	/*aca ya tengo la jugada
@@ -224,4 +224,21 @@ bool Arbitro::existeBandera(Bandera bandera){
 	 }
 
 	return false;
+}
+
+void Arbitro::eliminarBandera(Bandera banderaABorrar){
+	this->listaDeBanderas.iniciarCursor();
+	bool encontrado = false;
+	int posicion = 0;
+	while(listaDeBanderas.avanzarCursor() && encontrado ){
+		posicion++;
+		Bandera bandera = listaDeBanderas.obtenerCursor();
+		if(banderaABorrar.obtenerCoordenadaX() == bandera.obtenerCoordenadaX() &&
+			banderaABorrar.obtenerCoordenadaY() == bandera.obtenerCoordenadaY()){
+			encontrado = true;
+			listaDeBanderas.removerNodo(posicion);
+		}
+
+	}
+
 }

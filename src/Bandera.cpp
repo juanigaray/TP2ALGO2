@@ -43,7 +43,7 @@
 	void Bandera::validarColocacion(Lista<Bomba>* bombas){
 		bool encontrado = false;
 		bombas->iniciarCursor();
-		while (bombas->avanzarCursor() || !encontrado ){
+		while (bombas->avanzarCursor() && !encontrado ){
 			Bomba bomba = bombas->obtenerCursor();
 			if(bomba.obtenerCoordenadaX() == this->coordenadas[0] &&
 					bomba.obtenerCoordenadaY() == this->coordenadas[1]){

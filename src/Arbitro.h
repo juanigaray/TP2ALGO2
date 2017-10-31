@@ -143,7 +143,7 @@ class Arbitro{
 	/*
 	 * Post
 	 */
-	//eliminarBandera();
+	void eliminarBandera(Bandera bandera);
 
 };
 

@@ -10,7 +10,7 @@ typedef unsigned int uint;
 #include "Presentador.h"
 #include "Dibujante.h"
 #include "Arbitro.h"
-#include "Lista.h"
+
 
 int main(){
 
