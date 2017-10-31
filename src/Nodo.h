@@ -24,7 +24,7 @@ public:
     T obtenerDato();
 /*
 *Post: cambia el dato del nodo
-*/   
+*/
     void cambiarDato(T datoNuevo);
 /*
 *Post: Devuelve el siguiente del nodo actual

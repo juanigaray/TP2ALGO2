@@ -8,7 +8,7 @@
 
 Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
 
-	directorioDeImagenesFuente = "src/ImagenesFuente/";
+	directorioDeImagenesFuente = "ImagenesFuente/";
 	directorioDeCasilleros = "Casilleros/";
 	directorioDeMargenes = "Margenes/";
 	directorioDePuntajes = "Puntajes/";
@@ -27,7 +27,9 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	filasTotalesImagen = filasDelTablero + 2 * (cantidadDeJugadores + 1);
 
 	BMP ejemploDeImagenFuente;
-	ejemploDeImagenFuente.ReadFromFile("src/ImagenesFuente/Casilleros/0.bmp");
+	std::string directorioDeEjemplo = directorioDeImagenesFuente + directorioDeCasilleros + "0.bmp";
+	char* directorioLegible = &directorioDeEjemplo[0];
+	ejemploDeImagenFuente.ReadFromFile(directorioLegible);
 
 	alturaDeCuadrante = ejemploDeImagenFuente.TellHeight();
 	anchoDeCuadrante = ejemploDeImagenFuente.TellWidth();

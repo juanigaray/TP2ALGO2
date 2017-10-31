@@ -8,6 +8,13 @@ Jugador::Jugador(std::string nom, int numJugador){
 	this->numeroJugador = numJugador;
 }
 
+Jugador::Jugador(){
+	this->eliminado = false;
+	this->puntaje = 0;
+	this->nombre = "JUGADOR AUXILIAR";
+	this->numeroJugador = 0;
+}
+
 void Jugador::asignarEstado(bool opcion){
 	this->eliminado = opcion;
 }
