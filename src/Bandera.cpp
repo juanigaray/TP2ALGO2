@@ -1,4 +1,4 @@
-
+#include "Bandera.h"
 	//POST Crea Bandera POR DEFECTO VA A ESTAR EN FALSE EL bienColocada
 	Bandera::Bandera(int coordenadaX, int coordenadaY, Jugador* jugador){
 	this->coordenadas[0] = coordenadaX;

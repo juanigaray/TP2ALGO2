@@ -1,6 +1,9 @@
 #ifndef BANDERA_H
 #define BANDERA_H
 #endif
+#include "Jugador.h"
+#include "Bomba.h"
+#include "Lista.h"
 typedef int Coordenada[2];
 class Bandera{
 private:

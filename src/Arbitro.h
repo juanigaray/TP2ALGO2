@@ -29,7 +29,7 @@ class Arbitro{
 	uint filaDeJugada;
 
 	bool finDeJuego;
-	//Jugador jugadorActual;
+	Jugador jugadorActual;
 	
 	Lista<Jugador> listaDeJugadores;
 	Lista<Bomba> listaDeBombas;
@@ -133,7 +133,7 @@ class Arbitro{
 	 * Post: Devuelve el puntaje total del jugador que jugo ultimo.
 	 *	 Devuelve -1 si no se modifica.
 	 */
-	int devolverPuntaje(int puntos, Jugador recienJugo);
+	int devolverPuntaje();
 	
 	/*
 	 * Post: 
