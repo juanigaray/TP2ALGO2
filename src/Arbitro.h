@@ -35,6 +35,8 @@ class Arbitro{
 	Lista<Bomba> listaDeBombas;
 	Lista<Bandera> listaDeBanderas;
 
+	cadena tipoDeJugada;
+
 	/*
 	 * Post inicializa la lista de jugadores con los jugadores creados
 	 */
@@ -84,6 +86,11 @@ class Arbitro{
 	  */
 	bool existeBandera(Bandera bandera);
 
+	/*
+	 * Devuelve un jugador. lo obtiene de la lista
+	 */
+	Jugador devolverJugador();
+
   public:
 	/* Pre: Se le pasan numeros naturales.
 	 * Post: Crea un arbitro listo para pasarle jugadas
@@ -122,7 +129,7 @@ class Arbitro{
 	 * Post: Devuelve el numero de jugador que realizo la ultima jugada.
 	 * No avanza el cursor
 	 */
-	Jugador devolverTurno();
+	uint devolverTurno();
 	
 	/*
 	 *
@@ -144,6 +151,9 @@ class Arbitro{
 	 * Post
 	 */
 	void eliminarBandera(Bandera bandera);
+
+
+
 
 };
 

@@ -76,6 +76,16 @@ void Arbitro::tomarUbicacionDeJugada(){
 	
 
 void Arbitro::tomarJugada(){
+	// obtener el jugador
+	this->listaDeJugadores.iniciarCursor();
+	bool salir = false;
+	while ( (listaDeJugadores.avanzarCursor()) && (!salir) ) {
+		this->jugadorActual = listaDeJugadores.obtenerCursor();
+			 if(jugadorActual.consultarNumero() == this->devolverTurno()){
+				 salir = true;
+			 }
+		 }
+
 	this->jugadorActual = this->devolverTurno();
 	Puntaje puntajes (this->dificultad);
 	int puntajeJugador;
@@ -149,8 +159,8 @@ std::string Arbitro::devolverTipoDeJugada(){
 	return this->tipoDeJugada;
 }
 
-Jugador Arbitro::devolverTurno(){
-	return listaDeJugadores.obtenerCursor();
+uint Arbitro::devolverTurno(){
+	return listaDeJugadores.obtenerCursor().consultarNumero;
 }
 	
 void Arbitro::declararTurno(){
@@ -172,6 +182,7 @@ int Arbitro::devolverPuntaje(){
 bool Arbitro::terminoElJuego(){
 	return finDeJuego;
 }
+
 void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores){
 	for(int i = 0; i < cantidadJugadores; i++){
 	Jugador jugador(nombres[0], i);
@@ -191,8 +202,7 @@ void Arbitro::inicializarListaDeBombas(){
 	}
 }
 
-void Arbitro::crearBombas(int cantBombas)
-{
+void Arbitro::crearBombas(int cantBombas){
 	while (cantBombas != 0)
 	{
 		int fila = rand() % (filaMaxima);
