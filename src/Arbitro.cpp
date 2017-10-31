@@ -15,7 +15,6 @@ Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint
 
 	this->dificultad = dificultadPedida;
 	this->cantJugadores = numeroDeJugadores;
-
 	this->filaMaxima = filas;
 	this->columnaMaxima = columnas;
 
@@ -23,14 +22,12 @@ Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint
 	this->filaDeJugada = 0;
 
 	this->finDeJuego = false;
-
 	this->inicializarListaDeBombas();
 }
 
 uint Arbitro::pedirNumero(std::string mensaje){
 
 	uint numeroIngresado;
-
 	std::cout << mensaje << std::endl;
 	std::cin >> numeroIngresado;
 	if(numeroIngresado == 0){
@@ -43,7 +40,6 @@ uint Arbitro::pedirNumero(std::string mensaje){
 uint Arbitro::pedirNumero(std::string mensaje, uint numeroMaximo){
 
 	uint numeroIngresado;
-
 	std::cout << mensaje << std::endl;
 	std::cin >> numeroIngresado;
 	if(numeroIngresado == 0 || numeroIngresado > numeroMaximo){
@@ -54,15 +50,14 @@ uint Arbitro::pedirNumero(std::string mensaje, uint numeroMaximo){
 }
 
 uint Arbitro::tomarTipoDeJugada(){
+
 	std::string pedido = "Ingrese el numero de la opcion elegida: \n";
 	std::string opcion1 = "1) Colocar / quitar bandera \n";
 	std::string opcion2 = "2) Descubrir casillero \n";
 	std::string mensajeDeOpciones = pedido + opcion1 + opcion2;
 
 	uint tipoDeJugada = pedirNumero(mensajeDeOpciones, 3);
-
 	return tipoDeJugada;
-
 }
 
 void Arbitro::tomarUbicacionDeJugada(){
@@ -187,21 +182,22 @@ bool Arbitro::terminoElJuego(){
 
 void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores){
 	for(int i = 0; i < cantidadJugadores; i++){
-	Jugador jugador(nombres[0], i);
-	listaDeJugadores.agregarElemento(jugador);
+        Jugador jugador(nombres[0], i);
+        listaDeJugadores.agregarElemento(jugador);
 	}
 }
 
 void Arbitro::inicializarListaDeBombas(){
 	if(this->dificultad == 1){
+
 		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.15);
-	} else {
-		if(this->dificultad == 2){
-				crearBombas((this->filaMaxima * this->columnaMaxima) * 0.25);
-			} else {
-				crearBombas((this->filaMaxima * this->columnaMaxima) * 0.35);
-			}
-	}
+	} else if(this->dificultad == 2){
+
+            crearBombas((this->filaMaxima * this->columnaMaxima) * 0.25);
+    } else {
+
+        crearBombas((this->filaMaxima * this->columnaMaxima) * 0.35);
+    }
 }
 
 void Arbitro::crearBombas(int cantBombas){

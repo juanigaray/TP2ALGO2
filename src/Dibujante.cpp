@@ -60,7 +60,6 @@ void Dibujante::inicializarCasilleros(){
 
 void Dibujante::inicializarPuntajes(uint cantidadDeJugadores){
 
-
 	for(uint nroJugador = 1; nroJugador <= cantidadDeJugadores; nroJugador++){
 
 		uint filaDelJugador = filasDelTablero + 2 * nroJugador;
@@ -79,7 +78,6 @@ void Dibujante::inicializarPuntajes(uint cantidadDeJugadores){
 		for(uint cifra = 0; cifra < strJugador.size() ; cifra++ ){
 
 			std::string directorio = strJugador.substr(cifra, 1);
-
 			cambiarCuadrante( 9 + cifra  , filaDelJugador, directorio , 0, true);
 		}
 		cambiarPuntaje(0, nroJugador);
