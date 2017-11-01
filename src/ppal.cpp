@@ -20,7 +20,6 @@ int main(){
 	while(jugarDeNuevo){
 
 		Presentador presentador;
-		//presentador.mostrarPresentacion();
 		presentador.pedirDatosDeJuego();
 
 		Dibujante dibujante( presentador.devolverColumnas(),
