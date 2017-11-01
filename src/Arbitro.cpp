@@ -132,6 +132,8 @@ void Arbitro::tomarJugada(){
 		if (existeBomba(supuestaBomba)){
 			this->jugadorActual->asignarEstado(true); // (perdio)
 			this->tipoDeJugada = "boom";
+			// se saca de la lista de jugadores y se agrega a la de eliminados
+			this->eliminarJugador();
 		} else { //Debo pasar en string el numero de bombas circundantes.
 
 			uint numeroDeBombasCircundantes = evaluarBombasCircundantes(columnaDeJugada, filaDeJugada);
@@ -164,11 +166,11 @@ uint Arbitro::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasi
 }
 
 uint Arbitro::devolverColumnaDeJugada(){
-	return columnaDeJugada-1;
+	return columnaDeJugada;
 }
 
 uint Arbitro::devolverFilaDeJugada(){
-	return filaDeJugada-1;
+	return filaDeJugada;
 }
 
 std::string Arbitro::devolverTipoDeJugada(){
@@ -268,6 +270,22 @@ void Arbitro::eliminarBandera(Bandera banderaABorrar){
 			listaDeBanderas.removerNodo(posicion);
 		}
 	}
+}
+
+void Arbitro::eliminarJugador(){
+	this->listaDeJugadores.iniciarCursor();
+	bool encontrado = false;
+	int posicion = 0;
+	while(listaDeJugadores.avanzarCursor() && encontrado ){
+		posicion++;
+		Jugador unJugador = listaDeJugadores.obtenerCursor();
+		if( this->jugadorActual->consultarNombre() == unJugador.consultarNombre() ){
+			encontrado = true;
+		}
+	}
+	Jugador jugadorEliminado = this->listaDeJugadores.obtener(posicion);
+	// se agrega a la lista de eliminados
+	this->listaDeJugadoresEliminados.agregarElemento(jugadorEliminado);
 }
 
 uint Arbitro::devolverColumnaMaxima(){

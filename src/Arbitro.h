@@ -33,6 +33,7 @@ class Arbitro{
 	Jugador* jugadorActual;
 
 	Lista<Jugador> listaDeJugadores;
+	Lista<Jugador> listaDeJugadoresEliminados;
 	Lista<Bomba> listaDeBombas;
 	Lista<Bandera> listaDeBanderas;
 
@@ -91,6 +92,12 @@ class Arbitro{
 	 * Devuelve un jugador. lo obtiene de la lista
 	 */
 	Jugador devolverJugador();
+
+	/*
+	 * Elimina al jugador de la listaDeJugadores
+	 * lo agrega a la listaDeJugadoresEliminados
+	 */
+	void Arbitro::eliminarJugador()
 
   public:
 	/* Pre: Se le pasan numeros naturales.
@@ -174,6 +181,11 @@ class Arbitro{
 	 * POST devuelve la columna Maxima
 	 */
 	uint devolverColumnaMaxima();
+
+	/*
+	 * post devuelve true si termino la partida
+	 */
+	bool terminoLaPartida();
 
 };
 
