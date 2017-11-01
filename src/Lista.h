@@ -8,10 +8,9 @@ class Lista{
 
   private:
 	Nodo<T>* primero;
+    Nodo<T>* cursor;
 
     unsigned int tamanio;
-
-   Nodo<T>* cursor;
 
 
     //Devuelve el nodo de la posicion buscada
@@ -40,7 +39,7 @@ class Lista{
      * post: devuelve el elemento en la posición del cursor.
      *
      */
-    T obtenerCursor();
+    T* obtenerCursor();
 
     /*
      * post: indica si la Lista tiene algún elemento.
@@ -81,23 +80,19 @@ template<class T>Nodo<T>* Lista<T>::obtenerNodo(int posicion){
 	    for (int i = 1; i < posicion; i++) {
 	        actual = actual->obtenerSiguiente();
 	    }
-	 std::cout << "nodo obtenido" << std::endl;
-
 	    return actual;
-	}
+}
 
 
 template<class T> Lista<T>::Lista(){
         primero = NULL;
         tamanio = 0;
         cursor = NULL;
-        std::cout << "Lista creada" << std::endl;
-    }
+}
 
 
 template<class T>void Lista<T>::iniciarCursor(){
     this->cursor = NULL;
-    std::cout << "Cursor iniciado" << std::endl;
 }
 
 template<class T> bool Lista<T>::avanzarCursor(){
@@ -107,35 +102,21 @@ template<class T> bool Lista<T>::avanzarCursor(){
         } else {
            cursor = cursor->obtenerSiguiente();
         }
-        std::cout << "Cursor avanzado" << std::endl;
-
         return (cursor != NULL);
-    }
+}
 
-template<class T> T Lista<T>::obtenerCursor(){
-
-    T elemento;
-
-    if (cursor != NULL) {
-
-        elemento = cursor->obtenerDato();
-    }
-    std::cout << "Cursor obtenido" << std::endl;
-
-    return elemento;
+template<class T> T* Lista<T>::obtenerCursor(){
+        return cursor->obtenerDato();
 }
 
 
 template<class T> bool Lista<T>::estaVacia(){
-    	std::cout << "Esta vacia?" << std::endl;
         return (primero == NULL);
-    }
+}
 
 template<class T> unsigned int Lista<T>::contarElementos(){
-    	std::cout << "elementos contados" << std::endl;
     	return tamanio;
-
-    }
+}
 
 template<class T> void Lista<T>::agregarElemento(T elemento){
    		Nodo<T> *nuevo = new Nodo<T>(elemento);
@@ -147,13 +128,9 @@ template<class T> void Lista<T>::agregarElemento(T elemento){
         anterior->cambiarSiguiente(nuevo);
     	}
         	tamanio ++;
-        std::cout << "Nuevo agregado" << std::endl;
-
     }
 
 template<class T> T Lista<T>::obtener(unsigned int posicion){
-  	std::cout << "Dato obtenido" << std::endl;
-
       return obtenerNodo(posicion)->obtenerDato();
   }
 template<class T> void Lista<T>::removerNodo(unsigned int posicion){
@@ -169,16 +146,14 @@ template<class T> void Lista<T>::removerNodo(unsigned int posicion){
        }
        delete nodoARemover;
        tamanio --;
-       std::cout << "Nodo Removido" << std::endl;
+}
 
-   }
 template<class T>Lista<T>:: ~Lista(){
 
     while (primero != NULL) {
 
         Nodo<T>* aBorrar = primero;
         primero = primero->obtenerSiguiente();
-        std::cout << "Nodo Borrado" << std::endl;
 
         delete aBorrar;
     }

@@ -22,6 +22,7 @@ Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint
 	this->filaDeJugada = 0;
 
 	this->finDeJuego = false;
+	this->jugadorActual = 0;
 	this->inicializarListaDeBombas();
 }
 
@@ -75,9 +76,9 @@ void Arbitro::tomarJugada(){
 	bool salir = false;
 
 
-	while ( (listaDeJugadores.avanzarCursor()) && (!salir) ) {
+	while ( (listaDeJugadores.avanzarCursor()) && (!salir) ){
 		this->jugadorActual = listaDeJugadores.obtenerCursor();
-        if(jugadorActual.consultarNumero() == this->devolverTurno()){
+        if(jugadorActual->consultarNumero() == this->devolverTurno()){
 				 salir = true;
 
 				 this->jugadorActual = jugadorActual;
@@ -93,7 +94,7 @@ void Arbitro::tomarJugada(){
 	tomarUbicacionDeJugada();
 	//evaluar la jugada
 	if (opcionElegida == 1){
-		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, &jugadorActual);
+		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, jugadorActual);
 
 		//si no hay bandera poner bandera
 		if (!this->existeBandera(unaBandera)){
@@ -105,13 +106,13 @@ void Arbitro::tomarJugada(){
 				} else { // no hay bomba ahi
 					puntajeJugador = -puntajes.devolverPuntos();
 				}
-				this->jugadorActual.asignarPuntaje(puntajeJugador);
+				this->jugadorActual->asignarPuntaje(puntajeJugador);
 
 		} else { // existe entonces
 
 				// si no pertenece a este jugador entonces la quita
 				Jugador* propietarioBandera = unaBandera.obtenerJugador();
-				if (this->jugadorActual.consultarNombre() == propietarioBandera->consultarNombre()){ //es el mismo
+				if (this->jugadorActual->consultarNombre() == propietarioBandera->consultarNombre()){ //es el mismo
 					// elimina bandera de la lista cuando sale
 					this->tipoDeJugada = "cubierto";
 					/********* hacer una funcion ******/
@@ -124,7 +125,7 @@ void Arbitro::tomarJugada(){
 					} else { // era una bandera mal puesta
 						puntajeJugador = puntajes.devolverPuntosEspeciales();
 					}
-					this->jugadorActual.asignarPuntaje(puntajeJugador);
+					this->jugadorActual->asignarPuntaje(puntajeJugador);
 				}
 				// elimina la bandera
 				this->eliminarBandera(unaBandera);
@@ -136,7 +137,7 @@ void Arbitro::tomarJugada(){
 		Bomba supuestaBomba(this->columnaDeJugada, this->filaDeJugada);
 		//si hay bomba
 		if (existeBomba(supuestaBomba)){
-			this->jugadorActual.asignarEstado(true); // (perdio)
+			this->jugadorActual->asignarEstado(true); // (perdio)
 			this->tipoDeJugada = "boom";
 		} else {
 			this->tipoDeJugada = "0"; //no hay nada
@@ -157,17 +158,17 @@ std::string Arbitro::devolverTipoDeJugada(){
 }
 
 uint Arbitro::devolverTurno(){
-	return (uint)listaDeJugadores.obtenerCursor().consultarNumero();
+	return (uint)listaDeJugadores.obtenerCursor()->consultarNumero();
 }
 
 void Arbitro::declararTurno(){
-	Jugador jugador = listaDeJugadores.obtenerCursor();
-	std::cout << "Es el turno del jugador "<< jugador.consultarNombre() << std::endl;
+	Jugador* jugador = listaDeJugadores.obtenerCursor();
+	std::cout << "Es el turno del jugador "<< jugador->consultarNombre() << std::endl;
 
 }
 
 int Arbitro::devolverPuntaje(){
-	int puntajeJugador = jugadorActual.consultarPuntaje();
+	int puntajeJugador = jugadorActual->consultarPuntaje();
 	if (puntajeJugador <= 0) {
 		return -1;
 	} else {
@@ -193,7 +194,7 @@ void Arbitro::inicializarListaDeBombas(){
 		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.15);
 	} else if(this->dificultad == 2){
 
-            crearBombas((this->filaMaxima * this->columnaMaxima) * 0.25);
+		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.25);
     } else {
 
         crearBombas((this->filaMaxima * this->columnaMaxima) * 0.35);
@@ -216,9 +217,9 @@ void Arbitro::crearBombas(int cantBombas){
 bool Arbitro::existeBomba(Bomba bomba){
 	 this->listaDeBombas.iniciarCursor();
 	 while (listaDeBombas.avanzarCursor()) {
-		 Bomba bombaEnLista = listaDeBombas.obtenerCursor();
-		 if(bomba.obtenerCoordenadaX() == bombaEnLista.obtenerCoordenadaX()
-				 && bomba.obtenerCoordenadaY() == bombaEnLista.obtenerCoordenadaY()){
+		 Bomba* bombaEnLista = listaDeBombas.obtenerCursor();
+		 if(bomba.obtenerCoordenadaX() == bombaEnLista->obtenerCoordenadaX()
+				 && bomba.obtenerCoordenadaY() == bombaEnLista->obtenerCoordenadaY()){
 			 return true;
 		 }
 	 }
@@ -228,9 +229,9 @@ bool Arbitro::existeBomba(Bomba bomba){
 bool Arbitro::existeBandera(Bandera bandera){
 	 this->listaDeBanderas.iniciarCursor();
 	 while (listaDeBanderas.avanzarCursor()) {
-		 Bandera banderaEnLista = listaDeBanderas.obtenerCursor();
-		 if(bandera.obtenerCoordenadaX() == banderaEnLista.obtenerCoordenadaX()
-				 && bandera.obtenerCoordenadaY() == banderaEnLista.obtenerCoordenadaY()){
+		 Bandera* banderaEnLista = listaDeBanderas.obtenerCursor();
+		 if(bandera.obtenerCoordenadaX() == banderaEnLista->obtenerCoordenadaX()
+				 && bandera.obtenerCoordenadaY() == banderaEnLista->obtenerCoordenadaY()){
 			 return true;
 		 }
 	 }
@@ -243,9 +244,9 @@ void Arbitro::eliminarBandera(Bandera banderaABorrar){
 	int posicion = 0;
 	while(listaDeBanderas.avanzarCursor() && encontrado ){
 		posicion++;
-		Bandera bandera = listaDeBanderas.obtenerCursor();
-		if(banderaABorrar.obtenerCoordenadaX() == bandera.obtenerCoordenadaX() &&
-			banderaABorrar.obtenerCoordenadaY() == bandera.obtenerCoordenadaY()){
+		Bandera* bandera = listaDeBanderas.obtenerCursor();
+		if(banderaABorrar.obtenerCoordenadaX() == bandera->obtenerCoordenadaX() &&
+			banderaABorrar.obtenerCoordenadaY() == bandera->obtenerCoordenadaY()){
 			encontrado = true;
 			listaDeBanderas.removerNodo(posicion);
 		}

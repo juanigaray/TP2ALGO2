@@ -30,7 +30,7 @@ class Arbitro{
 	uint filaDeJugada;
 
 	bool finDeJuego;
-	Jugador jugadorActual;
+	Jugador* jugadorActual;
 
 	Lista<Jugador> listaDeJugadores;
 	Lista<Bomba> listaDeBombas;

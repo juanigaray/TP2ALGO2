@@ -21,7 +21,7 @@ public:
 *Pre: -
 *Post: devuelve el dato del nodo
 */
-    T obtenerDato();
+    T* obtenerDato();
 /*
 *Post: cambia el dato del nodo
 */
@@ -38,30 +38,23 @@ public:
 
 template<class T> void Nodo<T>::cambiarSiguiente(Nodo<T>* siguienteNuevo){
         this->siguiente = siguienteNuevo;
-        std::cout << "Siguiente cambiado" << std::endl;
-
-    }
+}
 
 template<class T> Nodo<T>* Nodo<T>::obtenerSiguiente(){
         return siguiente;
-        std::cout << "siguiente devuelto" << std::endl;
-
-    }
+}
 
 template<class T> void  Nodo<T>::cambiarDato(T datoNuevo){
         dato = datoNuevo;
-        std::cout << "Dato cambiado" << std::endl;
+}
 
-    }
-template<class T> T Nodo<T>::obtenerDato(){
-        return dato;
-        std::cout << "Dato devuelto" << std::endl;
+template<class T> T* Nodo<T>::obtenerDato(){
+        return &dato;
+}
 
-    }
 template<class T> Nodo<T>::Nodo(T dato){
     	this->dato = dato;
         siguiente = NULL;
-        std::cout << "Nodo Creado" << std::endl;
-    }
+}
 
 #endif

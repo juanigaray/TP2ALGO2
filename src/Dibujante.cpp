@@ -8,7 +8,7 @@
 
 Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
 
-	directorioDeImagenesFuente = "ImagenesFuente/";
+	directorioDeImagenesFuente = "src/ImagenesFuente/";
 	directorioDeCasilleros = "Casilleros/";
 	directorioDeMargenes = "Margenes/";
 	directorioDePuntajes = "Puntajes/";
