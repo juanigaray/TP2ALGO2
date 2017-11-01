@@ -44,8 +44,8 @@ int main(){
 						int columnaADescubrir = arbitro.devolverColumnaDeJugada() - nColumna;
 			    		int filaADescubrir = arbitro.devolverFilaDeJugada() - nFila;
 			            if( (filaADescubrir > -1 ) && (columnaADescubrir > -1) &&
-			            		(filaADescubrir <= arbitro.devolverFilaMaxima()) &&
-								columnaADescubrir <= arbitro.devolverColumnaMaxima()){
+			            		(filaADescubrir <= (int)arbitro.devolverFilaMaxima()) &&
+								columnaADescubrir <= (int)arbitro.devolverColumnaMaxima()){
 
 			            	uint cantidadDeCircundantes = arbitro.evaluarBombasCircundantes(columnaADescubrir, filaADescubrir);
 							std::ostringstream ossNumeroADibujar;

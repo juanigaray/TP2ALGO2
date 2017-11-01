@@ -150,7 +150,9 @@ uint Arbitro::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasi
 			int columnaAEvaluar = columnaDeCasillero - dColumna;
 			int filaAEvaluar = filaDeCasillero - dFila;
 
-			if( (filaAEvaluar > -1 ) && (columnaAEvaluar > -1) ){
+			if( (filaAEvaluar > -1 ) && (columnaAEvaluar > -1) &&
+					(filaAEvaluar <= (int)this->filaMaxima) &&
+					(columnaAEvaluar <= (int)this->columnaMaxima) ){
 				Bomba supuestaBomba(columnaAEvaluar, filaAEvaluar);
 				if (existeBomba(supuestaBomba)){
 					cantidadDeCircundantes++;
