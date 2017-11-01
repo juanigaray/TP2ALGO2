@@ -20,7 +20,7 @@ int main(){
 	while(jugarDeNuevo){
 
 		Presentador presentador;
-
+		//presentador.mostrarPresentacion();
 		presentador.pedirDatosDeJuego();
 
 		Dibujante dibujante( presentador.devolverColumnas(),
@@ -34,14 +34,30 @@ int main(){
 			       		 presentador.devolverNombresDeLosJugadores() );
 
 		while(sigueLaPartida){
+
 			arbitro.avanzarTurno();
 			arbitro.declararTurno();
 			arbitro.tomarJugada();
-			dibujante.cambiarCuadrante( arbitro.devolverColumnaDeJugada(),
-										arbitro.devolverFilaDeJugada(),
-										arbitro.devolverTipoDeJugada(),
-										arbitro.devolverTurno(),
-										false);
+
+			if(arbitro.devolverTipoDeJugada() == "0"){
+			       for(int nFila = -1; nFila < 2; nFila++){
+			           for(int nColumna = -1; nColumna < 2; nColumna++ ){
+
+			              int columnaADescubrir = arbitro.devolverColumnaDeJugada() - nColumna;
+			              int filaADescubrir = arbitro.devolverFilaDeJugada() - nFila;
+			              if( (filaADescubrir > -1 ) && (columnaADescubrir > -1) ){
+			            	  std::string numeroADibujar = arbitro.devolverCircundantes(columnaADescubrir, filaADescubrir);
+			                  dibujante.cambiarCuadrante( columnaADescubrir, filaADescubrir, numeroADibujar, 0, false);
+			              }
+			            }
+			        }
+
+			} else {
+				dibujante.cambiarCuadrante( arbitro.devolverColumnaDeJugada(),
+											arbitro.devolverFilaDeJugada(),
+											arbitro.devolverTipoDeJugada(),
+											arbitro.devolverTurno(),
+											false);
 
 			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
 										arbitro.devolverTurno()  );
@@ -54,3 +70,18 @@ int main(){
 	}
 	return 0;
 }
+
+if(arbitro.devolverTipoDeJugada() == "0"){
+        for(int dFila = -1; dFila < 2; dFila++){
+            for(int dColumna = -1; dColumna < 2; dColumna++ ){
+
+                int columnaADescubrir = arbitro.devolverColumnaDeJugada() - dColumna;
+                int filaADescubrir = arbitro.devolverFilaDeJugada() - dFila;
+                if( (filaADescubrir > -1 ) && (columnaADescubrir > -1) ){
+
+                    std::string numeroADibujar = arbitro.devolverCircundantes(columnaADescubrir, filaADescubrir);
+                    dibujante.cambiarCuadrante( columnaADescubrir, filaADescubrir, numeroADibujar, 0, false);
+                }
+            }
+        }
+    }
