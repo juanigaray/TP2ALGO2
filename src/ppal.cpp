@@ -33,24 +33,26 @@ int main(){
 			       		 presentador.devolverNombresDeLosJugadores() );
 
 		while(sigueLaPartida){
-
 			arbitro.avanzarTurno();
 			arbitro.declararTurno();
 			arbitro.tomarJugada();
 
 			if(arbitro.devolverTipoDeJugada() == "0"){
-			       for(int nFila = -1; nFila < 2; nFila++){
-			           for(int nColumna = -1; nColumna < 2; nColumna++ ){
+				for(int nFila = -1; nFila < 2; nFila++){
+					for(int nColumna = -1; nColumna < 2; nColumna++ ){
 
-			              int columnaADescubrir = arbitro.devolverColumnaDeJugada() - nColumna;
-			              int filaADescubrir = arbitro.devolverFilaDeJugada() - nFila;
-			              if( (filaADescubrir > -1 ) && (columnaADescubrir > -1) ){
-			            	  std::string numeroADibujar = arbitro.devolverCircundantes(columnaADescubrir, filaADescubrir);
-			                  dibujante.cambiarCuadrante( columnaADescubrir, filaADescubrir, numeroADibujar, 0, false);
-			              }
+						int columnaADescubrir = arbitro.devolverColumnaDeJugada() - nColumna;
+			    		int filaADescubrir = arbitro.devolverFilaDeJugada() - nFila;
+			            if( (filaADescubrir > -1 ) && (columnaADescubrir > -1) ){
+
+			            	uint cantidadDeCircundantes = arbitro.evaluarBombasCircundantes(columnaADescubrir, filaADescubrir);
+							std::ostringstream ossNumeroADibujar;
+							ossNumeroADibujar << cantidadDeCircundantes;
+							std::string numeroADibujar = ossNumeroADibujar.str();
+							dibujante.cambiarCuadrante( columnaADescubrir, filaADescubrir, numeroADibujar, 0, false);
 			            }
 			        }
-
+				}
 			} else {
 				dibujante.cambiarCuadrante( arbitro.devolverColumnaDeJugada(),
 											arbitro.devolverFilaDeJugada(),
@@ -61,9 +63,10 @@ int main(){
 			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
 										arbitro.devolverTurno()  );
 			dibujante.dibujarTablero();
-
 			sigueLaPartida = ( ! arbitro.terminoElJuego() );
+			}
 		}
+
 		presentador.consultarSiJugarDeNuevo();
 		jugarDeNuevo = presentador.devolverSiJugarDeNuevo();
 	}
