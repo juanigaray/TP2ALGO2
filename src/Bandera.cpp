@@ -7,53 +7,53 @@
 	this->bienColocada = false;
 }
 
-	Bandera::Bandera(){
-		this->bienColocada = false;
-		this->coordenadas[0] = 0;
-		this->coordenadas[1] = 0;
-		this->jugador = 0;
+Bandera::Bandera(){
+	this->bienColocada = false;
+	this->coordenadas[0] = 0;
+	this->coordenadas[1] = 0;
+	this->jugador = 0;
 
-	}
-	//POST CAMBIA COORDENADA X
-	void Bandera::cambiarCoordenadaX(int coordX){
-		this->coordenadas[0] = coordX;
-	}
+}
 
-	//POST CAMBIA COORDENADA Y
-	void Bandera::cambiarCoordenadaY(int coordY){
-		this->coordenadas[1] = coordY;
-	}
+void Bandera::cambiarCoordenadaX(int coordX){
+	this->coordenadas[0] = coordX;
+}
 
-	//POST DEVUELVE COORDENADA X
-	int Bandera::obtenerCoordenadaX(){
-		return this->coordenadas[0];
-	}
+//POST CAMBIA COORDENADA Y
+void Bandera::cambiarCoordenadaY(int coordY){
+	this->coordenadas[1] = coordY;
+}
 
-	//POST DEVUELVE COORDENADA Y
-	int Bandera::obtenerCoordenadaY(){
-	return this->coordenadas[1];
-	}
+//POST DEVUELVE COORDENADA X
+int Bandera::obtenerCoordenadaX(){
+	return this->coordenadas[0];
+}
 
-	//POST DEVUELVE SI ESTA bienColocada
-	bool Bandera::banderaBienColocada(){
-		return this->bienColocada;
-	}
+//POST DEVUELVE COORDENADA Y
+int Bandera::obtenerCoordenadaY(){
+return this->coordenadas[1];
+}
 
-	//POST VALIDA Y CAMBIA bienColocada
-	void Bandera::validarColocacion(Lista<Bomba>* bombas){
-		bool encontrado = false;
-		bombas->iniciarCursor();
-		while (bombas->avanzarCursor() && !encontrado ){
-			Bomba* bomba = bombas->obtenerCursor();
-			if(bomba->obtenerCoordenadaX() == this->coordenadas[0] &&
-					bomba->obtenerCoordenadaY() == this->coordenadas[1]){
-				this->bienColocada = true;
-				encontrado = true;
-			}
+//POST DEVUELVE SI ESTA bienColocada
+bool Bandera::banderaBienColocada(){
+	return this->bienColocada;
+}
+
+//POST VALIDA Y CAMBIA bienColocada
+void Bandera::validarColocacion(Lista<Bomba>* bombas){
+	bool encontrado = false;
+	bombas->iniciarCursor();
+	while (bombas->avanzarCursor() && !encontrado ){
+		Bomba* bomba = bombas->obtenerCursor();
+		if(bomba->obtenerCoordenadaX() == this->coordenadas[0] &&
+				bomba->obtenerCoordenadaY() == this->coordenadas[1]){
+			this->bienColocada = true;
+			encontrado = true;
 		}
 	}
-	//POST DEVUELVE EL JUGADOR QUE COLOCO LA BANDERA
-	Jugador* Bandera::obtenerJugador(){
-		return this->jugador;
-	}
+}
+//POST DEVUELVE EL JUGADOR QUE COLOCO LA BANDERA
+Jugador* Bandera::obtenerJugador(){
+	return this->jugador;
+}
 

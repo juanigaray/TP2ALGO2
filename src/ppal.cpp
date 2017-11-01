@@ -20,7 +20,7 @@ int main(){
 	while(jugarDeNuevo){
 
 		Presentador presentador;
-		//presentador.mostrarPresentacion();
+
 		presentador.pedirDatosDeJuego();
 
 		Dibujante dibujante( presentador.devolverColumnas(),
@@ -34,7 +34,7 @@ int main(){
 			       		 presentador.devolverNombresDeLosJugadores() );
 
 		while(sigueLaPartida){
-
+			arbitro.avanzarTurno();
 			arbitro.declararTurno();
 			arbitro.tomarJugada();
 			dibujante.cambiarCuadrante( arbitro.devolverColumnaDeJugada(),

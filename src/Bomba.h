@@ -10,7 +10,7 @@ private:
 public:
 
 	//POST CREA LA BOMBA CON LAS COORDENADAS
-	Bomba(int coordeanadaX, int coordenadaY);
+	Bomba(int coordenadaX, int coordenadaY);
 
 	//POST CREA LA BOMBA VACIA
 	Bomba();
@@ -26,9 +26,6 @@ public:
 
 	//POST CAMBIA LA COORDENADA Y
 	void cambiarCoordenadaY(int nuevaY);
-
-	//Post cambia el estado de un jugador
-	void eliminarJugador(Jugador jugador);
 
 };
 #endif

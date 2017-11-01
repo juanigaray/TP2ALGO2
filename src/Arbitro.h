@@ -99,8 +99,13 @@ class Arbitro{
 	Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* listaDeNombresDeJugadores);
 
 	/*
+	 * Post: El jugador actual es el siguiente en la lista
+	 */
+	void avanzarTurno();
+
+	/*
 	 * Post: Le toma la jugada al usuario.
-	 * Decide el resultado de la jugada.
+	 * 		 Decide el resultado de la jugada.
 	 */
 	void tomarJugada();
 

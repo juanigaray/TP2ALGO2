@@ -6,13 +6,13 @@ Bomba::Bomba(int coordenadaX, int coordenadaY){
 }
 
 Bomba::Bomba(){
-
+	this-> coordenadas[0] = 0;
+	this-> coordenadas[1] = 0;
 }
 
 void Bomba::cambiarCoordenadaX(int nuevaX){
 	this->coordenadas[0] = nuevaX;
 }
-
 
 void Bomba::cambiarCoordenadaY(int nuevaY){
 	this->coordenadas[1] = nuevaY;
@@ -25,8 +25,4 @@ int Bomba::obtenerCoordenadaX(){
 
 int Bomba::obtenerCoordenadaY(){
 	return this->coordenadas[1];
-}
-
-void Bomba::eliminarJugador(Jugador jugador){
-	jugador.asignarEstado(true);
 }

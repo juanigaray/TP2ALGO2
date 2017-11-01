@@ -23,7 +23,10 @@ Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint
 
 	this->finDeJuego = false;
 	this->jugadorActual = 0;
+
 	this->inicializarListaDeBombas();
+	this->inicializarListaDeJugadores(listaDeNombresDeJugadores, numeroDeJugadores);
+	this->listaDeBanderas.iniciarCursor();
 }
 
 uint Arbitro::pedirNumero(std::string mensaje){
@@ -62,62 +65,51 @@ uint Arbitro::tomarTipoDeJugada(){
 }
 
 void Arbitro::tomarUbicacionDeJugada(){
-	this->filaDeJugada = pedirNumero("Por favor, ingrese la fila donde desea realizar la jugada");
-	this->columnaDeJugada = pedirNumero("Por favor, ingrese la columna donde desea realizar la jugada");
-	if ( (filaDeJugada > this->filaMaxima) || (columnaDeJugada > this->columnaMaxima) )
-		this->tomarUbicacionDeJugada();
+	this->filaDeJugada = pedirNumero("Por favor, ingrese la fila donde desea realizar la jugada", filaMaxima);
+	this->columnaDeJugada = pedirNumero("Por favor, ingrese la columna donde desea realizar la jugada", columnaMaxima);
 }
 
-
+void Arbitro::avanzarTurno(){
+	listaDeJugadores.avanzarCursor();
+	jugadorActual = listaDeJugadores.obtenerCursor();
+}
 
 void Arbitro::tomarJugada(){
-	// obtener el jugador
-	this->listaDeJugadores.iniciarCursor();
-	bool salir = false;
 
-
-	while ( (listaDeJugadores.avanzarCursor()) && (!salir) ){
-		this->jugadorActual = listaDeJugadores.obtenerCursor();
-        if(jugadorActual->consultarNumero() == this->devolverTurno()){
-				 salir = true;
-
-				 this->jugadorActual = jugadorActual;
-        }
-    }
-
-	Puntaje puntajes (this->dificultad);
+	Puntaje puntajes(this->dificultad);
 	int puntajeJugador;
 	uint opcionElegida = tomarTipoDeJugada();
-	/*aca ya tengo la jugada
-	 1 colocar o quitar bandera
-	 2 descubrir casillero*/
+
 	tomarUbicacionDeJugada();
-	//evaluar la jugada
+
+	//Si es colocar/quitar bandera:
 	if (opcionElegida == 1){
+
 		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, jugadorActual);
+		//si no hay bandera, pone una
+		if ( !this->existeBandera(unaBandera) ){
 
-		//si no hay bandera poner bandera
-		if (!this->existeBandera(unaBandera)){
-				//agrego la bandera
-				this->listaDeBanderas.agregarElemento(unaBandera);
-				this->tipoDeJugada = "bandera";
-				if (unaBandera.banderaBienColocada()){ // es una bandera donde hay bomba
-					puntajeJugador = puntajes.devolverPuntos();
-				} else { // no hay bomba ahi
-					puntajeJugador = -puntajes.devolverPuntos();
-				}
-				this->jugadorActual->asignarPuntaje(puntajeJugador);
+			this->tipoDeJugada = "bandera";
+			this->listaDeBanderas.agregarElemento(unaBandera);
 
-		} else { // existe entonces
+			if (unaBandera.banderaBienColocada()){ // es una bandera donde hay bomba
+				puntajeJugador = puntajes.devolverPuntos();
+			} else { // no hay bomba
+				puntajeJugador = -puntajes.devolverPuntos();
+			}
+			this->jugadorActual->asignarPuntaje(puntajeJugador);
+
+		} else { // Quiere sacar bandera
 
 				// si no pertenece a este jugador entonces la quita
 				Jugador* propietarioBandera = unaBandera.obtenerJugador();
 				if (this->jugadorActual->consultarNombre() == propietarioBandera->consultarNombre()){ //es el mismo
 					// elimina bandera de la lista cuando sale
 					this->tipoDeJugada = "cubierto";
+
 					/********* hacer una funcion ******/
 				} else { // es otro, caso en que corrige jugada del otro
-					if (unaBandera.banderaBienColocada()){ // es una bandera donde hay bomba
+					if ( unaBandera.banderaBienColocada() ){ // es una bandera donde hay bomba
 						// la quita cuando sale pero le resta puntos porque si habia bomba
 						puntajeJugador = -puntajes.devolverPuntosEspeciales();
 						this->tipoDeJugada = "cubierto";
@@ -131,7 +123,7 @@ void Arbitro::tomarJugada(){
 				this->eliminarBandera(unaBandera);
 		}
 
-	} else { //opcion 2
+	} else { //Descubrir casillero
 
 		// ver si las coordenadas son validas
 		Bomba supuestaBomba(this->columnaDeJugada, this->filaDeJugada);
@@ -158,13 +150,12 @@ std::string Arbitro::devolverTipoDeJugada(){
 }
 
 uint Arbitro::devolverTurno(){
-	return (uint)listaDeJugadores.obtenerCursor()->consultarNumero();
+	return (uint)( listaDeJugadores.obtenerCursor()->consultarNumero() );
 }
 
 void Arbitro::declararTurno(){
 	Jugador* jugador = listaDeJugadores.obtenerCursor();
-	std::cout << "Es el turno del jugador "<< jugador->consultarNombre() << std::endl;
-
+	std::cout << "Es el turno de "<< jugador->consultarNombre() << std::endl;
 }
 
 int Arbitro::devolverPuntaje(){
@@ -174,7 +165,6 @@ int Arbitro::devolverPuntaje(){
 	} else {
 		return puntajeJugador;
 	}
-
 }
 
 bool Arbitro::terminoElJuego(){
@@ -190,15 +180,15 @@ void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores
 
 void Arbitro::inicializarListaDeBombas(){
 	if(this->dificultad == 1){
-
 		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.15);
+
 	} else if(this->dificultad == 2){
-
 		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.25);
-    } else {
 
+    } else {
         crearBombas((this->filaMaxima * this->columnaMaxima) * 0.35);
     }
+
 }
 
 void Arbitro::crearBombas(int cantBombas){
@@ -215,7 +205,7 @@ void Arbitro::crearBombas(int cantBombas){
 }
 
 bool Arbitro::existeBomba(Bomba bomba){
-	 this->listaDeBombas.iniciarCursor();
+
 	 while (listaDeBombas.avanzarCursor()) {
 		 Bomba* bombaEnLista = listaDeBombas.obtenerCursor();
 		 if(bomba.obtenerCoordenadaX() == bombaEnLista->obtenerCoordenadaX()
@@ -227,12 +217,14 @@ bool Arbitro::existeBomba(Bomba bomba){
 }
 
 bool Arbitro::existeBandera(Bandera bandera){
-	 this->listaDeBanderas.iniciarCursor();
-	 while (listaDeBanderas.avanzarCursor()) {
-		 Bandera* banderaEnLista = listaDeBanderas.obtenerCursor();
-		 if(bandera.obtenerCoordenadaX() == banderaEnLista->obtenerCoordenadaX()
-				 && bandera.obtenerCoordenadaY() == banderaEnLista->obtenerCoordenadaY()){
-			 return true;
+
+	listaDeBanderas.iniciarCursor();
+
+	while (listaDeBanderas.avanzarCursor() && listaDeBanderas.obtenerCursor() != 0 ) {
+		Bandera* banderaEnLista = listaDeBanderas.obtenerCursor();
+		if(bandera.obtenerCoordenadaX() == banderaEnLista->obtenerCoordenadaX()
+			&& bandera.obtenerCoordenadaY() == banderaEnLista->obtenerCoordenadaY()){
+			return true;
 		 }
 	 }
 	 return false;

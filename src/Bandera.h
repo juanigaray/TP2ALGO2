@@ -7,13 +7,14 @@
 typedef int Coordenada[2];
 class Bandera{
 private:
+
 	Coordenada coordenadas;
 	Jugador* jugador;
 	bool bienColocada;
 
 public:
 
-	//POST Crea Bandera POR DEFECTO VA A ESTAR EN FALSE EL bienColocada
+	//POST Crea Bandera, POR DEFECTO VA A ESTAR EN FALSE EL bienColocada
 	Bandera(int coordenadaX, int coordenadaY, Jugador* jugador);
 
 	//Post Bandera Vacia
