@@ -88,6 +88,7 @@ void Arbitro::tomarJugada(){
 	if (opcionElegida == 1){
 
 		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, jugadorActual);
+		unaBandera.validarColocacion(&this->listaDeBombas);
 		//si no hay bandera, pone una
 		if ( !this->existeBandera(unaBandera) ){
 
@@ -204,13 +205,13 @@ void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores
 
 void Arbitro::inicializarListaDeBombas(){
 	if(this->dificultad == 1){
-		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.15);
+		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.15); //multiplicador de dificultad
 
 	} else if(this->dificultad == 2){
-		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.25);
+		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.25); //multiplicador de dificultad
 
     } else {
-        crearBombas((this->filaMaxima * this->columnaMaxima) * 0.35);
+        crearBombas((this->filaMaxima * this->columnaMaxima) * 0.35); //multiplicador de dificultad
     }
 
 }
@@ -281,7 +282,8 @@ void Arbitro::eliminarJugador(){
 		}
 	}
 	Jugador* jugadorEliminado = this->listaDeJugadores.obtener(posicion);
-	listaDeJugadores.removerNodo(posicion);
+	if(listaDeJugadores.contarElementos() != 1)
+		listaDeJugadores.removerNodo(posicion);
 	// se agrega a la lista de eliminados
 	this->listaDeJugadoresEliminados.agregarElemento(*jugadorEliminado);
 }
@@ -295,7 +297,7 @@ uint Arbitro::devolverFilaMaxima(){
 }
 
 bool Arbitro::terminoLaPartida(){
-	if (this->listaDeJugadores.estaVacia()){
+	if (this->listaDeJugadoresEliminados.contarElementos() == this->cantJugadores){
 		return true;
 	}
 	if ( ((filaMaxima * columnaMaxima) - this->listaDeBombas.contarElementos()) == this->casillerosDestapados ){
