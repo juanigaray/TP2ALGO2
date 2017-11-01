@@ -127,14 +127,37 @@ void Arbitro::tomarJugada(){
 
 		// ver si las coordenadas son validas
 		Bomba supuestaBomba(this->columnaDeJugada, this->filaDeJugada);
-		//si hay bomba
+
 		if (existeBomba(supuestaBomba)){
 			this->jugadorActual->asignarEstado(true); // (perdio)
 			this->tipoDeJugada = "boom";
-		} else {
-			this->tipoDeJugada = "0"; //no hay nada
+		} else { //Debo pasar en string el numero de bombas circundantes.
+
+			uint numeroDeBombasCircundantes = evaluarBombasCircundantes(columnaDeJugada, filaDeJugada);
+			std::ostringstream ossCircundantes;
+			ossCircundantes << numeroDeBombasCircundantes;
+			this->tipoDeJugada = ossCircundantes.str();
 		}
 	}
+}
+
+uint Arbitro::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasillero){
+	uint cantidadDeCircundantes = 0;
+	for(int dFila = -1; dFila < 2; dFila++){
+		for(int dColumna = -1; dColumna < 2; dColumna++ ){
+
+			int columnaAEvaluar = columnaDeCasillero - dColumna;
+			int filaAEvaluar = filaDeCasillero - dFila;
+
+			if( (filaAEvaluar > -1 ) && (columnaAEvaluar > -1) ){
+				Bomba supuestaBomba(columnaAEvaluar, filaAEvaluar);
+				if (existeBomba(supuestaBomba)){
+					cantidadDeCircundantes++;
+				}
+			}
+		}
+	}
+	return cantidadDeCircundantes;
 }
 
 uint Arbitro::devolverColumnaDeJugada(){

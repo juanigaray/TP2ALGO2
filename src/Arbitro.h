@@ -116,6 +116,12 @@ class Arbitro{
 	void evaluarJugada();
 
 	/*
+	 * Pre: se pasa una coordenada valida.
+	 * Post: Devuelve la cantidad de bombas que rodean el casillero
+	 */
+	uint evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasillero);
+
+	/*
 	 * Post: Devuelve en que columna se realizo la ultima jugada tomada.
 	 */
 	uint devolverColumnaDeJugada();
