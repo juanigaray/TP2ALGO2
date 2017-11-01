@@ -59,11 +59,11 @@ int main(){
 				dibujante.cambiarCuadrante( arbitro.devolverColumnaDeJugada() -1,
 											arbitro.devolverFilaDeJugada() -1,
 											arbitro.devolverTipoDeJugada(),
-											arbitro.devolverTurno(),
+											arbitro.devolverTurno() + 1,
 											false);
 			}
 			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
-										arbitro.devolverTurno()  );
+										arbitro.devolverTurno() + 1 );
 			dibujante.dibujarTablero();
 			sigueLaPartida = ( ! arbitro.terminoLaPartida() );
 
