@@ -97,7 +97,7 @@ class Arbitro{
 	 * Elimina al jugador de la listaDeJugadores
 	 * lo agrega a la listaDeJugadoresEliminados
 	 */
-	void Arbitro::eliminarJugador()
+	void eliminarJugador();
 
   public:
 	/* Pre: Se le pasan numeros naturales.

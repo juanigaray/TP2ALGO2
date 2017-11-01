@@ -278,14 +278,15 @@ void Arbitro::eliminarJugador(){
 	int posicion = 0;
 	while(listaDeJugadores.avanzarCursor() && encontrado ){
 		posicion++;
-		Jugador unJugador = listaDeJugadores.obtenerCursor();
-		if( this->jugadorActual->consultarNombre() == unJugador.consultarNombre() ){
+		Jugador* unJugador = listaDeJugadores.obtenerCursor();
+		if( this->jugadorActual->consultarNombre() == unJugador->consultarNombre() ){
 			encontrado = true;
 		}
 	}
-	Jugador jugadorEliminado = this->listaDeJugadores.obtener(posicion);
+	Jugador* jugadorEliminado = this->listaDeJugadores.obtener(posicion);
+	listaDeJugadores.removerNodo(posicion);
 	// se agrega a la lista de eliminados
-	this->listaDeJugadoresEliminados.agregarElemento(jugadorEliminado);
+	this->listaDeJugadoresEliminados.agregarElemento(*jugadorEliminado);
 }
 
 uint Arbitro::devolverColumnaMaxima(){

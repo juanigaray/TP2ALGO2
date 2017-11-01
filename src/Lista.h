@@ -60,7 +60,7 @@ class Lista{
      * pre : posición pertenece al intervalo: [1, contarElementos()]
      * post: devuelve el elemento en la posición indicada.
      */
-    T obtener(unsigned int posicion);
+    T* obtener(unsigned int posicion);
 
     /*
      * pre : posición pertenece al intervalo: [1, contarElementos()]
@@ -130,7 +130,8 @@ template<class T> void Lista<T>::agregarElemento(T elemento){
         	tamanio ++;
     }
 
-template<class T> T Lista<T>::obtener(unsigned int posicion){
+template<class T> T* Lista<T>::obtener(unsigned int posicion){
+
       return obtenerNodo(posicion)->obtenerDato();
   }
 template<class T> void Lista<T>::removerNodo(unsigned int posicion){
