@@ -20,8 +20,9 @@ Arbitro::Arbitro(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint
 
 	this->columnaDeJugada = 0;
 	this->filaDeJugada = 0;
+	this->casillerosDestapados = 0;
 
-	this->finDeJuego = false;
+	//this->finDeJuego = false;
 	this->jugadorActual = 0;
 
 	this->inicializarListaDeBombas();
@@ -108,7 +109,6 @@ void Arbitro::tomarJugada(){
 					// elimina bandera de la lista cuando sale
 					this->tipoDeJugada = "cubierto";
 
-					/********* hacer una funcion ******/
 				} else { // es otro, caso en que corrige jugada del otro
 					if ( unaBandera.banderaBienColocada() ){ // es una bandera donde hay bomba
 						// la quita cuando sale pero le resta puntos porque si habia bomba
@@ -140,6 +140,7 @@ void Arbitro::tomarJugada(){
 			std::ostringstream ossCircundantes;
 			ossCircundantes << numeroDeBombasCircundantes;
 			this->tipoDeJugada = ossCircundantes.str();
+			this->casillerosDestapados++;
 		}
 	}
 }
@@ -192,10 +193,6 @@ int Arbitro::devolverPuntaje(){
 	} else {
 		return puntajeJugador;
 	}
-}
-
-bool Arbitro::terminoElJuego(){
-	return finDeJuego;
 }
 
 void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores){
@@ -296,4 +293,13 @@ uint Arbitro::devolverFilaMaxima(){
 	return this->filaMaxima;
 }
 
+bool Arbitro::terminoLaPartida(){
+	if (this->listaDeJugadores.estaVacia()){
+		return true;
+	}
+	if ( ((filaMaxima * columnaMaxima) - this-listaDeBombas.contarElementos()) == this->casillerosDestapados ){
+		return true;
+	}
+	return false;
+}
 

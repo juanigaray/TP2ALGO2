@@ -28,8 +28,9 @@ class Arbitro{
 
 	uint columnaDeJugada;
 	uint filaDeJugada;
+	uint casillerosDestapados;
 
-	bool finDeJuego;
+	//bool finDeJuego;
 	Jugador* jugadorActual;
 
 	Lista<Jugador> listaDeJugadores;
@@ -97,7 +98,7 @@ class Arbitro{
 	 * Elimina al jugador de la listaDeJugadores
 	 * lo agrega a la listaDeJugadoresEliminados
 	 */
-	void Arbitro::eliminarJugador()
+	void Arbitro::eliminarJugador();
 
   public:
 	/* Pre: Se le pasan numeros naturales.
