@@ -140,7 +140,6 @@ void Arbitro::tomarJugada(){
 			std::ostringstream ossCircundantes;
 			ossCircundantes << numeroDeBombasCircundantes;
 			this->tipoDeJugada = ossCircundantes.str();
-			this->casillerosDestapados++;
 		}
 	}
 }
@@ -163,6 +162,7 @@ uint Arbitro::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasi
 			}
 		}
 	}
+	this->casillerosDestapados++;
 	return cantidadDeCircundantes;
 }
 
@@ -218,8 +218,8 @@ void Arbitro::inicializarListaDeBombas(){
 void Arbitro::crearBombas(int cantBombas){
 	while (cantBombas != 0)
 	{
-		int fila = rand() % (filaMaxima);
-		int columna = rand() % (columnaMaxima) ;
+		int fila = 1 + rand() % (filaMaxima);
+		int columna = 1 + rand() % (columnaMaxima) ;
 		Bomba bomba(fila, columna);
 		if(!existeBomba(bomba)){
 		this->listaDeBombas.agregarElemento(bomba);
@@ -299,6 +299,7 @@ bool Arbitro::terminoLaPartida(){
 		return true;
 	}
 	if ( ((filaMaxima * columnaMaxima) - this->listaDeBombas.contarElementos()) == this->casillerosDestapados ){
+
 		return true;
 	}
 	return false;
