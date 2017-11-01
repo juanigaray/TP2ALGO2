@@ -43,7 +43,9 @@ int main(){
 
 						int columnaADescubrir = arbitro.devolverColumnaDeJugada() - nColumna;
 			    		int filaADescubrir = arbitro.devolverFilaDeJugada() - nFila;
-			            if( (filaADescubrir > -1 ) && (columnaADescubrir > -1) ){
+			            if( (filaADescubrir > -1 ) && (columnaADescubrir > -1) &&
+			            		(filaADescubrir <= arbitro.devolverFilaMaxima()) &&
+								columnaADescubrir <= arbitro.devolverColumnaMaxima()){
 
 			            	uint cantidadDeCircundantes = arbitro.evaluarBombasCircundantes(columnaADescubrir, filaADescubrir);
 							std::ostringstream ossNumeroADibujar;
@@ -59,12 +61,12 @@ int main(){
 											arbitro.devolverTipoDeJugada(),
 											arbitro.devolverTurno(),
 											false);
-
+			}
 			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
 										arbitro.devolverTurno()  );
 			dibujante.dibujarTablero();
 			sigueLaPartida = ( ! arbitro.terminoElJuego() );
-			}
+
 		}
 
 		presentador.consultarSiJugarDeNuevo();

@@ -70,7 +70,8 @@ void Arbitro::tomarUbicacionDeJugada(){
 }
 
 void Arbitro::avanzarTurno(){
-	listaDeJugadores.avanzarCursor();
+	if(!listaDeJugadores.avanzarCursor())
+		listaDeJugadores.avanzarCursor();
 	jugadorActual = listaDeJugadores.obtenerCursor();
 }
 
@@ -177,8 +178,7 @@ uint Arbitro::devolverTurno(){
 }
 
 void Arbitro::declararTurno(){
-	Jugador* jugador = listaDeJugadores.obtenerCursor();
-	std::cout << "Es el turno de "<< jugador->consultarNombre() << std::endl;
+	std::cout << "Es el turno de "<< jugadorActual->consultarNombre() << std::endl;
 }
 
 int Arbitro::devolverPuntaje(){
@@ -196,7 +196,7 @@ bool Arbitro::terminoElJuego(){
 
 void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores){
 	for(int i = 0; i < cantidadJugadores; i++){
-        Jugador jugador(nombres[0], i);
+        Jugador jugador(nombres[i], i);
         listaDeJugadores.agregarElemento(jugador);
 	}
 }
@@ -228,7 +228,7 @@ void Arbitro::crearBombas(int cantBombas){
 }
 
 bool Arbitro::existeBomba(Bomba bomba){
-
+	listaDeBombas.iniciarCursor();
 	 while (listaDeBombas.avanzarCursor()) {
 		 Bomba* bombaEnLista = listaDeBombas.obtenerCursor();
 		 if(bomba.obtenerCoordenadaX() == bombaEnLista->obtenerCoordenadaX()
@@ -267,3 +267,13 @@ void Arbitro::eliminarBandera(Bandera banderaABorrar){
 		}
 	}
 }
+
+uint Arbitro::devolverColumnaMaxima(){
+	return this->columnaMaxima;
+}
+
+uint Arbitro::devolverFilaMaxima(){
+	return this->filaMaxima;
+}
+
+

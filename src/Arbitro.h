@@ -165,7 +165,15 @@ class Arbitro{
 	void eliminarBandera(Bandera bandera);
 
 
+	/*
+	 * POST devuelve la fila Maxima
+	 */
+	uint devolverFilaMaxima();
 
+	/*
+	 * POST devuelve la columna Maxima
+	 */
+	uint devolverColumnaMaxima();
 
 };
 

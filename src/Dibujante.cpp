@@ -8,7 +8,7 @@
 
 Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
 
-	directorioDeImagenesFuente = "src/ImagenesFuente/";
+	directorioDeImagenesFuente = "TP2ALGO2/src/ImagenesFuente/";
 	directorioDeCasilleros = "Casilleros/";
 	directorioDeMargenes = "Margenes/";
 	directorioDePuntajes = "Puntajes/";
