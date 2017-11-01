@@ -65,7 +65,7 @@ int main(){
 			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
 										arbitro.devolverTurno()  );
 			dibujante.dibujarTablero();
-			sigueLaPartida = ( ! arbitro.terminoElJuego() );
+			sigueLaPartida = ( ! arbitro.terminoLaPartida() );
 
 		}
 
