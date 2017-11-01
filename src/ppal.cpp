@@ -69,18 +69,3 @@ int main(){
 	}
 	return 0;
 }
-
-if(arbitro.devolverTipoDeJugada() == "0"){
-        for(int dFila = -1; dFila < 2; dFila++){
-            for(int dColumna = -1; dColumna < 2; dColumna++ ){
-
-                int columnaADescubrir = arbitro.devolverColumnaDeJugada() - dColumna;
-                int filaADescubrir = arbitro.devolverFilaDeJugada() - dFila;
-                if( (filaADescubrir > -1 ) && (columnaADescubrir > -1) ){
-
-                    std::string numeroADibujar = arbitro.devolverCircundantes(columnaADescubrir, filaADescubrir);
-                    dibujante.cambiarCuadrante( columnaADescubrir, filaADescubrir, numeroADibujar, 0, false);
-                }
-            }
-        }
-    }
