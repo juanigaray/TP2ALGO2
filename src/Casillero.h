@@ -17,17 +17,41 @@ class Casillero{
 
 	 bool bomba;
 	 bool esVisible;
-	 Bandera bandera;
+	 Bandera* bandera;
 
  public:
 
 	 /*
-	  *
+	  * Post: Crea casillero sin bomba o bandera y tapado
 	  */
 	 Casillero();
 
 	 /*
+	  * Post: Crea casillero tapado, sin bandera. Si tiene o no bomba depende de conBomba
+	  */
+	 Casillero(bool conBomba);
+
+	 /*
 	  *
+	  */
+	 void tieneBandera();
+
+	 /*
+	  *
+	  */
+	 void colocarBandera(uint jugador);
+
+	 /*
+	  *
+	  */
+	 void quitarBandera(uint jugador);
+
+	 /*
+	  *
+	  */
+
+	 /* Pre: El casillero tiene bandera
+	  * Post: Devuelve quien la puso.
 	  */
 	 uint quienPusoLaBandera();
 

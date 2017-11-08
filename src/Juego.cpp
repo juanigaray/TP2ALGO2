@@ -85,18 +85,15 @@ void Juego::tomarJugada(){
 	//Si es colocar/quitar bandera:
 	if (opcionElegida == 1){
 
-		Bandera unaBandera ((int)this->filaDeJugada, this->columnaDeJugada, jugadorActual);
-		unaBandera.validarColocacion(&this->listaDeBombas);
 		//si no hay bandera, pone una
-		if ( !this->existeBandera(unaBandera) ){
+		if ( ){
 
 			this->tipoDeJugada = "bandera";
-			this->listaDeBanderas.agregarElemento(unaBandera);
 
-			if (unaBandera.banderaBienColocada()){ // es una bandera donde hay bomba
-				puntajeJugador = puntajes.devolverPuntos();
+			if (){ // es una bandera donde hay bomba
+				//Sumo puntaje a jugador
 			} else { // no hay bomba
-				puntajeJugador = -puntajes.devolverPuntos();
+				//Resto puntaje a jugador
 			}
 			this->jugadorActual->asignarPuntaje(puntajeJugador);
 
@@ -289,3 +286,8 @@ bool Juego::terminoLaPartida(){
 	return false;
 }
 
+cadena Juego::hacerCadena(int numero){
+	std::ostringstream ossnumero;
+	ossnumero << numero;
+	return ossnumero.str();
+}

@@ -19,18 +19,20 @@ class Juego{
 
   private:
 
-	uint dificultad;
-
-	Arbitro* arbitro;
 	Dibujante* dibujante;
+
 	Casillero* tablero;
-	Jugador* jugadorActual;
 
 	uint filaMaxima;
 	uint columnaMaxima;
 
+	Arbitro* arbitro;
+
 	uint filaDeJugada;
 	uint columnaDeJugada;
+
+	Jugador* jugadorActual;
+	uint diferenciaDePuntaje;
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
@@ -43,6 +45,11 @@ class Juego{
 	 * 		 Devuelve el numero ingresado.
 	 */
 	uint pedirNumero(std::string mensaje, uint numeroMaximo);
+
+	/*
+	 * Post: Devuelve una cadena con el numero que se le paso
+	 */
+	cadena hacerCadena(int numero);
 
 	/*
 	 *
@@ -76,6 +83,7 @@ class Juego{
 
 
   public:
+
 	/* Pre: Se le pasan numeros naturales.
 	 * Post: Crea un arbitro listo para pasarle jugadas
 	 */
@@ -121,14 +129,14 @@ class Juego{
 
 	/*
 	 * Post: Devuelve el puntaje total del jugador que jugo ultimo.
-	 *	 Devuelve -1 si no se modifica.
+	 *	 	 Devuelve -1 si no se modifica.
 	 */
 	int devolverPuntaje();
 
 	/*
 	 * Post
 	 */
-	void eliminarBandera(Bandera bandera);
+	void eliminarBandera(uint columna, uint fila);
 
 	/*
 	 * Post: devuelve true si termino la partida

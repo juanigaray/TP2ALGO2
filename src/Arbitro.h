@@ -15,6 +15,8 @@ class Arbitro{
 
 private:
 
+	uint dificultad;
+
 	Lista<Jugador> listaDeJugadores;
 
 	/*
