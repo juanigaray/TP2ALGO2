@@ -1,43 +1,34 @@
 #ifndef BANDERA_H
 #define BANDERA_H
 #endif
-#include "Jugador.h"
-#include "Bomba.h"
-#include "Lista.h"
-typedef int Coordenada[2];
+
+#include "ClasesComunes.h"
+
 class Bandera{
 private:
 
-	Coordenada coordenadas;
-	Jugador* jugador;
-	bool bienColocada;
+	uint jugador;
+	bool existe;
 
 public:
 
-	//POST Crea Bandera, POR DEFECTO VA A ESTAR EN FALSE EL bienColocada
-	Bandera(int coordenadaX, int coordenadaY, Jugador* jugador);
+	//Post: hayBandera() y obtenerJugador() devuelve parametro
+	Bandera(uint colocadaPor);
 
-	//Post Bandera Vacia
+	//Post: No hayBandera() y obtenerJugador() devuelve cero
 	Bandera();
 
-	//POST CAMBIA COORDENADA X
-	void cambiarCoordenadaX(int coordX);
+	//Post: Devuelve quien coloco la bandera
+	uint obtenerJugador();
 
-	//POST CAMBIA COORDENADA Y
-	void cambiarCoordenadaY(int coordY);
+	//Post: Indica si hay una bandera
+	bool hayBandera();
 
-	//POST DEVUELVE COORDENADA X
-	int obtenerCoordenadaX();
+	//Post: No hayBandera()  y obtenerJugador() devuelve cero
+	void eliminarBandera();
 
-	//POST DEVUELVE COORDENADA Y
-	int obtenerCoordenadaY();
-
-	//POST DEVUELVE SI ESTA bienColocada
-	bool banderaBienColocada();
-
-	//POST VALIDA Y CAMBIA bienColocada
-	void validarColocacion(Lista<Bomba>* bombas);
-
-	//POST DEVUELVE EL JUGADOR QUE COLOCO LA BANDERA
-	Jugador* obtenerJugador();
+	/* Pre: No hayBandera()
+	 * Post: hayBandera() y obtenerJugador() devuelve parametro
+	 */
+	void colocarBandera(uint colocadaPor);
 };
