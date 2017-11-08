@@ -7,10 +7,9 @@
 
 #ifndef PRESENTADOR_H_
 #define PRESENTADOR_H_
-#include <iostream>
 
-typedef unsigned int uint;
-typedef std::string cadena;
+#include <iostream>
+#include "ClasesComunes.h"
 
 class Presentador{
   private:
