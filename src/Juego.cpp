@@ -66,14 +66,12 @@ uint Juego::tomarTipoDeJugada(){
 }
 
 void Juego::tomarUbicacionDeJugada(){
-	uint filaDeJugada = pedirNumero("Por favor, ingrese la fila donde desea realizar la jugada", filaMaxima);
-	uint columnaDeJugada = pedirNumero("Por favor, ingrese la columna donde desea realizar la jugada", columnaMaxima);
+	filaDeJugada = pedirNumero("Por favor, ingrese la fila donde desea realizar la jugada", filaMaxima);
+	columnaDeJugada = pedirNumero("Por favor, ingrese la columna donde desea realizar la jugada", columnaMaxima);
 }
 
 void Juego::avanzarTurno(){
-	if(!listaDeJugadores.avanzarCursor())
-		listaDeJugadores.avanzarCursor();
-	jugadorActual = listaDeJugadores.obtenerCursor();
+	arbitro->avanzarTurno();
 }
 
 void Juego::tomarJugada(){
