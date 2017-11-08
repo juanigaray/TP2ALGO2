@@ -34,7 +34,7 @@ class Casillero{
 	 /*
 	  *
 	  */
-	 void tieneBandera();
+	 bool tieneBandera();
 
 	 /*
 	  *
@@ -44,11 +44,7 @@ class Casillero{
 	 /*
 	  *
 	  */
-	 void quitarBandera(uint jugador);
-
-	 /*
-	  *
-	  */
+	 void quitarBandera();
 
 	 /* Pre: El casillero tiene bandera
 	  * Post: Devuelve quien la puso.

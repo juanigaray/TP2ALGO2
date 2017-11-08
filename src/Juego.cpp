@@ -8,26 +8,24 @@
 
 #include "Juego.h"
 
-#include <iostream>
-#include <stdlib.h>
-#include <time.h>
-
 Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* nombresDeJugadores){
-
-	this->dificultad = dificultadPedida;
 
 	this->filaMaxima = filas;
 	this->columnaMaxima = columnas;
 
-	this->dibujante = new Dibujante(columnas, filas, numeroDeJugadores);
-	this->arbitro = new Arbitro(nombresDeJugadores, numeroDeJugadores);
+	this->columnaDeJugada = 0;
+	this->filaDeJugada = 0;
+	this->diferenciaDePuntaje = 0;
 
-	this->tablero = new Casillero[filas][columnas];
-	inicializarTablero();
+	this->dibujante = new Dibujante(columnas, filas, numeroDeJugadores);
+	this->arbitro = new Arbitro(nombresDeJugadores, numeroDeJugadores, dificultadPedida);
+
+	this->tablero = new Casillero*[filas];
+	inicializarTablero(filas, columnas, dificultadPedida);
 
 	this->jugadorActual = 0;
 
-
+	this->casillerosDestapados = 0;
 }
 
 uint Juego::pedirNumero(std::string mensaje){
@@ -76,8 +74,6 @@ void Juego::avanzarTurno(){
 
 void Juego::tomarJugada(){
 
-	Puntaje puntajes(this->dificultad);
-	int puntajeJugador;
 	uint opcionElegida = tomarTipoDeJugada();
 
 	tomarUbicacionDeJugada();
@@ -170,16 +166,8 @@ uint Juego::devolverFilaDeJugada(){
 	return filaDeJugada;
 }
 
-std::string Juego::devolverTipoDeJugada(){
-	return this->tipoDeJugada;
-}
-
-uint Juego::devolverTurno(){
-	return (uint)( listaDeJugadores.obtenerCursor()->consultarNumero() );
-}
-
 void Juego::declararTurno(){
-	std::cout << "Es el turno de "<< jugadorActual->consultarNombre() << std::endl;
+	std::cout << "Es el turno de "<< (arbitro->devolverJugadorActual())->consultarNombre() << std::endl;
 }
 
 int Juego::devolverPuntaje(){
@@ -191,12 +179,7 @@ int Juego::devolverPuntaje(){
 	}
 }
 
-void Juego::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores){
-	for(int i = 0; i < cantidadJugadores; i++){
-        Jugador jugador(nombres[i], i);
-        listaDeJugadores.agregarElemento(jugador);
-	}
-}
+
 
 void Juego::inicializarListaDeBombas(){
 	if(this->dificultad == 1){

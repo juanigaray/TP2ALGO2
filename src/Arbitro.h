@@ -26,7 +26,7 @@ private:
 
 public:
 
-	Arbitro(cadena* nombres, uint cantidadJugadores);
+	Arbitro(cadena* nombres, uint cantidadJugadores, uint dificultadPedida);
 
 	/* Pre: La lista debe estar iniciada con el cursor iniciado
 	 * Post: Devuelve puntero al jugador al que le toca jugar.

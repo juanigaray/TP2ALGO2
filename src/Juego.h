@@ -8,6 +8,9 @@
 #define JUEGO_H_
 
 #include <sstream>
+#include <iostream>
+#include <stdlib.h>
+#include <time.h>
 #include "Jugador.h"
 #include "Puntaje.h"
 #include "Dibujante.h"
@@ -15,13 +18,14 @@
 #include "ClasesComunes.h"
 #include "Arbitro.h"
 
+
 class Juego{
 
   private:
 
 	Dibujante* dibujante;
 
-	Casillero* tablero;
+	Casillero** tablero;
 
 	uint filaMaxima;
 	uint columnaMaxima;
@@ -33,6 +37,8 @@ class Juego{
 
 	Jugador* jugadorActual;
 	uint diferenciaDePuntaje;
+
+	uint casillerosDestapados;
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
