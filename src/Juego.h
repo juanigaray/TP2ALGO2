@@ -25,20 +25,19 @@ class Juego{
 
 	Dibujante* dibujante;
 
-	Casillero** tablero;
+	Casillero*** tablero; //Es un array * de arrays * de punteros *
 
 	uint filaMaxima;
 	uint columnaMaxima;
 
 	Arbitro* arbitro;
 
+	uint bombasTotales;
+	uint casillerosDestapados;
+
 	uint filaDeJugada;
 	uint columnaDeJugada;
-
-	Jugador* jugadorActual;
-	uint diferenciaDePuntaje;
-
-	uint casillerosDestapados;
+	//VER DIFERENCIA DE PUNTAJE
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
@@ -60,7 +59,7 @@ class Juego{
 	/*
 	 *
 	 */
-	void inicializarTablero();
+	void inicializarTablero(uint dificultad);
 
 	/*
 	 *
@@ -86,6 +85,11 @@ class Juego{
 	  * Indica si existe una bandera en ese lugar
 	  */
 	bool hayBandera();
+
+	/*
+	 *
+	 */
+	bool noQuedanCasilleros();
 
 
   public:
@@ -148,6 +152,11 @@ class Juego{
 	 * Post: devuelve true si termino la partida
 	 */
 	bool terminoLaPartida();
+
+	/*
+	 *
+	 */
+	Juego::~Juego();
 
 };
 

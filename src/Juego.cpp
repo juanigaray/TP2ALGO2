@@ -20,12 +20,28 @@ Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint col
 	this->dibujante = new Dibujante(columnas, filas, numeroDeJugadores);
 	this->arbitro = new Arbitro(nombresDeJugadores, numeroDeJugadores, dificultadPedida);
 
-	this->tablero = new Casillero*[filas];
-	inicializarTablero(filas, columnas, dificultadPedida);
+	this->tablero = new Casillero**[columnaMaxima];
+
+	inicializarTablero(dificultadPedida);
 
 	this->jugadorActual = 0;
 
 	this->casillerosDestapados = 0;
+	this->bombasTotales =  (dificultadPedida * filaMaxima * columnaMaxima) % 16;
+}
+
+void Juego::inicializarTablero(uint dificultad){
+
+	//A cada columna le asigno un array de n casilleros, n = nro de filas
+	for(uint col =0; col < columnaMaxima; col++){
+
+		tablero[col] = new Casillero*[filaMaxima];
+
+		for(uint fil = 0; fil < filaMaxima; fil++ ){
+
+			tablero[col][fil] = NULL;
+		}
+	}
 }
 
 uint Juego::pedirNumero(std::string mensaje){
@@ -147,8 +163,7 @@ uint Juego::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasill
 			if( (filaAEvaluar > -1 ) && (columnaAEvaluar > -1) &&
 					(filaAEvaluar <= (int)this->filaMaxima) &&
 					(columnaAEvaluar <= (int)this->columnaMaxima) ){
-				Bomba supuestaBomba(columnaAEvaluar, filaAEvaluar);
-				if (existeBomba(supuestaBomba)){
+				if (){
 					cantidadDeCircundantes++;
 				}
 			}
@@ -171,106 +186,57 @@ void Juego::declararTurno(){
 }
 
 int Juego::devolverPuntaje(){
-	int puntajeJugador = jugadorActual->consultarPuntaje();
-	if (puntajeJugador <= 0) {
-		return -1;
+	int puntajeJugador = arbitro->devolverJugadorActual()->consultarPuntaje();
+	if (puntajeJugador < 0) {
+		return 0;
 	} else {
 		return puntajeJugador;
 	}
 }
 
+void Juego::crearBombas(uint dificultad){
 
+	srand (time(NULL));
+	int bombasRestantes = bombasTotales;
+	while (bombasRestantes > 0){
+		//Genero dos numeros semi-aleatorios para usar de coordenada
+		uint xAleatorio = rand() % filaMaxima;
+		uint yAleatorio = rand() % columnaMaxima;
+		//solo afecta el casillero si no hay una mina ya sobre el
+		if ( tablero[xAleatorio][yAleatorio] == 0 ){
 
-void Juego::inicializarListaDeBombas(){
-	if(this->dificultad == 1){
-		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.15); //multiplicador de dificultad
+			(tablero[xAleatorio][yAleatorio]) = new Casillero(true);
 
-	} else if(this->dificultad == 2){
-		crearBombas((this->filaMaxima * this->columnaMaxima) * 0.25); //multiplicador de dificultad
+			bombasRestantes --;
 
-    } else {
-        crearBombas((this->filaMaxima * this->columnaMaxima) * 0.35); //multiplicador de dificultad
-    }
-
-}
-
-void Juego::crearBombas(int cantBombas){
-	while (cantBombas != 0)
-	{
-		int fila = 1 + rand() % (filaMaxima);
-		int columna = 1 + rand() % (columnaMaxima) ;
-		Bomba bomba(fila, columna);
-		if(!existeBomba(bomba)){
-		this->listaDeBombas.agregarElemento(bomba);
-		}
-		cantBombas--;
-	}
-}
-
-bool Juego::existeBomba(Bomba bomba){
-	listaDeBombas.iniciarCursor();
-	 while (listaDeBombas.avanzarCursor()) {
-		 Bomba* bombaEnLista = listaDeBombas.obtenerCursor();
-		 if(bomba.obtenerCoordenadaX() == bombaEnLista->obtenerCoordenadaX()
-				 && bomba.obtenerCoordenadaY() == bombaEnLista->obtenerCoordenadaY()){
-			 return true;
-		 }
-	 }
-	 return false;
-}
-
-bool Juego::existeBandera(Bandera bandera){
-
-	listaDeBanderas.iniciarCursor();
-
-	while (listaDeBanderas.avanzarCursor() && listaDeBanderas.obtenerCursor() != 0 ) {
-		Bandera* banderaEnLista = listaDeBanderas.obtenerCursor();
-		if(bandera.obtenerCoordenadaX() == banderaEnLista->obtenerCoordenadaX()
-			&& bandera.obtenerCoordenadaY() == banderaEnLista->obtenerCoordenadaY()){
-			return true;
-		 }
-	 }
-	 return false;
-}
-
-void Juego::eliminarBandera(Bandera banderaABorrar){
-	this->listaDeBanderas.iniciarCursor();
-	bool encontrado = false;
-	int posicion = 0;
-	while(listaDeBanderas.avanzarCursor() && encontrado ){
-		posicion++;
-		Bandera* bandera = listaDeBanderas.obtenerCursor();
-		if(banderaABorrar.obtenerCoordenadaX() == bandera->obtenerCoordenadaX() &&
-			banderaABorrar.obtenerCoordenadaY() == bandera->obtenerCoordenadaY()){
-			encontrado = true;
-			listaDeBanderas.removerNodo(posicion);
 		}
 	}
 }
 
+void Juego::eliminarBandera(uint fila, uint columna){
+	if (tablero[columna][fila] != 0){
 
+		//??????????
 
-uint Juego::devolverColumnaMaxima(){
-	return this->columnaMaxima;
-}
-
-uint Juego::devolverFilaMaxima(){
-	return this->filaMaxima;
+	}
 }
 
 bool Juego::terminoLaPartida(){
-	if (this->listaDeJugadoresEliminados.contarElementos() == this->cantJugadores){
-		return true;
-	}
-	if ( ((filaMaxima * columnaMaxima) - this->listaDeBombas.contarElementos()) == this->casillerosDestapados ){
+	return (arbitro->murieronTodos() || noQuedanCasilleros() );
+}
 
-		return true;
-	}
-	return false;
+bool Juego::noQuedanCasilleros(){
+	return (casillerosDestapados == ( (filaMaxima * columnaMaxima) - bombasTotales ));
 }
 
 cadena Juego::hacerCadena(int numero){
 	std::ostringstream ossnumero;
 	ossnumero << numero;
 	return ossnumero.str();
+}
+
+
+Juego::~Juego(){
+	//LIBERAR MEMORIA DEL TABLERO!!
+
 }

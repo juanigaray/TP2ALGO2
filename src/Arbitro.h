@@ -58,6 +58,11 @@ public:
 	 * 		 Si no hay más jugadores, no hace nada
 	 */
 	void avanzarTurno();
+
+	/*
+	 *
+	 */
+	bool murieronTodos();
 };
 
 
