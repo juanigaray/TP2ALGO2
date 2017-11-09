@@ -36,5 +36,5 @@ uint Casillero::quienPusoLaBandera(){
 }
 
 bool Casillero::tieneBomba(){
-	return this->bomba;
+	return bomba;
 }

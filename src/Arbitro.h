@@ -39,11 +39,17 @@ public:
 	 */
 	void eliminarJugador();
 
-	/*
-	 * Post: evalua la jugada y asigna puntajes.
-	 * elimina al jugador en caso que destape una bomba
+	/* Pre: No fueron eliminados todos los jugadores
+	 * Post: Se suma el numero pasado al puntaje del jugador actual
+	 *
 	 */
-	void evaluarJugada();
+	void sumarPuntaje(int puntos);
+
+	/* Pre: No fueron eliminados todos los jugadores
+	 * Post: Devuelve el puntaje del jugador actual
+	 *		 Si es menor que 0, devuelve 0.
+	 */
+	uint devolverPuntaje();
 
 	/*
 	 * Pre: La lista debe estar iniciada con el cursor iniciado

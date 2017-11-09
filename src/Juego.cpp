@@ -90,46 +90,55 @@ void Juego::avanzarTurno(){
 
 void Juego::tomarJugada(){
 
-	uint opcionElegida = tomarTipoDeJugada();
+	cadena tipoDeJugada;
+
+	uint opcionElegida = this->tomarTipoDeJugada();
+
+	uint jugadorActual = this->arbitro->devolverTurno();
 
 	tomarUbicacionDeJugada();
 
 	//Si es colocar/quitar bandera:
 	if (opcionElegida == 1){
 
-		//si no hay bandera, pone una
-		if ( ){
+		this->prepararCasillero();
 
-			this->tipoDeJugada = "bandera";
+		//No hay bandera, pone
+		if ( ! tablero[columnaDeJugada][filaDeJugada]->tieneBandera() ){
 
-			if (){ // es una bandera donde hay bomba
-				//Sumo puntaje a jugador
+			tipoDeJugada = "bandera";
+
+			if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){ // es una bandera donde hay bomba
+				this->arbitro->sumarPuntaje(1);
 			} else { // no hay bomba
-				//Resto puntaje a jugador
+				this->arbitro->sumarPuntaje(-1);
 			}
-			this->jugadorActual->asignarPuntaje(puntajeJugador);
 
-		} else { // Quiere sacar bandera
+			this->dibujante->cambiarCuadrante(columnaDeJugada,filaDeJugada,tipoDeJugada, this->arbitro->devolverTurno(), false);
+			this->dibujante->cambiarPuntaje( this->arbitro->devolverPuntaje(), jugadorActual );
+			this->tablero[columnaDeJugada][filaDeJugada]->colocarBandera(jugadorActual);
 
-				// si no pertenece a este jugador entonces la quita
-				Jugador* propietarioBandera = unaBandera.obtenerJugador();
-				if (this->jugadorActual->consultarNombre() == propietarioBandera->consultarNombre()){ //es el mismo
-					// elimina bandera de la lista cuando sale
-					this->tipoDeJugada = "cubierto";
+		// Hay bandera, saca
+		} else {
 
-				} else { // es otro, caso en que corrige jugada del otro
-					if ( unaBandera.banderaBienColocada() ){ // es una bandera donde hay bomba
-						// la quita cuando sale pero le resta puntos porque si habia bomba
-						puntajeJugador = -puntajes.devolverPuntosEspeciales();
-						this->tipoDeJugada = "cubierto";
+			tipoDeJugada = "cubierto"; //POR EL AMOR DE JEHOVA USEMOS CONSTANTES
 
-					} else { // era una bandera mal puesta
-						puntajeJugador = puntajes.devolverPuntosEspeciales();
-					}
-					this->jugadorActual->asignarPuntaje(puntajeJugador);
+			//No pertenece a este jugador
+			if ( tablero[columnaDeJugada][filaDeJugada]->quienPusoLaBandera() == jugadorActual ){ //es el mismo
+				// elimina bandera de la lista cuando sale
+				tipoDeJugada = "cubierto";
+
+			} else { // es otro, caso en que corrige jugada del otro
+				if (  ){ // es una bandera donde hay bomba
+					// la quita cuando sale pero le resta puntos porque si habia bomba
+
+
+				} else { // era una bandera mal puesta
+
 				}
-				// elimina la bandera
-				this->eliminarBandera(unaBandera);
+			}
+			// elimina la bandera
+			this->eliminarBandera(fila, columna);
 		}
 
 	} else { //Descubrir casillero
@@ -149,6 +158,12 @@ void Juego::tomarJugada(){
 			ossCircundantes << numeroDeBombasCircundantes;
 			this->tipoDeJugada = ossCircundantes.str();
 		}
+	}
+}
+
+void Juego::prepararCasillero(){
+	if(tablero[columnaDeJugada][filaDeJugada] == 0){
+		tablero[columnaDeJugada][filaDeJugada] = new Casillero();
 	}
 }
 
@@ -214,15 +229,11 @@ void Juego::crearBombas(uint dificultad){
 }
 
 void Juego::eliminarBandera(uint fila, uint columna){
-	if (tablero[columna][fila] != 0){
-
-		//??????????
-
-	}
+	tablero[columna][fila]->quitarBandera();
 }
 
 bool Juego::terminoLaPartida(){
-	return (arbitro->murieronTodos() || noQuedanCasilleros() );
+	return (arbitro->murieronTodos() || this->noQuedanCasilleros() );
 }
 
 bool Juego::noQuedanCasilleros(){

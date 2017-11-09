@@ -91,6 +91,10 @@ class Juego{
 	 */
 	bool noQuedanCasilleros();
 
+	/*
+	 *
+	 */
+	void prepararCasillero();
 
   public:
 
@@ -156,7 +160,7 @@ class Juego{
 	/*
 	 *
 	 */
-	Juego::~Juego();
+	~Juego();
 
 };
 
