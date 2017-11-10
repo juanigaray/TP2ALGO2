@@ -100,6 +100,22 @@ class Juego{
 	 */
 	void prepararCasillero();
 
+	/* Pre: Recibe el jugador actual.
+	 * Post: Si no hay una bandera la coloca,
+	 * si hay y era del mismo jugador la saca sin que pase nada,
+	 * si es de otro, se toma como corregir a otro jugador y se puntua.
+	 * Retorna que se va a dibujar.
+	 */
+	cadena jugadaBandera(uint jugadorActual);
+
+	/* Pre: Recibe el jugador actual.
+	 * Post: Si tiene una bomba elimina al jugador,
+	 * si no, destapa el casillero y evalua los circundantes
+	 */
+	cadena jugadaDestapar(uint jugadorActual);
+
+
+
   public:
 
 	/* Pre: Se le pasan numeros naturales.

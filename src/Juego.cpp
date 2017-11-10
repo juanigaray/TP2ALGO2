@@ -103,69 +103,83 @@ void Juego::tomarJugada(){
 	//Si es colocar/quitar bandera:
 	if (opcionElegida == 1){
 
-		//No hay bandera, pone
-		if ( ! tablero[columnaDeJugada][filaDeJugada]->tieneBandera() ){
+		queDibujar = jugadaBandera(jugadorActual);
 
-			queDibujar = bandera;
+	} else { // opcion es 2
 
-			if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){
-				this->arbitro->sumarPuntaje(1);
+		queDibujar = jugadaDestapar(jugadorActual);
 
-			} else { // no hay bomba
-				this->arbitro->sumarPuntaje(-1);
-			}
-
-			this->tablero[columnaDeJugada][filaDeJugada]->colocarBandera(jugadorActual);
-
-		//Hay bandera, saca
-		} else {
-
-			queDibujar = casilleroCubierto;
-
-			//No pertenece a este jugador
-			if ( ! (tablero[columnaDeJugada][filaDeJugada]->quienPusoLaBandera() == jugadorActual) ){
-
-				//Era una bandera bien puesta
-				if ( tablero[columnaDeJugada][filaDeJugada]->tieneBomba() ){
-					this->arbitro->sumarPuntaje(-2);
-
-				//Era una bandera mal puesta
-				} else {
-					this->arbitro->sumarPuntaje(2);
-				}
-			}
-			this->tablero[columnaDeJugada][filaDeJugada]->quitarBandera();
-
-		}
-
-		this->dibujante->cambiarPuntaje( this->arbitro->devolverPuntaje(), jugadorActual );
-
-	//Opcion elegida: descubrir casillero
-	} else {
-
-		// ver si las coordenadas son validas
-
-		//Tiene bomba
-		if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){
-
-			queDibujar = bomba;
-			arbitro->eliminarJugador();
-			dibujante->eliminarJugador(jugadorActual);
-
-		//No tiene bomba
-		} else {
-
-			uint numeroDeBombasCircundantes = evaluarBombasCircundantes(columnaDeJugada, filaDeJugada);
-			queDibujar = hacerCadena(numeroDeBombasCircundantes);
-
-			if(numeroDeBombasCircundantes == 0){
-				//DESTAPO LAS CIRCUNDANTES
-			}
-		}
 	}
+
 	this->dibujante->cambiarCuadrante(columnaDeJugada,filaDeJugada,queDibujar, this->arbitro->devolverTurno(), false);
 	this->dibujante->dibujarTablero();
 }
+
+cadena Juego::jugadaBandera(uint jugadorActual){
+
+	cadena queDibujar;
+	//No hay bandera, pone
+	if ( ! tablero[columnaDeJugada][filaDeJugada]->tieneBandera() ){
+
+		queDibujar = bandera;
+
+		if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){
+			this->arbitro->sumarPuntaje(1);
+
+		} else { // no hay bomba
+			this->arbitro->sumarPuntaje(-1);
+		}
+
+		this->tablero[columnaDeJugada][filaDeJugada]->colocarBandera(jugadorActual);
+
+	//Hay bandera, saca
+	} else {
+
+		queDibujar = casilleroCubierto;
+
+		//No pertenece a este jugador
+		if ( ! (tablero[columnaDeJugada][filaDeJugada]->quienPusoLaBandera() == jugadorActual) ){
+
+			//Era una bandera bien puesta
+			if ( tablero[columnaDeJugada][filaDeJugada]->tieneBomba() ){
+				this->arbitro->sumarPuntaje(-2);
+
+			//Era una bandera mal puesta
+			} else {
+				this->arbitro->sumarPuntaje(2);
+			}
+		}
+		this->tablero[columnaDeJugada][filaDeJugada]->quitarBandera();
+	}
+	this->dibujante->cambiarPuntaje( this->arbitro->devolverPuntaje(), jugadorActual );
+
+	return queDibujar;
+}
+
+cadena Juego::jugadaDestapar(uint jugadorActual){
+	cadena queDibujar;
+	// ver si las coordenadas son validas
+
+	//Tiene bomba
+	if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){
+
+		queDibujar = bomba;
+		arbitro->eliminarJugador();
+		dibujante->eliminarJugador(jugadorActual);
+
+	//No tiene bomba
+	} else {
+
+		uint numeroDeBombasCircundantes = evaluarBombasCircundantes(columnaDeJugada, filaDeJugada);
+		queDibujar = hacerCadena(numeroDeBombasCircundantes);
+
+		if(numeroDeBombasCircundantes == 0){
+			//DESTAPO LAS CIRCUNDANTES
+		}
+	}
+	return queDibujar;
+}
+
 
 void Juego::prepararCasillero(){
 	if(tablero[columnaDeJugada][filaDeJugada] == 0){
