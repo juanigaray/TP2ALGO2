@@ -98,16 +98,15 @@ void Juego::tomarJugada(){
 	tomarUbicacionDeJugada();
 
 	this->prepararCasillero();
-	std::cout << "preparo casillero!";
 
 	//Si es colocar/quitar bandera:
 	if (opcionElegida == 1){
 
-		queDibujar = jugadaBandera(jugadorActual);
+		queDibujar = colocarBandera(jugadorActual);
 
 	} else { // opcion es 2
 
-		queDibujar = jugadaDestapar(jugadorActual);
+		queDibujar = destaparCasillero(jugadorActual);
 
 	}
 
@@ -115,7 +114,7 @@ void Juego::tomarJugada(){
 	this->dibujante->dibujarTablero();
 }
 
-cadena Juego::jugadaBandera(uint jugadorActual){
+cadena Juego::colocarBandera(uint jugadorActual){
 
 	cadena queDibujar;
 	//No hay bandera, pone
@@ -156,7 +155,7 @@ cadena Juego::jugadaBandera(uint jugadorActual){
 	return queDibujar;
 }
 
-cadena Juego::jugadaDestapar(uint jugadorActual){
+cadena Juego::destaparCasillero(uint jugadorActual){
 	cadena queDibujar;
 	// ver si las coordenadas son validas
 
@@ -182,10 +181,8 @@ cadena Juego::jugadaDestapar(uint jugadorActual){
 
 
 void Juego::prepararCasillero(){
-	if(tablero[columnaDeJugada][filaDeJugada] == 0){
+	if(tablero[columnaDeJugada][filaDeJugada] == 0)
 		( tablero[columnaDeJugada][filaDeJugada] ) = new Casillero();
-		std::cout << "ok" << std::endl;
-	}
 }
 
 uint Juego::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasillero){
@@ -198,8 +195,8 @@ uint Juego::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasill
 			int filaAEvaluar = filaDeCasillero - dFila;
 
 			if	 ( validarCoordenada(filaAEvaluar, columnaAEvaluar) &&
-								(filaAEvaluar != filaDeCasillero  ) &&
-								(columnaAEvaluar != columnaDeCasillero) &&
+								(filaAEvaluar != (int)filaDeCasillero  ) &&
+								(columnaAEvaluar != (int)columnaDeCasillero) &&
 								tablero[filaDeCasillero][columnaDeCasillero]->tieneBomba()	){
 				circundantes++;
 
@@ -231,16 +228,16 @@ void Juego::crearBombas(uint dificultad){
 	srand (time(NULL));
 	int bombasRestantes = bombasTotales;
 	while (bombasRestantes > 0){
+
 		//Genero dos numeros semi-aleatorios para usar de coordenada
 		uint xAleatorio = rand() % filaMaxima;
 		uint yAleatorio = rand() % columnaMaxima;
+
 		//solo afecta el casillero si no hay una mina ya sobre el
 		if ( tablero[xAleatorio][yAleatorio] == 0 ){
 
 			(tablero[xAleatorio][yAleatorio]) = new Casillero(true);
-
 			bombasRestantes --;
-
 		}
 	}
 }
@@ -264,6 +261,12 @@ cadena Juego::hacerCadena(int numero){
 }
 
 Juego::~Juego(){
-	//LIBERAR MEMORIA DEL TABLERO!!
 
+	for(uint columna = 0; columna < columnaMaxima; columna++ ){
+		for(uint fila = 0; fila < filaMaxima; fila++){
+			delete tablero[columna][fila];
+		}
+		delete tablero[columna];
+	}
+	delete [] tablero;
 }

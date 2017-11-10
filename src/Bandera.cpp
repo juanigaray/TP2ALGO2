@@ -1,17 +1,17 @@
 #include "Bandera.h"
 
 Bandera::Bandera(uint colocadaPor){
-	this->jugador = colocadaPor;
+	this->jugadorQueColoco = colocadaPor;
 	this->existe = true;
 }
 
 Bandera::Bandera(){
-	this->jugador = 0;
+	this->jugadorQueColoco = 0;
 	this->existe = false;
 }
 
 uint Bandera::obtenerJugador(){
-	return this->jugador;
+	return this->jugadorQueColoco;
 }
 
 bool Bandera::hayBandera(){
@@ -19,11 +19,11 @@ bool Bandera::hayBandera(){
 }
 
 void Bandera::eliminarBandera(){
-	this->jugador = 0;
+	this->jugadorQueColoco = 0;
 	this->existe = false;
 }
 
-void Bandera::colocarBandera(uint colocadaPor){
-	this->jugador = colocadaPor;
-	this->existe = true;
+void Bandera::colocarBandera(uint quienColoco){
+	jugadorQueColoco = quienColoco;
+	existe = true;
 }

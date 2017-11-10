@@ -61,6 +61,10 @@ class Casillero{
 	  */
 	 void destapar();
 
+	 /*
+	  * Post: Libera los recursos asociados, especificalente los pedidos para la bandera
+	  */
+	 ~Casillero();
  };
 
 

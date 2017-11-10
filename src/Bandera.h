@@ -8,7 +8,7 @@
 class Bandera{
 private:
 
-	uint jugador;
+	int jugadorQueColoco;
 	bool existe;
 
 public:

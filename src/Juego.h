@@ -106,13 +106,13 @@ class Juego{
 	 * si es de otro, se toma como corregir a otro jugador y se puntua.
 	 * Retorna que se va a dibujar.
 	 */
-	cadena jugadaBandera(uint jugadorActual);
+	cadena colocarBandera(uint jugadorActual);
 
 	/* Pre: Recibe el jugador actual.
 	 * Post: Si tiene una bomba elimina al jugador,
 	 * si no, destapa el casillero y evalua los circundantes
 	 */
-	cadena jugadaDestapar(uint jugadorActual);
+	cadena destaparCasillero(uint jugadorActual);
 
 
 

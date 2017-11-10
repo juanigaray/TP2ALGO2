@@ -24,11 +24,19 @@ bool Casillero::tieneBandera(){
 }
 
 void Casillero::colocarBandera(uint jugador){
+	if (bandera == 0){
+		bandera = new Bandera;
+	}
 	this->bandera->colocarBandera(jugador);
 }
 
 void Casillero::quitarBandera(){
-	this->bandera->eliminarBandera();
+
+	if (bandera == 0){
+		bandera = new Bandera;
+	} else {
+		this->bandera->eliminarBandera();
+	}
 }
 
 uint Casillero::quienPusoLaBandera(){
@@ -38,3 +46,12 @@ uint Casillero::quienPusoLaBandera(){
 bool Casillero::tieneBomba(){
 	return bomba;
 }
+
+Casillero::~Casillero(){
+	if (bandera != 0){
+		delete bandera;
+	}
+}
+
+
+

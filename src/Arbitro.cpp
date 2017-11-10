@@ -43,7 +43,8 @@ void Arbitro::inicializarListaDeJugadores(cadena* nombres, uint cantidadJugadore
 }
 
 uint Arbitro::devolverTurno(){
-	return (uint)( listaDeJugadores.obtenerCursor()->consultarNumero() );
+	uint nroJugador = listaDeJugadores.obtenerCursor()->consultarNumero() + 1;
+	return nroJugador;
 }
 
 bool Arbitro::murieronTodos(){
