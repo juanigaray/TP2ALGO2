@@ -9,7 +9,8 @@
 #define PRESENTADOR_H_
 
 #include <iostream>
-#include "ClasesComunes.h"
+
+#include "Comunes.h"
 
 class Presentador{
   private:

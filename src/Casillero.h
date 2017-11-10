@@ -9,7 +9,7 @@
 #define CASILLERO_H_
 
 #include "Bandera.h"
-#include "ClasesComunes.h"
+#include "Comunes.h"
 
 class Casillero{
 

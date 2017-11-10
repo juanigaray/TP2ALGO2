@@ -9,12 +9,21 @@
 #define DIBUJANTE_H_
 #include "EasyBMP/EasyBMP.h"
 #include <sstream>
-
-typedef unsigned int uint;
+#include "Comunes.h"
 
 class Dibujante{
 
   private:
+
+	cadena directorioDeImagenesFuente;
+	cadena directorioDeCasilleros;
+	cadena directorioDeMargenes;
+	cadena directorioDePuntajes;
+	cadena bomba;
+	cadena bandera;
+	cadena casilleroCubierto;
+	cadena margen;
+
 	uint numeroDeDibujo;
 
 	uint alturaDeCuadrante;
@@ -28,11 +37,6 @@ class Dibujante{
 	uint filasTotalesImagen;
 
 	BMP imagen;
-
-	std::string directorioDeImagenesFuente;
-	std::string directorioDeCasilleros;
-	std::string directorioDeMargenes;
-	std::string directorioDePuntajes;
 
 	/* Pre: Es usado por el constructor. Se le pasan dos naturales.
 	 * Post:
@@ -75,7 +79,7 @@ class Dibujante{
 	 * Post: Se superpone el cuadrante en la posicion indicada con el tipo de casillero pedido.
 	 *
 	 */
-	void cambiarCuadrante(uint fila, uint columna, std::string queDibujar, uint jugador, bool esMargen);
+	void cambiarCuadrante(uint fila, uint columna, cadena queDibujar, uint jugador, bool esMargen);
 
 	/* Pre: El nroJugador esta entre 1 y el nro de jugadores pasados al crear el tablero.
 	 * Post: Dibuja el puntaje pasado a la derecha del numero de jugador.
@@ -90,7 +94,12 @@ class Dibujante{
 	/*
 	 *
 	 */
-	void eliminarJugador(uint jugador);
+	void eliminarJugador(uint nroJugador);
+
+	/*
+	 *
+	 */
+	cadena hacerCadena(int numero);
 
 };
 

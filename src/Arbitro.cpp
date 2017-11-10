@@ -12,11 +12,22 @@ Arbitro::Arbitro(cadena* nombresDeJugadores, uint numeroDeJugadores, uint dificu
 
 	this->dificultad = dificultadPedida;
 	this->inicializarListaDeJugadores(nombresDeJugadores, numeroDeJugadores);
+}
 
+Jugador* Arbitro::devolverJugador(){
+	return listaDeJugadores.obtenerCursor();
 }
 
 void Arbitro::eliminarJugador(){
 		listaDeJugadores.removerNodo( devolverTurno() );
+}
+
+void Arbitro::sumarPuntaje(int puntos){
+	devolverJugador()->asignarPuntaje( devolverPuntaje() + puntos  );
+}
+
+uint Arbitro::devolverPuntaje(){
+	return devolverJugador()->consultarPuntaje();
 }
 
 void Arbitro::avanzarTurno(){
@@ -28,8 +39,13 @@ void Arbitro::inicializarListaDeJugadores(cadena* nombres, uint cantidadJugadore
         Jugador jugador(nombres[i], i);
         listaDeJugadores.agregarElemento(jugador);
 	}
+	listaDeJugadores.iniciarCursor();
 }
 
 uint Arbitro::devolverTurno(){
 	return (uint)( listaDeJugadores.obtenerCursor()->consultarNumero() );
+}
+
+bool Arbitro::murieronTodos(){
+	return listaDeJugadores.estaVacia();
 }

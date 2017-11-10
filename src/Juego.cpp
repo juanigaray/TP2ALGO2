@@ -10,6 +10,11 @@
 
 Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* nombresDeJugadores){
 
+	bomba = "boom";
+	bandera = "bandera";
+	casilleroCubierto = "cubierto";
+	margen = "margen";
+
 	this->filaMaxima = filas;
 	this->columnaMaxima = columnas;
 
@@ -95,10 +100,11 @@ void Juego::tomarJugada(){
 
 	tomarUbicacionDeJugada();
 
+	this->prepararCasillero();
+	std::cout << "preparo casillero!";
+
 	//Si es colocar/quitar bandera:
 	if (opcionElegida == 1){
-
-		this->prepararCasillero();
 
 		//No hay bandera, pone
 		if ( ! tablero[columnaDeJugada][filaDeJugada]->tieneBandera() ){
@@ -136,7 +142,8 @@ void Juego::tomarJugada(){
 
 		this->dibujante->cambiarPuntaje( this->arbitro->devolverPuntaje(), jugadorActual );
 
-	} else { //Descubrir casillero
+	//Opcion elegida: descubrir casillero
+	} else {
 
 		// ver si las coordenadas son validas
 
@@ -159,11 +166,13 @@ void Juego::tomarJugada(){
 		}
 	}
 	this->dibujante->cambiarCuadrante(columnaDeJugada,filaDeJugada,queDibujar, this->arbitro->devolverTurno(), false);
+	this->dibujante->dibujarTablero();
 }
 
 void Juego::prepararCasillero(){
 	if(tablero[columnaDeJugada][filaDeJugada] == 0){
-		tablero[columnaDeJugada][filaDeJugada] = new Casillero();
+		( tablero[columnaDeJugada][filaDeJugada] ) = new Casillero();
+		std::cout << "ok" << std::endl;
 	}
 }
 
@@ -193,11 +202,11 @@ bool Juego::validarCoordenada(uint fila, uint columna){
 }
 
 void Juego::declararTurno(){
-	std::cout << "Es el turno de "<< (arbitro->devolverJugadorActual())->consultarNombre() << std::endl;
+	std::cout << "Es el turno de "<< (arbitro->devolverJugador())->consultarNombre() << std::endl;
 }
 
 int Juego::devolverPuntaje(){
-	int puntajeJugador = arbitro->devolverJugadorActual()->consultarPuntaje();
+	int puntajeJugador = arbitro->devolverJugador()->consultarPuntaje();
 	if (puntajeJugador < 0) {
 		return 0;
 	} else {

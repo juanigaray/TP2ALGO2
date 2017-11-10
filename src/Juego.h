@@ -15,16 +15,17 @@
 #include "Puntaje.h"
 #include "Dibujante.h"
 #include "Casillero.h"
-#include "ClasesComunes.h"
 #include "Arbitro.h"
-
-const cadena bomba = "boom";
-const cadena bandera = "bandera";
-const cadena casilleroCubierto = "cubierto";
+#include "Comunes.h"
 
 class Juego{
 
   private:
+
+	cadena bomba;
+	cadena bandera;
+	cadena casilleroCubierto;
+	cadena margen;
 
 	Dibujante* dibujante;
 

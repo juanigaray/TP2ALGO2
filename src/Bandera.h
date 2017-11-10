@@ -1,8 +1,9 @@
+
 #ifndef BANDERA_H
 #define BANDERA_H
 #endif
 
-#include "ClasesComunes.h"
+#include "Comunes.h"
 
 class Bandera{
 private:

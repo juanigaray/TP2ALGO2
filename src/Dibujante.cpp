@@ -8,10 +8,15 @@
 
 Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
 
-	directorioDeImagenesFuente = "TP2ALGO2/src/ImagenesFuente/";
+	directorioDeImagenesFuente= "src/ImagenesFuente/";
 	directorioDeCasilleros = "Casilleros/";
 	directorioDeMargenes = "Margenes/";
 	directorioDePuntajes = "Puntajes/";
+	bomba = "boom";
+	bandera = "bandera";
+	casilleroCubierto = "cubierto";
+	margen = "margen";
+
 	numeroDeDibujo = 1;
 	columnasMinimas = 20;
 	columnasDelTablero = cantidadDeColumnas;
@@ -27,7 +32,7 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	filasTotalesImagen = filasDelTablero + 2 * (cantidadDeJugadores + 1);
 
 	BMP ejemploDeImagenFuente;
-	std::string directorioDeEjemplo = directorioDeImagenesFuente + directorioDeCasilleros + "0.bmp";
+	cadena directorioDeEjemplo = directorioDeImagenesFuente + directorioDeCasilleros + "0.bmp";
 	char* directorioLegible = &directorioDeEjemplo[0];
 	ejemploDeImagenFuente.ReadFromFile(directorioLegible);
 
@@ -63,23 +68,23 @@ void Dibujante::inicializarPuntajes(uint cantidadDeJugadores){
 	for(uint nroJugador = 1; nroJugador <= cantidadDeJugadores; nroJugador++){
 
 		uint filaDelJugador = filasDelTablero + 2 * nroJugador;
-		cambiarCuadrante(1, filaDelJugador,"J", 0, true);
-		cambiarCuadrante(2, filaDelJugador,"U", 0, true);
-		cambiarCuadrante(3, filaDelJugador,"G", 0, true);
-		cambiarCuadrante(4, filaDelJugador,"A", 0, true);
-		cambiarCuadrante(5, filaDelJugador,"D", 0, true);
-		cambiarCuadrante(6, filaDelJugador,"O", 0, true);
-		cambiarCuadrante(7, filaDelJugador,"R", 0, true);
 
-		std::ostringstream ostrJugador;
-		ostrJugador << nroJugador;
-		std::string strJugador = ostrJugador.str();
+		cadena nombreJugador = "JUGADOR";
 
-		for(uint cifra = 0; cifra < strJugador.size() ; cifra++ ){
+		cadena strNroJugador = hacerCadena(nroJugador);
 
-			std::string directorio = strJugador.substr(cifra, 1);
+		for(uint caracter = 0; caracter < nombreJugador.size() ; caracter++ ){
+
+			cadena directorio = nombreJugador.substr(caracter, 1);
+			cambiarCuadrante( 1 + caracter  , filaDelJugador, directorio , 0, true);
+		}
+
+		for(uint cifra = 0; cifra < strNroJugador.size() ; cifra++ ){
+
+			cadena directorio = strNroJugador.substr(cifra, 1);
 			cambiarCuadrante( 9 + cifra  , filaDelJugador, directorio , 0, true);
 		}
+
 		cambiarPuntaje(0, nroJugador);
 	}
 }
@@ -90,19 +95,19 @@ void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 	uint filaDeCuadrante;
 
 	for(columnaDeCuadrante = columnasMinimas; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
-		cambiarCuadrante(columnaDeCuadrante, filasDelTablero,"margen", 0, true);
+		cambiarCuadrante(columnaDeCuadrante, filasDelTablero, margen, 0, true);
 	}
 
 	for(filaDeCuadrante = filasDelTablero; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
 		for(columnaDeCuadrante = 0; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
-			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, "margen", 0, true);
+			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, margen, 0, true);
 		}
 	}
 
 	if(columnasDelTablero < columnasMinimas){
 		for(uint columnaSobrante = columnasDelTablero; columnaSobrante < columnasMinimas; columnaSobrante++){
 			for(uint filaSobrante = 0; filaSobrante < filasDelTablero; filaSobrante++){
-				cambiarCuadrante(columnaSobrante, filaSobrante, "margen", 0, true);
+				cambiarCuadrante(columnaSobrante, filaSobrante, margen, 0, true);
 			}
 		}
 	}
@@ -114,13 +119,13 @@ uint Dibujante::informarNumeroDeDibujo(){
 	return numeroDeDibujo;
 }
 
-void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar, uint jugador, bool esMargen){
+void Dibujante::cambiarCuadrante(uint columna, uint fila, cadena queDibujar, uint jugador, bool esMargen){
 
 	uint yAbsolutoDePixel = 0;
 	uint xAbsolutoDePixel = 0;
 
 	BMP cuadrante;
-	std::string subdirectorio;
+	cadena subdirectorio;
 
 	if(esMargen){
 		subdirectorio = directorioDeMargenes;
@@ -128,7 +133,7 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, std::string queDibujar
 		subdirectorio = directorioDeCasilleros;
 	}
 
-	std::string nombre = directorioDeImagenesFuente + subdirectorio + queDibujar + ".bmp";
+	cadena nombre = (directorioDeImagenesFuente + subdirectorio) + (queDibujar + ".bmp");
 	char* nombreCompatible = &nombre[0];
 	cuadrante.ReadFromFile( nombreCompatible );
 
@@ -169,19 +174,12 @@ void Dibujante::cambiarPuntaje(int puntaje, uint nroJugador){
 
 		uint filaDelJugador = filasDelTablero + 2 * nroJugador;
 
-		std::ostringstream ostrJugador;
-		ostrJugador << nroJugador;
-		std::string strJugador = ostrJugador.str();
-
-
-		std::ostringstream ostrPuntaje;
-		ostrPuntaje << puntaje;
-		std::string strPuntaje = ostrPuntaje.str();
-
+		cadena strJugador = hacerCadena(nroJugador);
+		cadena strPuntaje = hacerCadena(puntaje);
 
 		for(uint cifra = 0; cifra < strPuntaje.size() ; cifra++ ){
 
-			std::string directorio =  directorioDePuntajes + strPuntaje.substr(cifra, 1);
+			cadena directorio =  directorioDePuntajes + strPuntaje.substr(cifra, 1);
 
 			cambiarCuadrante( 15 + cifra  , filaDelJugador, directorio , 0, true);
 
@@ -191,9 +189,7 @@ void Dibujante::cambiarPuntaje(int puntaje, uint nroJugador){
 
 void Dibujante::dibujarTablero(){
 
-	std::ostringstream numero;
-	numero << numeroDeDibujo;
-	std::string nombreDeArchivo = "Imagen " + numero.str() +".bmp";
+	cadena nombreDeArchivo = "Imagen " + hacerCadena(numeroDeDibujo) +".bmp";
 	char* nombreCompatible = &nombreDeArchivo[0];
 
 	imagen.WriteToFile( nombreCompatible );
@@ -201,5 +197,20 @@ void Dibujante::dibujarTablero(){
 	numeroDeDibujo++;
 }
 
+void Dibujante::eliminarJugador(uint nroJugador){
+	uint filaDelJugador = filasDelTablero + 2 * nroJugador;
 
+	uint yDePixel = alturaDeCuadrante * filaDelJugador + alturaDeCuadrante % 2;
+	uint pixelesACubrir = columnasMinimas * anchoDeCuadrante;
+	for(uint xDePixel = 0; xDePixel <  pixelesACubrir; xDePixel++ ){
+		imagen(xDePixel, yDePixel)->Red = 250;
+		imagen(xDePixel, yDePixel)->Red = 0;
+		imagen(xDePixel, yDePixel)->Red = 0;
+	}
+}
 
+cadena Dibujante::hacerCadena(int numero){
+	std::ostringstream ossnumero;
+	ossnumero << numero;
+	return ossnumero.str();
+}

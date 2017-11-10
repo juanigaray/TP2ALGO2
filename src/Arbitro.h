@@ -8,7 +8,8 @@
 #ifndef ARBITRO_H_
 #define ARBITRO_H_
 
-#include "ClasesComunes.h"
+#include "Comunes.h"
+#include "Lista.h"
 #include "Jugador.h"
 
 class Arbitro{
@@ -31,7 +32,7 @@ public:
 	/* Pre: La lista debe estar iniciada con el cursor iniciado
 	 * Post: Devuelve puntero al jugador al que le toca jugar.
 	 */
-	Jugador* devolverJugadorActual();
+	Jugador* devolverJugador();
 
 	/*
 	 * Elimina al jugador de la listaDeJugadores

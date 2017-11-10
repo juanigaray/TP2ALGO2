@@ -22,8 +22,6 @@ int main(){
 		Presentador presentador;
 		presentador.pedirDatosDeJuego();
 
-
-
 		Juego juego( 	 presentador.devolverDificultad(),
 						 presentador.devolverNumeroDeJugadores(),
 						 presentador.devolverFilas(),
@@ -31,6 +29,7 @@ int main(){
 			       		 presentador.devolverNombresDeLosJugadores() );
 
 		while(sigueLaPartida){
+
 			juego.avanzarTurno();
 			juego.declararTurno();
 			juego.tomarJugada();
@@ -62,7 +61,7 @@ int main(){
 //			}
 //			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
 //										arbitro.devolverTurno() + 1 );
-//			dibujante.dibujarTablero();
+//
 //			sigueLaPartida = ( ! arbitro.terminoLaPartida() );
 
 		}
