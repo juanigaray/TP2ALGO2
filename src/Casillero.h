@@ -56,6 +56,10 @@ class Casillero{
 	  */
 	 bool tieneBomba();
 
+	 /*
+	  *
+	  */
+	 void destapar();
 
  };
 

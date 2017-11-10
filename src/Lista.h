@@ -127,6 +127,7 @@ template<class T> void Lista<T>::agregarElemento(T elemento){
         Nodo<T> *anterior = obtenerNodo(posicion);
         anterior->cambiarSiguiente(nuevo);
     	}
+    		nuevo->cambiarSiguiente(primero);
         	tamanio ++;
     }
 

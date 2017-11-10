@@ -18,6 +18,9 @@
 #include "ClasesComunes.h"
 #include "Arbitro.h"
 
+const cadena bomba = "boom";
+const cadena bandera = "bandera";
+const cadena casilleroCubierto = "cubierto";
 
 class Juego{
 
@@ -120,6 +123,11 @@ class Juego{
 	 * Post: Devuelve la cantidad de bombas que rodean el casillero
 	 */
 	uint evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasillero);
+
+	/*
+	 *
+	 */
+	bool validarCoordenada(uint fila, uint columna);
 
 	/*
 	 * Post: Devuelve en que columna se realizo la ultima jugada tomada.

@@ -87,6 +87,11 @@ class Dibujante{
 	 */
 	void dibujarTablero();
 
+	/*
+	 *
+	 */
+	void eliminarJugador(uint jugador);
+
 };
 
 #endif /* DIBUJANTE_H_ */

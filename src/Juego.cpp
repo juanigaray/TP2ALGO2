@@ -15,7 +15,6 @@ Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint col
 
 	this->columnaDeJugada = 0;
 	this->filaDeJugada = 0;
-	this->diferenciaDePuntaje = 0;
 
 	this->dibujante = new Dibujante(columnas, filas, numeroDeJugadores);
 	this->arbitro = new Arbitro(nombresDeJugadores, numeroDeJugadores, dificultadPedida);
@@ -23,8 +22,6 @@ Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint col
 	this->tablero = new Casillero**[columnaMaxima];
 
 	inicializarTablero(dificultadPedida);
-
-	this->jugadorActual = 0;
 
 	this->casillerosDestapados = 0;
 	this->bombasTotales =  (dificultadPedida * filaMaxima * columnaMaxima) % 16;
@@ -90,7 +87,7 @@ void Juego::avanzarTurno(){
 
 void Juego::tomarJugada(){
 
-	cadena tipoDeJugada;
+	cadena queDibujar;
 
 	uint opcionElegida = this->tomarTipoDeJugada();
 
@@ -106,7 +103,7 @@ void Juego::tomarJugada(){
 		//No hay bandera, pone
 		if ( ! tablero[columnaDeJugada][filaDeJugada]->tieneBandera() ){
 
-			tipoDeJugada = "bandera";
+			queDibujar = bandera;
 
 			if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){ // es una bandera donde hay bomba
 				this->arbitro->sumarPuntaje(1);
@@ -114,51 +111,54 @@ void Juego::tomarJugada(){
 				this->arbitro->sumarPuntaje(-1);
 			}
 
-			this->dibujante->cambiarCuadrante(columnaDeJugada,filaDeJugada,tipoDeJugada, this->arbitro->devolverTurno(), false);
-			this->dibujante->cambiarPuntaje( this->arbitro->devolverPuntaje(), jugadorActual );
 			this->tablero[columnaDeJugada][filaDeJugada]->colocarBandera(jugadorActual);
 
-		// Hay bandera, saca
+		//Hay bandera, saca
 		} else {
 
-			tipoDeJugada = "cubierto"; //POR EL AMOR DE JEHOVA USEMOS CONSTANTES
+			queDibujar = casilleroCubierto;
 
 			//No pertenece a este jugador
-			if ( tablero[columnaDeJugada][filaDeJugada]->quienPusoLaBandera() == jugadorActual ){ //es el mismo
-				// elimina bandera de la lista cuando sale
-				tipoDeJugada = "cubierto";
+			if ( ! (tablero[columnaDeJugada][filaDeJugada]->quienPusoLaBandera() == jugadorActual) ){
 
-			} else { // es otro, caso en que corrige jugada del otro
-				if (  ){ // es una bandera donde hay bomba
-					// la quita cuando sale pero le resta puntos porque si habia bomba
+				//Era una bandera bien puesta
+				if ( tablero[columnaDeJugada][filaDeJugada]->tieneBomba() ){
+					this->arbitro->sumarPuntaje(-2);
 
-
-				} else { // era una bandera mal puesta
-
+				//Era una bandera mal puesta
+				} else {
+					this->arbitro->sumarPuntaje(2);
 				}
 			}
-			// elimina la bandera
-			this->eliminarBandera(fila, columna);
+			this->tablero[columnaDeJugada][filaDeJugada]->quitarBandera();
+
 		}
+
+		this->dibujante->cambiarPuntaje( this->arbitro->devolverPuntaje(), jugadorActual );
 
 	} else { //Descubrir casillero
 
 		// ver si las coordenadas son validas
-		Bomba supuestaBomba(this->columnaDeJugada, this->filaDeJugada);
 
-		if (existeBomba(supuestaBomba)){
-			this->jugadorActual->asignarEstado(true); // (perdio)
-			this->tipoDeJugada = "boom";
-			// se saca de la lista de jugadores y se agrega a la de eliminados
-			this->eliminarJugador();
-		} else { //Debo pasar en string el numero de bombas circundantes.
+		//Tiene bomba
+		if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){
+
+			queDibujar = bomba;
+			arbitro->eliminarJugador();
+			dibujante->eliminarJugador(jugadorActual);
+
+		//No tiene bomba
+		} else {
 
 			uint numeroDeBombasCircundantes = evaluarBombasCircundantes(columnaDeJugada, filaDeJugada);
-			std::ostringstream ossCircundantes;
-			ossCircundantes << numeroDeBombasCircundantes;
-			this->tipoDeJugada = ossCircundantes.str();
+			queDibujar = hacerCadena(numeroDeBombasCircundantes);
+
+			if(numeroDeBombasCircundantes == 0){
+				//DESTAPO LAS CIRCUNDANTES
+			}
 		}
 	}
+	this->dibujante->cambiarCuadrante(columnaDeJugada,filaDeJugada,queDibujar, this->arbitro->devolverTurno(), false);
 }
 
 void Juego::prepararCasillero(){
@@ -168,32 +168,28 @@ void Juego::prepararCasillero(){
 }
 
 uint Juego::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasillero){
-	uint cantidadDeCircundantes = 0;
+
+	uint circundantes;
 	for(int dFila = -1; dFila < 2; dFila++){
 		for(int dColumna = -1; dColumna < 2; dColumna++ ){
 
 			int columnaAEvaluar = columnaDeCasillero - dColumna;
 			int filaAEvaluar = filaDeCasillero - dFila;
 
-			if( (filaAEvaluar > -1 ) && (columnaAEvaluar > -1) &&
-					(filaAEvaluar <= (int)this->filaMaxima) &&
-					(columnaAEvaluar <= (int)this->columnaMaxima) ){
-				if (){
-					cantidadDeCircundantes++;
-				}
+			if	 ( validarCoordenada(filaAEvaluar, columnaAEvaluar) &&
+								(filaAEvaluar != filaDeCasillero  ) &&
+								(columnaAEvaluar != columnaDeCasillero) &&
+								tablero[filaDeCasillero][columnaDeCasillero]->tieneBomba()	){
+				circundantes++;
+
 			}
 		}
 	}
-	this->casillerosDestapados++;
-	return cantidadDeCircundantes;
+	return circundantes;
 }
 
-uint Juego::devolverColumnaDeJugada(){
-	return columnaDeJugada;
-}
-
-uint Juego::devolverFilaDeJugada(){
-	return filaDeJugada;
+bool Juego::validarCoordenada(uint fila, uint columna){
+	return ( (fila < filaMaxima) && (columna < columnaMaxima) && (fila >= 0) && (columna >= 0) );
 }
 
 void Juego::declararTurno(){
@@ -245,7 +241,6 @@ cadena Juego::hacerCadena(int numero){
 	ossnumero << numero;
 	return ossnumero.str();
 }
-
 
 Juego::~Juego(){
 	//LIBERAR MEMORIA DEL TABLERO!!
