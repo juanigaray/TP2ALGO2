@@ -93,11 +93,8 @@ void Juego::avanzarTurno(){
 void Juego::tomarJugada(){
 
 	cadena queDibujar;
-
 	uint opcionElegida = this->tomarTipoDeJugada();
-
 	uint jugadorActual = this->arbitro->devolverTurno();
-
 	tomarUbicacionDeJugada();
 
 	this->prepararCasillero();
@@ -111,8 +108,9 @@ void Juego::tomarJugada(){
 
 			queDibujar = bandera;
 
-			if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){ // es una bandera donde hay bomba
+			if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){
 				this->arbitro->sumarPuntaje(1);
+
 			} else { // no hay bomba
 				this->arbitro->sumarPuntaje(-1);
 			}
