@@ -61,17 +61,17 @@ class Juego{
 	cadena hacerCadena(int numero);
 
 	/*
-	 *
+	 * Post: inicializa el tablero correspondiendo a la cantidad de filas y columnas pasadas
 	 */
-	void inicializarTablero(uint dificultad);
+	void inicializarTablero();
 
 	/*
-	 *
+	 *Post: Recibe el input de que tipo de jugada va a realizar, "Poner/quitar bandera", "descubrir un casillero"
 	 */
 	uint tomarTipoDeJugada();
 
 	/*
-	 *
+	 *Post Toma las coordenadas en la que se realizara la jugada
 	 */
 	void tomarUbicacionDeJugada();
 
@@ -86,17 +86,18 @@ class Juego{
 	bool hayBomba(uint fila, uint columna);
 
 	 /*
-	  * Indica si existe una bandera en ese lugar
+	  * Post: Indica si existe una bandera en ese lugar
 	  */
 	bool hayBandera();
 
 	/*
-	 *
+	 *Post: Valida si quedan casilleros
 	 */
 	bool noQuedanCasilleros();
 
 	/*
-	 *
+	 *post: Crea un casillero sin bomba, sin bandera y tapado
+	 *		pide memoria en el stack
 	 */
 	void prepararCasillero();
 
@@ -162,7 +163,7 @@ class Juego{
 	std::string devolverTipoDeJugada();
 
 	/*
-	 *
+	 *Post: indica a que jugador le corresponde hacer su jugada
 	 */
 	void declararTurno();
 
@@ -173,22 +174,22 @@ class Juego{
 	int devolverPuntaje();
 
 	/*
-	 *
+	 *Post: Indica si el casillero tiene bandera o no
 	 */
 	bool tieneBandera();
 
 	/*
-	 *
+	 *Post: Indica si el casillero tiene bomba o no
 	 */
 	bool tieneBomba();
 
 	/*
-	 *
+	 *Post: Indica si el casillero esta destapado
 	 */
 	bool estaDescubierto();
 
 	/*
-	 * Post
+	 * Post: Remueve la bandera del casillero indicado
 	 */
 	void eliminarBandera(uint columna, uint fila);
 
@@ -198,7 +199,7 @@ class Juego{
 	bool terminoLaPartida();
 
 	/*
-	 *
+	 *Destructor
 	 */
 	~Juego();
 

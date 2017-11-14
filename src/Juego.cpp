@@ -26,7 +26,7 @@ Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint col
 
 	this->tablero = new Casillero**[columnaMaxima];
 
-	inicializarTablero(dificultadPedida);
+	inicializarTablero();
 
 	this->casillerosDestapados = 0;
 	this->bombasTotales =  (filaMaxima * columnaMaxima * dificultadPedida)/5 ;
@@ -35,7 +35,7 @@ Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint col
 	this->dibujante->dibujarTablero();
 }
 
-void Juego::inicializarTablero(uint dificultad){
+void Juego::inicializarTablero(){
 
 	//A cada columna le asigno un array de n casilleros, n = nro de filas
 	for(uint col =0; col < columnaMaxima; col++){
@@ -129,7 +129,7 @@ void Juego::tomarJugada(){
 cadena Juego::cambiarBandera(uint jugadorActual){
 
 	cadena queDibujar;
-	//No hay bandera, pone
+	//No hay bandera, la pone
 	if ( ! tieneBandera() ){
 
 		queDibujar = bandera;
