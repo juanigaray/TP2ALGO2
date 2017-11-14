@@ -156,7 +156,7 @@ void Lista<T>::removerNodo(unsigned int posicion){
 
        if (posicion == 1){
            nodoARemover = primero;
-           primero->cambiarSiguiente(nodoARemover);
+           primero = nodoARemover->obtenerSiguiente();
        }
        else{
            Nodo<T>* anterior = obtenerNodo(posicion - 1);

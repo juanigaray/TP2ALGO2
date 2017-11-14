@@ -29,7 +29,7 @@ Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint col
 	inicializarTablero(dificultadPedida);
 
 	this->casillerosDestapados = 0;
-	this->bombasTotales =  (dificultadPedida * filaMaxima * columnaMaxima) % 16;
+	this->bombasTotales =  (filaMaxima * columnaMaxima * dificultadPedida)/5 ;
 	crearBombas(dificultadPedida);
 
 	this->dibujante->dibujarTablero();

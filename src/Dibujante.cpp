@@ -19,7 +19,7 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	margen = "margen";
 
 	numeroDeDibujo = 1;
-	columnasMinimas = 20;
+	columnasMinimasImagen = 20;
 	columnasDelTablero = cantidadDeColumnas;
 	filasDelTablero = cantidadDeFilas;
 
@@ -27,10 +27,10 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	filasMargenSuperior = 1;
 
 	//Dejo espacio para que se escriba "Jugador" hztalmente
-	if (cantidadDeColumnas > columnasMinimas){
+	if (cantidadDeColumnas > columnasMinimasImagen){
 		columnasTotalesImagen = cantidadDeColumnas + columnasMargenLateral * 2;
 	} else {
-		columnasTotalesImagen = columnasMinimas;
+		columnasTotalesImagen = columnasMinimasImagen;
 	}
 
 	filasTotalesImagen = filasDelTablero + 2 * (cantidadDeJugadores + 1) + filasMargenSuperior;
@@ -100,23 +100,39 @@ void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 	uint columnaDeCuadrante;
 	uint filaDeCuadrante;
 
-	//Lat der
-	for(columnaDeCuadrante = columnasMinimas + columnasMargenLateral; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
-		cambiarCuadrante(columnaDeCuadrante, filasDelTablero, margen, 0, true);
-	}
-
-	for(filaDeCuadrante = filasDelTablero + filasMargenSuperior; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
-		for(columnaDeCuadrante = 0; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
+	//Superior
+	for (columnaDeCuadrante = 0; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
+		for (filaDeCuadrante = 0; filaDeCuadrante < filasMargenSuperior; filaDeCuadrante++){
 			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, margen, 0, true);
 		}
 	}
 
-	if (columnasDelTablero < columnasMinimas){
+	//Izquierdo
+	for (columnaDeCuadrante = 0; columnaDeCuadrante < columnasMargenLateral; columnaDeCuadrante++){
+		for (filaDeCuadrante = 0; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
+			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, margen, 0, true);
+		}
+	}
 
-		for(uint columnaSobrante = columnasDelTablero + columnasMargenLateral; columnaSobrante < columnasMinimas; columnaSobrante++){
+	//Inferior
+	for(columnaDeCuadrante = columnasMinimasImagen + columnasMargenLateral; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
+		cambiarCuadrante(columnaDeCuadrante, filasDelTablero, margen, 0, true);
+	}
+
+	//Las que sobran a la derecha si el tablero es chico
+	if (columnasDelTablero < columnasMinimasImagen){
+
+		for(uint columnaSobrante = columnasDelTablero + columnasMargenLateral; columnaSobrante < columnasMinimasImagen; columnaSobrante++){
 			for(uint filaSobrante = 0; filaSobrante < filasDelTablero + filasMargenSuperior; filaSobrante++){
 				cambiarCuadrante(columnaSobrante, filaSobrante, margen, 0, true);
 			}
+		}
+	}
+
+	//Espacio para los puntajes de los jugadores
+	for(filaDeCuadrante = filasDelTablero + filasMargenSuperior; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
+		for(columnaDeCuadrante = 0; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
+			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, margen, 0, true);
 		}
 	}
 
@@ -205,14 +221,18 @@ void Dibujante::dibujarTablero(){
 }
 
 void Dibujante::eliminarJugador(uint nroJugador){
-	uint filaDelJugador = filasDelTablero + 2 * nroJugador + filasMargenSuperior;
 
-	uint yDePixel = alturaDeCuadrante * filaDelJugador + alturaDeCuadrante % 2;
-	uint pixelesACubrir = columnasMinimas * anchoDeCuadrante;
-	for(uint xDePixel = 0; xDePixel <  pixelesACubrir; xDePixel++ ){
-		imagen(xDePixel, yDePixel)->Red = 250;
-		imagen(xDePixel, yDePixel)->Green = 0;
-		imagen(xDePixel, yDePixel)->Blue = 0;
+	uint filaDelJugador = filasDelTablero + 2 * nroJugador + filasMargenSuperior;
+	uint yDePixel = alturaDeCuadrante * filaDelJugador + alturaDeCuadrante / 3;
+	uint yMax = yDePixel + alturaDeCuadrante / 3;
+	uint xMax = columnasMinimasImagen * anchoDeCuadrante;
+
+	for(uint xDePixel = 0; xDePixel <  xMax; xDePixel++ ){
+		for( ; yDePixel <  yMax; yDePixel++ ){
+			imagen(xDePixel, yDePixel)->Red = 250;
+			imagen(xDePixel, yDePixel)->Green = 0;
+			imagen(xDePixel, yDePixel)->Blue = 0;
+		}
 	}
 }
 

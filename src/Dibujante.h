@@ -25,7 +25,7 @@ class Dibujante{
 	cadena casilleroCubierto;
 	cadena margen;
 
-	uint columnasMinimas;
+	uint columnasMinimasImagen;
 
 	uint numeroDeDibujo;
 	uint alturaDeCuadrante;
