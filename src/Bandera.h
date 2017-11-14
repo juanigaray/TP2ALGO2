@@ -25,9 +25,6 @@ public:
 	//Post: Indica si hay una bandera
 	bool hayBandera();
 
-	//Post: No hayBandera()  y obtenerJugador() devuelve cero
-	void eliminarBandera();
-
 	/* Pre: No hayBandera()
 	 * Post: hayBandera() y obtenerJugador() devuelve parametro
 	 */

@@ -18,11 +18,6 @@ bool Bandera::hayBandera(){
 	return this->existe;
 }
 
-void Bandera::eliminarBandera(){
-	this->jugadorQueColoco = 0;
-	this->existe = false;
-}
-
 void Bandera::colocarBandera(uint quienColoco){
 	jugadorQueColoco = quienColoco;
 	existe = true;

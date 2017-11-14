@@ -28,11 +28,8 @@ void Casillero::colocarBandera(uint jugador){
 
 void Casillero::quitarBandera(){
 
-	if (bandera == 0){
-		bandera = new Bandera;
-	} else {
-		this->bandera->eliminarBandera();
-	}
+		delete this->bandera;
+		bandera = 0;
 }
 
 uint Casillero::quienPusoLaBandera(){
