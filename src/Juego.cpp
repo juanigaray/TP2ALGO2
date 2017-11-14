@@ -99,12 +99,15 @@ void Juego::tomarJugada(){
 
 	this->prepararCasillero();
 
-	//Si es colocar/quitar bandera:
+	//Es colocar/quitar bandera:
 	if (opcionElegida == 1){
+		//NO PUEDE HACER ESTO SI EL CASILLERO ESTA DESCUBIERTO. CHEQUEAR.
 
 		queDibujar = colocarBandera(jugadorActual);
 
-	} else { // opcion es 2
+	//Es destapar
+	} else {
+		//NO PUEDE HACER ESTO SI EL CASILLERO TIENE BANDERA. CHEQUEAR.
 
 		queDibujar = destaparCasillero(jugadorActual);
 
