@@ -30,6 +30,9 @@ Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint col
 
 	this->casillerosDestapados = 0;
 	this->bombasTotales =  (dificultadPedida * filaMaxima * columnaMaxima) % 16;
+	crearBombas(dificultadPedida);
+
+	this->dibujante->dibujarTablero();
 }
 
 void Juego::inicializarTablero(uint dificultad){
@@ -93,42 +96,48 @@ void Juego::avanzarTurno(){
 void Juego::tomarJugada(){
 
 	cadena queDibujar;
-	uint opcionElegida = this->tomarTipoDeJugada();
-	uint jugadorActual = this->arbitro->devolverTurno();
-	tomarUbicacionDeJugada();
+	bool jugo = false;
+	uint opcionElegida;
+	uint jugadorActual;
 
-	this->prepararCasillero();
+	while (! jugo){
+		opcionElegida = tomarTipoDeJugada();
+		jugadorActual = arbitro->devolverTurno();
+		tomarUbicacionDeJugada();
+		prepararCasillero();
 
-	//Es colocar/quitar bandera:
-	if (opcionElegida == 1){
-		//NO PUEDE HACER ESTO SI EL CASILLERO ESTA DESCUBIERTO. CHEQUEAR.
+		//Es colocar/quitar bandera:
+		if ( (opcionElegida == 1) && (! estaDescubierto()) ){
 
-		queDibujar = colocarBandera(jugadorActual);
+			queDibujar = cambiarBandera(jugadorActual);
+			jugo = true;
 
-	//Es destapar
-	} else {
-		//NO PUEDE HACER ESTO SI EL CASILLERO TIENE BANDERA. CHEQUEAR.
+		//Es destapar
+		} else if ( ! tieneBandera() ) {
 
-		queDibujar = destaparCasillero(jugadorActual);
-
+			queDibujar = destaparCasillero(jugadorActual);
+			jugo = true;
+		} else {
+			std::cout << "Esa jugada no es valida!" << std::endl;
+		}
 	}
 
-	this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, this->arbitro->devolverTurno(), false);
+	this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, arbitro->devolverTurno(), false);
 	this->dibujante->dibujarTablero();
 }
 
-cadena Juego::colocarBandera(uint jugadorActual){
+cadena Juego::cambiarBandera(uint jugadorActual){
 
 	cadena queDibujar;
 	//No hay bandera, pone
-	if ( ! tablero[columnaDeJugada][filaDeJugada]->tieneBandera() ){
+	if ( ! tieneBandera() ){
 
 		queDibujar = bandera;
 
-		if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){
+		if ( tieneBomba() ){
 			this->arbitro->sumarPuntaje(1);
 
-		} else { // no hay bomba
+		} else {
 			this->arbitro->sumarPuntaje(-1);
 		}
 
@@ -143,7 +152,7 @@ cadena Juego::colocarBandera(uint jugadorActual){
 		if ( ! (tablero[columnaDeJugada][filaDeJugada]->quienPusoLaBandera() == jugadorActual) ){
 
 			//Era una bandera bien puesta
-			if ( tablero[columnaDeJugada][filaDeJugada]->tieneBomba() ){
+			if ( tieneBomba() ){
 				this->arbitro->sumarPuntaje(-2);
 
 			//Era una bandera mal puesta
@@ -153,7 +162,7 @@ cadena Juego::colocarBandera(uint jugadorActual){
 		}
 		this->tablero[columnaDeJugada][filaDeJugada]->quitarBandera();
 	}
-	this->dibujante->cambiarPuntaje( this->arbitro->devolverPuntaje(), jugadorActual );
+	this->dibujante->cambiarPuntaje( devolverPuntaje(), jugadorActual );
 
 	return queDibujar;
 }
@@ -163,7 +172,7 @@ cadena Juego::destaparCasillero(uint jugadorActual){
 	cadena queDibujar;
 
 	//Tiene bomba
-	if ( (tablero[columnaDeJugada][filaDeJugada])->tieneBomba() ){
+	if ( tieneBomba() ){
 
 		queDibujar = bomba;
 		arbitro->eliminarJugador();
@@ -199,6 +208,7 @@ uint Juego::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasill
 			if	 ( validarCoordenada(filaAEvaluar, columnaAEvaluar) &&
 								(filaAEvaluar != (int)filaDeCasillero  ) &&
 								(columnaAEvaluar != (int)columnaDeCasillero) &&
+								tablero[filaDeCasillero][columnaDeCasillero] != 0 &&
 								tablero[filaDeCasillero][columnaDeCasillero]->tieneBomba()	){
 				circundantes++;
 
@@ -217,12 +227,24 @@ void Juego::declararTurno(){
 }
 
 int Juego::devolverPuntaje(){
-	int puntajeJugador = arbitro->devolverJugador()->consultarPuntaje();
+	int puntajeJugador = arbitro->devolverPuntaje();
 	if (puntajeJugador < 0) {
 		return 0;
 	} else {
 		return puntajeJugador;
 	}
+}
+
+bool Juego::tieneBandera(){
+	return ( ( tablero[columnaDeJugada][filaDeJugada] != 0) && tablero[columnaDeJugada][filaDeJugada]->tieneBandera()  );
+}
+
+bool Juego::tieneBomba(){
+	return ( ( tablero[columnaDeJugada][filaDeJugada] != 0) && tablero[columnaDeJugada][filaDeJugada]->tieneBomba()  );
+}
+
+bool Juego::estaDescubierto(){
+	return ( ( tablero[columnaDeJugada][filaDeJugada] != 0) && tablero[columnaDeJugada][filaDeJugada]->estaDescubierto()  );
 }
 
 void Juego::crearBombas(uint dificultad){

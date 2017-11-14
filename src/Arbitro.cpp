@@ -19,7 +19,8 @@ Jugador* Arbitro::devolverJugador(){
 }
 
 void Arbitro::eliminarJugador(){
-		listaDeJugadores.removerNodo( devolverTurno() );
+	std::cout << devolverJugador()->consultarNombre() << " fue eliminado!" << std::endl;
+	listaDeJugadores.removerNodo( devolverTurno() );
 }
 
 void Arbitro::sumarPuntaje(int puntos){

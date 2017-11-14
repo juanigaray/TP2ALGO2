@@ -7,6 +7,7 @@
 
 #ifndef DIBUJANTE_H_
 #define DIBUJANTE_H_
+
 #include "EasyBMP/EasyBMP.h"
 #include <sstream>
 #include "Comunes.h"
@@ -24,21 +25,23 @@ class Dibujante{
 	cadena casilleroCubierto;
 	cadena margen;
 
-	uint numeroDeDibujo;
+	uint columnasMinimas;
 
+	uint numeroDeDibujo;
 	uint alturaDeCuadrante;
 	uint anchoDeCuadrante;
-
 	uint columnasDelTablero;
-	uint columnasMinimas;
 	uint filasDelTablero;
-
 	uint columnasTotalesImagen;
 	uint filasTotalesImagen;
 
+	uint columnasMargenLateral;
+	uint filasMargenSuperior;
+
+
 	BMP imagen;
 
-	/* Pre: Es usado por el constructor. Se le pasan dos naturales.
+	/* Pre: Es usado por el constructor. Se le pasan dos nros naturales.
 	 * Post:
 	 */
 	void inicializarCasilleros();

@@ -34,11 +34,6 @@ class Casillero{
 	 /*
 	  *
 	  */
-	 bool tieneBandera();
-
-	 /*
-	  *
-	  */
 	 void colocarBandera(uint jugador);
 
 	 /*
@@ -55,6 +50,16 @@ class Casillero{
 	  *
 	  */
 	 bool tieneBomba();
+
+	 /*
+	  *
+	  */
+	 bool tieneBandera();
+
+	 /*
+	  *
+	  */
+	 bool estaDescubierto();
 
 	 /*
 	  *

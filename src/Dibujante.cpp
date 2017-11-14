@@ -8,6 +8,7 @@
 
 Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
 
+	//Definen de donde se van a leer los BMPs que componen la imagen
 	directorioDeImagenesFuente= "src/ImagenesFuente/";
 	directorioDeCasilleros = "Casilleros/";
 	directorioDeMargenes = "Margenes/";
@@ -22,17 +23,20 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	columnasDelTablero = cantidadDeColumnas;
 	filasDelTablero = cantidadDeFilas;
 
+	columnasMargenLateral = 1;
+	filasMargenSuperior = 1;
+
 	//Dejo espacio para que se escriba "Jugador" hztalmente
-	if(cantidadDeColumnas > columnasMinimas){
-		columnasTotalesImagen = cantidadDeColumnas;
+	if (cantidadDeColumnas > columnasMinimas){
+		columnasTotalesImagen = cantidadDeColumnas + columnasMargenLateral * 2;
 	} else {
 		columnasTotalesImagen = columnasMinimas;
 	}
 
-	filasTotalesImagen = filasDelTablero + 2 * (cantidadDeJugadores + 1);
+	filasTotalesImagen = filasDelTablero + 2 * (cantidadDeJugadores + 1) + filasMargenSuperior;
 
 	BMP ejemploDeImagenFuente;
-	cadena directorioDeEjemplo = directorioDeImagenesFuente + directorioDeCasilleros + "0.bmp";
+	cadena directorioDeEjemplo = directorioDeImagenesFuente + directorioDeCasilleros + casilleroCubierto + ".bmp";
 	char* directorioLegible = &directorioDeEjemplo[0];
 	ejemploDeImagenFuente.ReadFromFile(directorioLegible);
 
@@ -58,7 +62,7 @@ void Dibujante::inicializarCasilleros(){
 
 	for(uint filaActual = 0; filaActual < filasDelTablero; filaActual++){
 		for(uint columnaActual = 0; columnaActual < columnasDelTablero; columnaActual++){
-			cambiarCuadrante(columnaActual, filaActual, "cubierto", 0, false);
+			cambiarCuadrante(columnaActual, filaActual, casilleroCubierto, 0, false);
 		}
 	}
 }
@@ -67,18 +71,20 @@ void Dibujante::inicializarPuntajes(uint cantidadDeJugadores){
 
 	for(uint nroJugador = 1; nroJugador <= cantidadDeJugadores; nroJugador++){
 
-		uint filaDelJugador = filasDelTablero + 2 * nroJugador;
+		uint filaDelJugador = filasMargenSuperior + filasDelTablero + 2 * nroJugador;
 
 		cadena nombreJugador = "JUGADOR";
 
 		cadena strNroJugador = hacerCadena(nroJugador);
 
+		//Escribe "Jugador"
 		for(uint caracter = 0; caracter < nombreJugador.size() ; caracter++ ){
 
 			cadena directorio = nombreJugador.substr(caracter, 1);
 			cambiarCuadrante( 1 + caracter  , filaDelJugador, directorio , 0, true);
 		}
 
+		//Escribe el nro de jugador
 		for(uint cifra = 0; cifra < strNroJugador.size() ; cifra++ ){
 
 			cadena directorio = strNroJugador.substr(cifra, 1);
@@ -94,19 +100,21 @@ void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 	uint columnaDeCuadrante;
 	uint filaDeCuadrante;
 
-	for(columnaDeCuadrante = columnasMinimas; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
+	//Lat der
+	for(columnaDeCuadrante = columnasMinimas + columnasMargenLateral; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
 		cambiarCuadrante(columnaDeCuadrante, filasDelTablero, margen, 0, true);
 	}
 
-	for(filaDeCuadrante = filasDelTablero; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
+	for(filaDeCuadrante = filasDelTablero + filasMargenSuperior; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
 		for(columnaDeCuadrante = 0; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
 			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, margen, 0, true);
 		}
 	}
 
-	if(columnasDelTablero < columnasMinimas){
-		for(uint columnaSobrante = columnasDelTablero; columnaSobrante < columnasMinimas; columnaSobrante++){
-			for(uint filaSobrante = 0; filaSobrante < filasDelTablero; filaSobrante++){
+	if (columnasDelTablero < columnasMinimas){
+
+		for(uint columnaSobrante = columnasDelTablero + columnasMargenLateral; columnaSobrante < columnasMinimas; columnaSobrante++){
+			for(uint filaSobrante = 0; filaSobrante < filasDelTablero + filasMargenSuperior; filaSobrante++){
 				cambiarCuadrante(columnaSobrante, filaSobrante, margen, 0, true);
 			}
 		}
@@ -130,7 +138,9 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, cadena queDibujar, uin
 	if(esMargen){
 		subdirectorio = directorioDeMargenes;
 	}else{
-		subdirectorio = directorioDeCasilleros;
+		subdirectorio = directorioDeCasilleros;;
+		fila += filasMargenSuperior;
+		columna += columnasMargenLateral;
 	}
 
 	cadena nombre = (directorioDeImagenesFuente + subdirectorio) + (queDibujar + ".bmp");
@@ -170,20 +180,17 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, cadena queDibujar, uin
 }
 
 void Dibujante::cambiarPuntaje(int puntaje, uint nroJugador){
-	if (puntaje != -1 ){
 
-		uint filaDelJugador = filasDelTablero + 2 * nroJugador;
+	uint filaDelJugador = filasDelTablero + filasMargenSuperior + 2 * nroJugador;
 
-		cadena strJugador = hacerCadena(nroJugador);
-		cadena strPuntaje = hacerCadena(puntaje);
+	cadena strJugador = hacerCadena(nroJugador);
+	cadena strPuntaje = hacerCadena(puntaje);
 
-		for(uint cifra = 0; cifra < strPuntaje.size() ; cifra++ ){
+	for(uint cifra = 0; cifra < strPuntaje.size() ; cifra++ ){
 
-			cadena directorio =  directorioDePuntajes + strPuntaje.substr(cifra, 1);
+		cadena directorio =  directorioDePuntajes + strPuntaje.substr(cifra, 1);
 
-			cambiarCuadrante( 15 + cifra  , filaDelJugador, directorio , 0, true);
-
-		}
+		cambiarCuadrante( 15 + cifra  , filaDelJugador, directorio , 0, true);
 	}
 }
 
@@ -198,14 +205,14 @@ void Dibujante::dibujarTablero(){
 }
 
 void Dibujante::eliminarJugador(uint nroJugador){
-	uint filaDelJugador = filasDelTablero + 2 * nroJugador;
+	uint filaDelJugador = filasDelTablero + 2 * nroJugador + filasMargenSuperior;
 
 	uint yDePixel = alturaDeCuadrante * filaDelJugador + alturaDeCuadrante % 2;
 	uint pixelesACubrir = columnasMinimas * anchoDeCuadrante;
 	for(uint xDePixel = 0; xDePixel <  pixelesACubrir; xDePixel++ ){
 		imagen(xDePixel, yDePixel)->Red = 250;
-		imagen(xDePixel, yDePixel)->Red = 0;
-		imagen(xDePixel, yDePixel)->Red = 0;
+		imagen(xDePixel, yDePixel)->Green = 0;
+		imagen(xDePixel, yDePixel)->Blue = 0;
 	}
 }
 

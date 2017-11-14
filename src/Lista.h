@@ -75,27 +75,35 @@ class Lista{
 
 };
 
-template<class T>Nodo<T>* Lista<T>::obtenerNodo(int posicion){
-	    Nodo<T> *actual = this->primero;
-	    for (int i = 1; i < posicion; i++) {
-	        actual = actual->obtenerSiguiente();
-	    }
-	    return actual;
+template<class T>
+Nodo<T>* Lista<T>::obtenerNodo(int posicion){
+	iniciarCursor();
+
+	for(int i = 1; i <= posicion; i++){
+		avanzarCursor();
+	}
+
+	Nodo<T>* aDevolver = cursor;
+	iniciarCursor();
+	return aDevolver;
 }
 
 
-template<class T> Lista<T>::Lista(){
+template<class T>
+Lista<T>::Lista(){
         primero = NULL;
         tamanio = 0;
         cursor = NULL;
 }
 
 
-template<class T>void Lista<T>::iniciarCursor(){
+template<class T>
+void Lista<T>::iniciarCursor(){
     this->cursor = NULL;
 }
 
-template<class T> bool Lista<T>::avanzarCursor(){
+template<class T>
+bool Lista<T>::avanzarCursor(){
 
         if (cursor == NULL) {
             cursor = primero;
@@ -105,44 +113,53 @@ template<class T> bool Lista<T>::avanzarCursor(){
         return (cursor != NULL);
 }
 
-template<class T> T* Lista<T>::obtenerCursor(){
+template<class T>
+T* Lista<T>::obtenerCursor(){
         return cursor->obtenerDato();
 }
 
 
-template<class T> bool Lista<T>::estaVacia(){
+template<class T>
+bool Lista<T>::estaVacia(){
         return (primero == NULL);
 }
 
-template<class T> unsigned int Lista<T>::contarElementos(){
+template<class T>
+unsigned int Lista<T>::contarElementos(){
     	return tamanio;
 }
 
-template<class T> void Lista<T>::agregarElemento(T elemento){
-   		Nodo<T> *nuevo = new Nodo<T>(elemento);
+template<class T>
+void Lista<T>::agregarElemento(T elemento){
+
+		Nodo<T>* nuevo = new Nodo<T>(elemento);
         int posicion = tamanio;
-    	if(estaVacia()){
+    	if (estaVacia()){
         	this->primero = nuevo;
-    	}else{
+    	} else {
         Nodo<T> *anterior = obtenerNodo(posicion);
         anterior->cambiarSiguiente(nuevo);
     	}
-    		nuevo->cambiarSiguiente(primero);
-        	tamanio ++;
+    	nuevo->cambiarSiguiente(primero);
+        tamanio ++;
     }
 
-template<class T> T* Lista<T>::obtener(unsigned int posicion){
+template<class T>
+T* Lista<T>::obtener(unsigned int posicion){
 
       return obtenerNodo(posicion)->obtenerDato();
   }
-template<class T> void Lista<T>::removerNodo(unsigned int posicion){
-       Nodo<T> *nodoARemover;
-       if(posicion == 1){
+template<class T>
+void Lista<T>::removerNodo(unsigned int posicion){
+
+       Nodo<T>* nodoARemover;
+
+       if (posicion == 1){
            nodoARemover = primero;
            primero->cambiarSiguiente(nodoARemover);
        }
        else{
-           Nodo<T> * anterior = obtenerNodo(posicion - 1);
+           Nodo<T>* anterior = obtenerNodo(posicion - 1);
            nodoARemover = anterior->obtenerSiguiente();
            anterior->cambiarSiguiente(nodoARemover->obtenerSiguiente());
        }
@@ -150,7 +167,8 @@ template<class T> void Lista<T>::removerNodo(unsigned int posicion){
        tamanio --;
 }
 
-template<class T>Lista<T>:: ~Lista(){
+template<class T>
+Lista<T>:: ~Lista(){
 
     while (primero != NULL) {
 

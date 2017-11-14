@@ -19,10 +19,6 @@ Casillero::Casillero(bool conBomba){
 	this->bandera = 0;
 }
 
-bool Casillero::tieneBandera(){
-	return ( (this->bandera != 0) && this->bandera->hayBandera() );
-}
-
 void Casillero::colocarBandera(uint jugador){
 	if (bandera == 0){
 		bandera = new Bandera;
@@ -45,6 +41,14 @@ uint Casillero::quienPusoLaBandera(){
 
 bool Casillero::tieneBomba(){
 	return bomba;
+}
+
+bool Casillero::tieneBandera(){
+	return ( (this->bandera != 0) && this->bandera->hayBandera() );
+}
+
+bool Casillero::estaDescubierto(){
+	return esVisible;
 }
 
 Casillero::~Casillero(){

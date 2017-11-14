@@ -106,7 +106,7 @@ class Juego{
 	 * si es de otro, se toma como corregir a otro jugador y se puntua.
 	 * Retorna que se va a dibujar.
 	 */
-	cadena colocarBandera(uint jugadorActual);
+	cadena cambiarBandera(uint jugadorActual);
 
 	/* Pre: Recibe el jugador actual.
 	 * Post: Si tiene una bomba elimina al jugador,
@@ -171,6 +171,21 @@ class Juego{
 	 *	 	 Devuelve -1 si no se modifica.
 	 */
 	int devolverPuntaje();
+
+	/*
+	 *
+	 */
+	bool tieneBandera();
+
+	/*
+	 *
+	 */
+	bool tieneBomba();
+
+	/*
+	 *
+	 */
+	bool estaDescubierto();
 
 	/*
 	 * Post
