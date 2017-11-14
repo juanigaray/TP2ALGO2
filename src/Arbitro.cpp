@@ -48,6 +48,19 @@ uint Arbitro::devolverTurno(){
 	return nroJugador;
 }
 
-bool Arbitro::murieronTodos(){
-	return listaDeJugadores.estaVacia();
+bool Arbitro::quedaUno(){
+	return (listaDeJugadores.devolverTamanio() == 1);
 }
+
+void Arbitro::anunciarGanador(){
+	Jugador* ganador = listaDeJugadores.obtener(1);
+	std::cout << "El ganador es "
+			  << ganador->consultarNombre()
+			  << " con "
+			  << ganador->consultarPuntaje()
+			  << " puntos!"
+			  << std::endl;
+}
+
+
+

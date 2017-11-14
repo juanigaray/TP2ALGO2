@@ -122,7 +122,7 @@ void Juego::tomarJugada(){
 		}
 	}
 
-	this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, arbitro->devolverTurno(), false);
+	this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
 	this->dibujante->dibujarTablero();
 }
 
@@ -271,7 +271,11 @@ void Juego::eliminarBandera(uint fila, uint columna){
 }
 
 bool Juego::terminoLaPartida(){
-	return (arbitro->murieronTodos() || this->noQuedanCasilleros() );
+	if ( arbitro->quedaUno() || this->noQuedanCasilleros() ){
+		arbitro->anunciarGanador();
+		return true;
+	}
+	else return false;
 }
 
 bool Juego::noQuedanCasilleros(){

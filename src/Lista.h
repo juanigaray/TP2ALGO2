@@ -44,7 +44,7 @@ class Lista{
     /*
      * post: indica si la Lista tiene algún elemento.
      */
-    bool estaVacia();
+    uint devolverTamanio();
 
     /*
      * post: devuelve la cantidad de elementos que tiene la Lista.
@@ -120,8 +120,8 @@ T* Lista<T>::obtenerCursor(){
 
 
 template<class T>
-bool Lista<T>::estaVacia(){
-        return (primero == NULL);
+uint Lista<T>::devolverTamanio(){
+	return tamanio;
 }
 
 template<class T>
@@ -133,12 +133,12 @@ template<class T>
 void Lista<T>::agregarElemento(T elemento){
 
 		Nodo<T>* nuevo = new Nodo<T>(elemento);
-        int posicion = tamanio;
-    	if (estaVacia()){
+
+    	if ( tamanio == 0 ){
         	this->primero = nuevo;
     	} else {
-        Nodo<T> *anterior = obtenerNodo(posicion);
-        anterior->cambiarSiguiente(nuevo);
+			Nodo<T> *anterior = obtenerNodo(tamanio);
+			anterior->cambiarSiguiente(nuevo);
     	}
     	nuevo->cambiarSiguiente(primero);
         tamanio ++;

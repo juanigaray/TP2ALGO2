@@ -15,7 +15,7 @@ typedef unsigned int uint;
 int main(){
 
 	bool jugarDeNuevo = true;
-	bool sigueLaPartida = true;
+	bool finDeLaPartida = true;
 
 	while(jugarDeNuevo){
 
@@ -28,11 +28,12 @@ int main(){
 						 presentador.devolverColumnas(),
 			       		 presentador.devolverNombresDeLosJugadores() );
 
-		while(sigueLaPartida){
+		while(! finDeLaPartida){
 
 			juego.avanzarTurno();
 			juego.declararTurno();
 			juego.tomarJugada();
+			finDeLaPartida = juego.terminoLaPartida();
 		}
 
 		presentador.consultarSiJugarDeNuevo();

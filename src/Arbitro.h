@@ -69,7 +69,12 @@ public:
 	/*
 	 *
 	 */
-	bool murieronTodos();
+	bool quedaUno();
+
+	/*
+	 *
+	 */
+	void anunciarGanador();
 };
 
 
