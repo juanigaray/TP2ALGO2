@@ -110,7 +110,7 @@ void Juego::tomarJugada(){
 
 	}
 
-	this->dibujante->cambiarCuadrante(columnaDeJugada,filaDeJugada,queDibujar, this->arbitro->devolverTurno(), false);
+	this->dibujante->cambiarCuadrante(columnaDeJugada-1, filaDeJugada-1, queDibujar, this->arbitro->devolverTurno(), false);
 	this->dibujante->dibujarTablero();
 }
 
