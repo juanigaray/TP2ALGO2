@@ -251,16 +251,17 @@ void Juego::crearBombas(uint dificultad){
 
 	srand (time(NULL));
 	int bombasRestantes = bombasTotales;
+
 	while (bombasRestantes > 0){
 
 		//Genero dos numeros semi-aleatorios para usar de coordenada
-		uint xAleatorio = rand() % filaMaxima;
-		uint yAleatorio = rand() % columnaMaxima;
+		uint xAleatorio = rand() % columnaMaxima;
+		uint yAleatorio = rand() % filaMaxima;
 
 		//solo afecta el casillero si no hay una mina ya sobre el
 		if ( tablero[xAleatorio][yAleatorio] == 0 ){
 
-			(tablero[xAleatorio][yAleatorio]) = new Casillero(true);
+			tablero[xAleatorio][yAleatorio] = new Casillero(true);
 			bombasRestantes --;
 		}
 	}
@@ -301,7 +302,9 @@ Juego::~Juego(){
 
 
 
-
+/*
+ * Lo siguiente es para destapar minas circundantes. Hay que adaptar toddo el codigo.
+ */
 //			if(arbitro.devolverTipoDeJugada() == "0"){
 //				for(int nFila = -1; nFila < 2; nFila++){
 //					for(int nColumna = -1; nColumna < 2; nColumna++ ){

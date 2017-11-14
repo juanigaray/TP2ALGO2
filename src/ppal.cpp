@@ -15,11 +15,13 @@ typedef unsigned int uint;
 int main(){
 
 	bool jugarDeNuevo = true;
-	bool finDeLaPartida = true;
+	bool finDeLaPartida;
+	Presentador presentador;
 
 	while(jugarDeNuevo){
 
-		Presentador presentador;
+		finDeLaPartida = false;
+
 		presentador.pedirDatosDeJuego();
 
 		Juego juego( 	 presentador.devolverDificultad(),

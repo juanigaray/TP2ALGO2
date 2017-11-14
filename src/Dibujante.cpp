@@ -122,7 +122,7 @@ void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 	//Las que sobran a la derecha si el tablero es chico
 	if (columnasDelTablero < columnasMinimasImagen){
 
-		for(uint columnaSobrante = columnasDelTablero + columnasMargenLateral; columnaSobrante < columnasMinimasImagen; columnaSobrante++){
+		for(uint columnaSobrante = columnasDelTablero; columnaSobrante < columnasMinimasImagen; columnaSobrante++){
 			for(uint filaSobrante = 0; filaSobrante < filasDelTablero + filasMargenSuperior; filaSobrante++){
 				cambiarCuadrante(columnaSobrante, filaSobrante, margen, 0, true);
 			}
@@ -223,13 +223,13 @@ void Dibujante::dibujarTablero(){
 void Dibujante::eliminarJugador(uint nroJugador){
 
 	uint filaDelJugador = filasDelTablero + 2 * nroJugador + filasMargenSuperior;
-	uint yDePixel = alturaDeCuadrante * filaDelJugador + alturaDeCuadrante / 3;
-	uint yMax = yDePixel + alturaDeCuadrante / 3;
+	uint yInicial = alturaDeCuadrante * filaDelJugador + alturaDeCuadrante / 3;
+	uint yMax = yInicial + alturaDeCuadrante / 3;
 	uint xMax = columnasMinimasImagen * anchoDeCuadrante;
 
 	for(uint xDePixel = 0; xDePixel <  xMax; xDePixel++ ){
-		for( ; yDePixel <  yMax; yDePixel++ ){
-			imagen(xDePixel, yDePixel)->Red = 250;
+		for(uint yDePixel = yInicial; yDePixel <  yMax; yDePixel++ ){
+			imagen(xDePixel, yDePixel)->Red = 50;
 			imagen(xDePixel, yDePixel)->Green = 0;
 			imagen(xDePixel, yDePixel)->Blue = 0;
 		}
