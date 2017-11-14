@@ -19,7 +19,7 @@ void Jugador::asignarEstado(bool opcion){
 	this->eliminado = opcion;
 }
 
-void Jugador::asignarPuntaje(int puntos){
+void Jugador::sumarPuntaje(int puntos){
 	this->puntaje += puntos;
 }
 

@@ -24,7 +24,7 @@ void Arbitro::eliminarJugador(){
 }
 
 void Arbitro::sumarPuntaje(int puntos){
-	devolverJugador()->asignarPuntaje( devolverPuntaje() + puntos  );
+	devolverJugador()->sumarPuntaje(puntos);
 }
 
 uint Arbitro::devolverPuntaje(){
