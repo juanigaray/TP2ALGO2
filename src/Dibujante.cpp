@@ -19,7 +19,7 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 	margen = "margen";
 
 	numeroDeDibujo = 1;
-	columnasMinimasImagen = 20;
+	columnasMinimasImagen = 18;
 	columnasDelTablero = cantidadDeColumnas;
 	filasDelTablero = cantidadDeFilas;
 
@@ -109,23 +109,20 @@ void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 
 	//Izquierdo
 	for (columnaDeCuadrante = 0; columnaDeCuadrante < columnasMargenLateral; columnaDeCuadrante++){
-		for (filaDeCuadrante = 0; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
+		for (filaDeCuadrante = filasMargenSuperior; filaDeCuadrante < filasTotalesImagen; filaDeCuadrante++){
 			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, margen, 0, true);
 		}
 	}
 
 	//Inferior
-	for(columnaDeCuadrante = columnasMinimasImagen + columnasMargenLateral; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
-		cambiarCuadrante(columnaDeCuadrante, filasDelTablero, margen, 0, true);
+	for(columnaDeCuadrante = 0; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
+		cambiarCuadrante(columnaDeCuadrante, filasDelTablero + filasMargenSuperior, margen, 0, true);
 	}
 
-	//Las que sobran a la derecha si el tablero es chico
-	if (columnasDelTablero < columnasMinimasImagen){
-
-		for(uint columnaSobrante = columnasDelTablero; columnaSobrante < columnasMinimasImagen; columnaSobrante++){
-			for(uint filaSobrante = 0; filaSobrante < filasDelTablero + filasMargenSuperior; filaSobrante++){
-				cambiarCuadrante(columnaSobrante, filaSobrante, margen, 0, true);
-			}
+	//Derecho
+	for(columnaDeCuadrante = columnasDelTablero + columnasMargenLateral; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
+		for(filaDeCuadrante = 1; filaDeCuadrante < filasDelTablero + filasMargenSuperior; filaDeCuadrante++){
+			cambiarCuadrante(columnaDeCuadrante, filaDeCuadrante, margen, 0, true);
 		}
 	}
 
