@@ -33,11 +33,11 @@ uint Presentador::pedirNumero(std::string mensaje){
 
 uint Presentador::pedirNumero(std::string mensaje, int numeroMaximo){
 
-	uint numeroIngresado;
+	int numeroIngresado;
 
-	std::cout << mensaje << std::endl;
+	std::cout << mensaje;
 	std::cin >> numeroIngresado;
-	if(numeroIngresado == 0 || numeroIngresado > numeroMaximo){
+	if (numeroIngresado == 0 || numeroIngresado > numeroMaximo){
 		std::cout << "Numero no valido! " << std::endl;
 		this->pedirNumero(mensaje, numeroMaximo);
 	}
@@ -133,13 +133,29 @@ void Presentador::declararFinDelJuego(){
 
 void Presentador::consultarSiJugarDeNuevo(){
 	char decision;
-	std::cout 	<< "Desea jugar de nuevo? (S/N): "
-				<< std::endl;
+	bool preguntarDeNuevo = true;
 
-	std::cin 	>> decision;
-	if( decision == 's' || decision == 'S'){
-		this->jugarDeNuevo = true;
+	while (preguntarDeNuevo) {
+
+		std::cout 	<< "Desea jugar de nuevo? (S/N): ";
+
+		std::cin 	>> decision;
+
+		if( decision == 's' || decision == 'S'){
+
+			this->jugarDeNuevo = true;
+			preguntarDeNuevo = false;
+
+		} else if (decision == 'n' || decision == 'N'){
+
+			this->jugarDeNuevo = false;
+			preguntarDeNuevo = false;
+
+		} else {
+			std::cout << "Opcion no valida!" << std::endl;
+		}
 	}
+
 }
 
 bool Presentador::devolverSiJugarDeNuevo(){

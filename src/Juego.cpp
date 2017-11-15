@@ -283,8 +283,8 @@ void Juego::crearBombas(uint dificultad){
 	while (bombasRestantes > 0){
 
 		//Genero dos numeros semi-aleatorios para usar de coordenada
-		uint xAleatorio = rand() % columnaMaxima;
-		uint yAleatorio = rand() % filaMaxima;
+		uint xAleatorio = rand() % (columnaMaxima - 1);
+		uint yAleatorio = rand() % (filaMaxima - 1);
 
 		//solo afecta el casillero si no hay una mina ya sobre el
 		if ( tablero[xAleatorio][yAleatorio] == 0 ){
