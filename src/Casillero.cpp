@@ -27,7 +27,6 @@ void Casillero::colocarBandera(uint jugador){
 }
 
 void Casillero::quitarBandera(){
-
 		delete this->bandera;
 		bandera = 0;
 }
@@ -48,11 +47,13 @@ bool Casillero::estaDescubierto(){
 	return esVisible;
 }
 
+void Casillero::destapar(){
+	this->esVisible = true;
+}
+
 Casillero::~Casillero(){
 	if (bandera != 0){
 		delete bandera;
 	}
 }
-
-
 

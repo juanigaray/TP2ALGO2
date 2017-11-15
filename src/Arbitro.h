@@ -57,7 +57,7 @@ public:
 	 * Post: Devuelve el numero de jugador que realizo la ultima jugada.
 	 * No avanza el cursor
 	 */
-	uint devolverTurno();
+	uint devolverNumeroDeTurno();
 
 	/*
 	 * Post: Es turno del jugador siguiente.

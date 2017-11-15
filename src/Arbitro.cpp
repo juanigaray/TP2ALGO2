@@ -20,7 +20,7 @@ Jugador* Arbitro::devolverJugador(){
 
 void Arbitro::eliminarJugador(){
 	std::cout << devolverJugador()->consultarNombre() << " fue eliminado!" << std::endl;
-	listaDeJugadores.removerNodo( devolverTurno() );
+	listaDeJugadores.removerNodo( devolverNumeroDeTurno() );
 }
 
 void Arbitro::sumarPuntaje(int puntos){
@@ -37,14 +37,14 @@ void Arbitro::avanzarTurno(){
 
 void Arbitro::inicializarListaDeJugadores(cadena* nombres, uint cantidadJugadores){
 	for(uint i = 0; i < cantidadJugadores; i++){
-        Jugador jugador(nombres[i], i);
+        Jugador jugador(nombres[i], i + 1);
         listaDeJugadores.agregarElemento(jugador);
 	}
 	listaDeJugadores.iniciarCursor();
 }
 
-uint Arbitro::devolverTurno(){
-	uint nroJugador = listaDeJugadores.obtenerCursor()->consultarNumero() + 1;
+uint Arbitro::devolverNumeroDeTurno(){
+	uint nroJugador = listaDeJugadores.obtenerCursor()->consultarNumero();
 	return nroJugador;
 }
 

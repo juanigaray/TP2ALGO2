@@ -31,7 +31,7 @@ uint Presentador::pedirNumero(std::string mensaje){
 	return numeroIngresado;
 }
 
-uint Presentador::pedirNumero(std::string mensaje, uint numeroMaximo){
+uint Presentador::pedirNumero(std::string mensaje, int numeroMaximo){
 
 	uint numeroIngresado;
 
@@ -39,7 +39,7 @@ uint Presentador::pedirNumero(std::string mensaje, uint numeroMaximo){
 	std::cin >> numeroIngresado;
 	if(numeroIngresado == 0 || numeroIngresado > numeroMaximo){
 		std::cout << "Numero no valido! " << std::endl;
-		this->pedirNumero(mensaje);
+		this->pedirNumero(mensaje, numeroMaximo);
 	}
 	return numeroIngresado;
 }

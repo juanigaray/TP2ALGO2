@@ -26,7 +26,7 @@ class Presentador{
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
 	 * 		 Devuelve el numero ingresado.
 	 */
-	uint pedirNumero(std::string mensaje, uint numeroMaximo);
+	uint pedirNumero(std::string mensaje, int numeroMaximo);
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.

@@ -68,7 +68,7 @@ uint Juego::pedirNumero(std::string mensaje, uint numeroMaximo){
 	std::cin >> numeroIngresado;
 	if(numeroIngresado == 0 || numeroIngresado > numeroMaximo){
 		std::cout << "Numero no valido! " << std::endl;
-		this->pedirNumero(mensaje);
+		this->pedirNumero(mensaje, numeroMaximo);
 	}
 	return numeroIngresado;
 }
@@ -96,39 +96,42 @@ void Juego::avanzarTurno(){
 void Juego::tomarJugada(){
 
 	cadena queDibujar;
-	bool jugo = false;
+	bool haJugado = false;
 	uint opcionElegida;
 	uint jugadorActual;
 
-	while (! jugo){
+	while (! haJugado){
+
 		opcionElegida = tomarTipoDeJugada();
-		jugadorActual = arbitro->devolverTurno();
+		jugadorActual = arbitro->devolverNumeroDeTurno();
 		tomarUbicacionDeJugada();
-		prepararCasillero();
+
+		prepararCasillero(columnaDeJugada, filaDeJugada);
 
 		//Es colocar/quitar bandera:
 		if ( (opcionElegida == 1) && (! estaDescubierto()) ){
 
-			queDibujar = cambiarBandera(jugadorActual);
-			jugo = true;
+			cambiarBandera(jugadorActual);
+			haJugado = true;
 
 		//Es destapar
 		} else if ( ! tieneBandera() ) {
 
-			queDibujar = destaparCasillero(jugadorActual);
-			jugo = true;
+			descubrirCasillero(columnaDeJugada, filaDeJugada, jugadorActual);
+			haJugado = true;
+
 		} else {
 			std::cout << "Esa jugada no es valida!" << std::endl;
 		}
 	}
 
-	this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
 	this->dibujante->dibujarTablero();
 }
 
-cadena Juego::cambiarBandera(uint jugadorActual){
+void Juego::cambiarBandera(uint jugadorActual){
 
 	cadena queDibujar;
+
 	//No hay bandera, la pone
 	if ( ! tieneBandera() ){
 
@@ -163,16 +166,17 @@ cadena Juego::cambiarBandera(uint jugadorActual){
 		this->tablero[columnaDeJugada][filaDeJugada]->quitarBandera();
 	}
 	this->dibujante->cambiarPuntaje( devolverPuntaje(), jugadorActual );
-
-	return queDibujar;
+	this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
 }
 
-cadena Juego::destaparCasillero(uint jugadorActual){
+void Juego::descubrirCasillero(uint columnaDeCasillero, uint filaDeCasillero, uint jugadorActual){
 
 	cadena queDibujar;
 
+	tablero[columnaDeCasillero][filaDeCasillero]->destapar();
+
 	//Tiene bomba
-	if ( tieneBomba() ){
+	if ( tablero[columnaDeCasillero][filaDeCasillero]->tieneBomba() ){
 
 		queDibujar = bomba;
 		arbitro->eliminarJugador();
@@ -181,19 +185,20 @@ cadena Juego::destaparCasillero(uint jugadorActual){
 	//No tiene bomba
 	} else {
 
-		uint numeroDeBombasCircundantes = evaluarBombasCircundantes(columnaDeJugada, filaDeJugada);
+		uint numeroDeBombasCircundantes = evaluarBombasCircundantes(columnaDeCasillero, filaDeCasillero);
 		queDibujar = hacerCadena(numeroDeBombasCircundantes);
 		if(numeroDeBombasCircundantes == 0){
-			//DESTAPO LAS CIRCUNDANTES
+
+			descubrirCasillerosCircundantes(columnaDeCasillero, filaDeCasillero);
 		}
 	}
-	return queDibujar;
+	this->dibujante->cambiarCuadrante(columnaDeCasillero, filaDeCasillero, queDibujar, jugadorActual, false);
 }
 
 
-void Juego::prepararCasillero(){
-	if(tablero[columnaDeJugada][filaDeJugada] == 0)
-		( tablero[columnaDeJugada][filaDeJugada] ) = new Casillero();
+void Juego::prepararCasillero(uint columnaDeCasillero, uint filaDeCasillero){
+	if(tablero[columnaDeCasillero][filaDeCasillero] == 0)
+		tablero[columnaDeCasillero][filaDeCasillero] = new Casillero();
 }
 
 uint Juego::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasillero){
@@ -202,14 +207,15 @@ uint Juego::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasill
 	for(int dFila = -1; dFila < 2; dFila++){
 		for(int dColumna = -1; dColumna < 2; dColumna++ ){
 
-			int columnaAEvaluar = columnaDeCasillero - dColumna;
-			int filaAEvaluar = filaDeCasillero - dFila;
+			int columnaAEvaluar = columnaDeCasillero + dColumna;
+			int filaAEvaluar = filaDeCasillero + dFila;
 
-			if	 ( validarCoordenada(filaAEvaluar, columnaAEvaluar) &&
-								(filaAEvaluar != (int)filaDeCasillero  ) &&
-								(columnaAEvaluar != (int)columnaDeCasillero) &&
-								tablero[filaDeCasillero][columnaDeCasillero] != 0 &&
-								tablero[filaDeCasillero][columnaDeCasillero]->tieneBomba()	){
+			if	( validarCoordenada(columnaAEvaluar, filaAEvaluar) &&
+				(filaAEvaluar != (int)filaDeCasillero  ) &&
+				(columnaAEvaluar != (int)columnaDeCasillero) &&
+				(tablero[columnaAEvaluar][filaAEvaluar] != 0) &&
+				tablero[columnaAEvaluar][filaAEvaluar]->tieneBomba()	){
+
 				circundantes++;
 
 			}
@@ -218,8 +224,30 @@ uint Juego::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasill
 	return circundantes;
 }
 
-bool Juego::validarCoordenada(uint fila, uint columna){
-	return ( (fila < filaMaxima) && (columna < columnaMaxima) && (fila >= 0) && (columna >= 0) );
+void Juego::descubrirCasillerosCircundantes(int columnaDeCasillero, int filaDeCasillero){
+
+	for(int dFila = -1; dFila < 2; dFila++){
+		for(int dColumna = -1; dColumna < 2; dColumna++ ){
+
+			int columnaAEvaluar = columnaDeCasillero + dColumna;
+			int filaAEvaluar = filaDeCasillero + dFila;
+
+			if	( validarCoordenada(columnaAEvaluar, filaAEvaluar)){
+
+				prepararCasillero(columnaAEvaluar, filaAEvaluar);
+
+				if (! tablero[columnaAEvaluar][filaAEvaluar]->estaDescubierto() ){
+
+					//Llamada recursiva entre el metodo actual y descubrirCasillero.
+					descubrirCasillero(columnaAEvaluar, filaAEvaluar, 0);
+				}
+			}
+		}
+	}
+}
+
+bool Juego::validarCoordenada(int columna, int fila){
+	return ( (fila < (int)filaMaxima) && (columna < (int)columnaMaxima) && (fila >= 0) && (columna >= 0) );
 }
 
 void Juego::declararTurno(){
@@ -293,7 +321,9 @@ Juego::~Juego(){
 
 	for(uint columna = 0; columna < columnaMaxima; columna++ ){
 		for(uint fila = 0; fila < filaMaxima; fila++){
-			delete tablero[columna][fila];
+			if (tablero[columna][fila] != 0){
+				delete tablero[columna][fila];
+			}
 		}
 		delete tablero[columna];
 	}
@@ -301,36 +331,3 @@ Juego::~Juego(){
 }
 
 
-
-/*
- * Lo siguiente es para destapar minas circundantes. Hay que adaptar toddo el codigo.
- */
-//			if(arbitro.devolverTipoDeJugada() == "0"){
-//				for(int nFila = -1; nFila < 2; nFila++){
-//					for(int nColumna = -1; nColumna < 2; nColumna++ ){
-//
-//						int columnaADescubrir = arbitro.devolverColumnaDeJugada() - nColumna;
-//			    		int filaADescubrir = arbitro.devolverFilaDeJugada() - nFila;
-//			            if( (filaADescubrir > 0 ) && (columnaADescubrir > 0) &&
-//			            	(filaADescubrir <= (int)arbitro.devolverFilaMaxima() ) &&
-//							columnaADescubrir <= (int)arbitro.devolverColumnaMaxima() ){
-//
-//			            	uint cantidadDeCircundantes = arbitro.evaluarBombasCircundantes(columnaADescubrir, filaADescubrir);
-//							std::ostringstream ossNumeroADibujar;
-//							ossNumeroADibujar << cantidadDeCircundantes;
-//							std::string numeroADibujar = ossNumeroADibujar.str();
-//							dibujante.cambiarCuadrante( columnaADescubrir -1, filaADescubrir -1, numeroADibujar, 0, false);
-//			            }
-//			        }
-//				}
-//			} else {
-//				dibujante.cambiarCuadrante( arbitro.devolverColumnaDeJugada() -1,
-//											arbitro.devolverFilaDeJugada() -1,
-//											arbitro.devolverTipoDeJugada(),
-//											arbitro.devolverTurno() + 1,
-//											false);
-//			}
-//			dibujante.cambiarPuntaje( 	arbitro.devolverPuntaje(),
-//										arbitro.devolverTurno() + 1 );
-//
-//			sigueLaPartida = ( ! arbitro.terminoLaPartida() );

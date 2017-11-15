@@ -91,29 +91,27 @@ class Juego{
 	bool hayBandera();
 
 	/*
-	 *Post: Valida si quedan casilleros
+	 * Post: Indica true si no quedan casilleros sin bomba por descubrir
 	 */
 	bool noQuedanCasilleros();
 
 	/*
-	 *post: Crea un casillero sin bomba, sin bandera y tapado
-	 *		pide memoria en el stack
+	 * Post: Crea un casillero sin bomba, sin bandera y tapado
 	 */
-	void prepararCasillero();
+	void prepararCasillero(uint columnaDeCasillero, uint filaDeCasillero);
 
-	/* Pre: Recibe el jugador actual.
-	 * Post: Si no hay una bandera la coloca,
-	 * si hay y era del mismo jugador la saca sin que pase nada,
-	 * si es de otro, se toma como corregir a otro jugador y se puntua.
-	 * Retorna que se va a dibujar.
+	/* Pre: 	El casillero de jugada existe
+	 * Post: 	Si no hay una bandera la coloca,
+	 * 			si hay y era del mismo jugador la saca sin que pase nada,
+	 * 			si es de otro, se toma como corregir a otro jugador y se puntua.
 	 */
-	cadena cambiarBandera(uint jugadorActual);
+	void cambiarBandera(uint jugadorActual);
 
-	/* Pre: Recibe el jugador actual.
-	 * Post: Si tiene una bomba elimina al jugador,
-	 * si no, destapa el casillero y evalua los circundantes
+	/* Pre: 	El casillero esta dentro del tablero
+	 * Post: 	Si tiene una bomba elimina al jugador,
+	 * 			si no, destapa el casillero y evalua los circundantes
 	 */
-	cadena destaparCasillero(uint jugadorActual);
+	void descubrirCasillero(uint columnaDeCasillero, uint filaDeCasillero, uint jugadorActual);
 
 
 
@@ -145,7 +143,12 @@ class Juego{
 	/*
 	 *
 	 */
-	bool validarCoordenada(uint fila, uint columna);
+	void descubrirCasillerosCircundantes(int fila, int columna);
+
+	/*
+	 *
+	 */
+	bool validarCoordenada(int fila, int columna);
 
 	/*
 	 * Post: Devuelve en que columna se realizo la ultima jugada tomada.
@@ -158,18 +161,13 @@ class Juego{
 	uint devolverFilaDeJugada();
 
 	/*
-	 * Post: Devuelve string con el tipo de jugada que se realizo.
-	 */
-	std::string devolverTipoDeJugada();
-
-	/*
 	 *Post: indica a que jugador le corresponde hacer su jugada
 	 */
 	void declararTurno();
 
 	/*
 	 * Post: Devuelve el puntaje total del jugador que jugo ultimo.
-	 *	 	 Devuelve -1 si no se modifica.
+	 *	 	 Devuelve 0 si el puntaje es negativo
 	 */
 	int devolverPuntaje();
 

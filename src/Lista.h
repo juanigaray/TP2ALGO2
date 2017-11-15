@@ -142,26 +142,30 @@ void Lista<T>::agregarElemento(T elemento){
     	}
     	nuevo->cambiarSiguiente(primero);
         tamanio ++;
-    }
+}
 
 template<class T>
 T* Lista<T>::obtener(unsigned int posicion){
 
       return obtenerNodo(posicion)->obtenerDato();
-  }
+}
+
 template<class T>
 void Lista<T>::removerNodo(unsigned int posicion){
 
-       Nodo<T>* nodoARemover;
+       Nodo<T>* nodoARemover = 0;
 
        if (posicion == 1){
            nodoARemover = primero;
-           primero = nodoARemover->obtenerSiguiente();
+           primero = obtenerNodo(2);
+           cursor = obtenerNodo(tamanio);
        }
        else{
-           Nodo<T>* anterior = obtenerNodo(posicion - 1);
+    	   Nodo<T>* anterior = obtenerNodo(posicion - 1);
            nodoARemover = anterior->obtenerSiguiente();
-           anterior->cambiarSiguiente(nodoARemover->obtenerSiguiente());
+           Nodo<T>* siguiente = nodoARemover->obtenerSiguiente();
+           anterior->cambiarSiguiente(siguiente);
+           cursor = anterior;
        }
        delete nodoARemover;
        tamanio --;
