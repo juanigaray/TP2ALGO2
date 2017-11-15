@@ -178,9 +178,9 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, cadena queDibujar, uin
 					&&	cuadrante(xRelativoDePixel, yRelativoDePixel)->Blue == 255
 					&&	cuadrante(xRelativoDePixel, yRelativoDePixel)->Green == 255 ){
 
-				imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Red = cuadrante.GetColor(jugador).Red;
-				imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Blue = cuadrante.GetColor(jugador).Blue;
-				imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Green = cuadrante.GetColor(jugador).Green;
+				imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Red = cuadrante.GetColor(jugador).Red + 30;
+				imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Blue = cuadrante.GetColor(jugador).Blue + 30;
+				imagen(xAbsolutoDePixel, yAbsolutoDePixel)->Green = cuadrante.GetColor(jugador).Green + 30;
 
 			//Si el pixel es generico, lo copio de la imagen fuente
 			} else {
@@ -220,15 +220,13 @@ void Dibujante::dibujarTablero(){
 void Dibujante::eliminarJugador(uint nroJugador){
 
 	uint filaDelJugador = filasDelTablero + 2 * nroJugador + filasMargenSuperior;
-	uint yInicial = alturaDeCuadrante * filaDelJugador + alturaDeCuadrante / 3;
-	uint yMax = yInicial + alturaDeCuadrante / 3;
+	uint yInicial = alturaDeCuadrante * filaDelJugador + alturaDeCuadrante / 2;
+	uint yMax = yInicial + alturaDeCuadrante / 8;
 	uint xMax = columnasMinimasImagen * anchoDeCuadrante;
 
 	for(uint xDePixel = 0; xDePixel <  xMax; xDePixel++ ){
 		for(uint yDePixel = yInicial; yDePixel <  yMax; yDePixel++ ){
-			imagen(xDePixel, yDePixel)->Red = 50;
-			imagen(xDePixel, yDePixel)->Green = 0;
-			imagen(xDePixel, yDePixel)->Blue = 0;
+			imagen(xDePixel, yDePixel)->Red = 150;
 		}
 	}
 }
