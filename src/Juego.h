@@ -9,7 +9,6 @@
 
 #include <sstream>
 #include <iostream>
-#include <stdlib.h>
 #include <time.h>
 #include "Jugador.h"
 #include "Puntaje.h"
@@ -17,6 +16,7 @@
 #include "Casillero.h"
 #include "Arbitro.h"
 #include "Comunes.h"
+#include "Tablero.h"
 
 class Juego{
 
@@ -27,17 +27,11 @@ class Juego{
 	cadena casilleroCubierto;
 	cadena margen;
 
+	Tablero tablero;
+
 	Dibujante* dibujante;
 
-	Casillero*** tablero; //Es un array * de arrays * de punteros *
-
-	int filaMaxima;
-	int columnaMaxima;
-
 	Arbitro* arbitro;
-
-	int bombasTotales;
-	int casillerosDestapados;
 
 	int filaDeJugada;
 	int columnaDeJugada;
@@ -95,10 +89,6 @@ class Juego{
 	 */
 	bool noQuedanCasilleros();
 
-	/*
-	 * Post: Crea un casillero sin bomba, sin bandera y tapado
-	 */
-	void prepararCasillero(int columnaDeCasillero, int filaDeCasillero);
 
 	/* Pre: 	El casillero de jugada existe
 	 * Post: 	Si no hay una bandera la coloca,
@@ -108,8 +98,10 @@ class Juego{
 	void cambiarBandera(int jugadorActual);
 
 	/* Pre: 	El casillero esta dentro del tablero
-	 * Post: 	Si tiene una bomba elimina al jugador,
-	 * 			si no, destapa el casillero y evalua los circundantes
+	 * Post: 	Si tiene una bomba se elimina al jugador,
+	 * 			si no, revisa si tiene bombas al rededor.
+	 * 			si tiene, muestra el numero de bombas
+	 * 			si no tiene, actúa también sobre los casilleros de alrededor
 	 */
 	void descubrirCasillero(int columnaDeCasillero, int filaDeCasillero, int jugadorActual);
 
@@ -133,58 +125,15 @@ class Juego{
 	 */
 	void tomarJugada();
 
-
-	/*
-	 * Pre: se pasa una coordenada valida.
-	 * Post: Devuelve la cantidad de bombas que rodean el casillero
-	 */
-	int evaluarBombasCircundantes(int columnaDeCasillero, int filaDeCasillero);
-
 	/*
 	 *
 	 */
 	void descubrirCasillerosCircundantes(int fila, int columna);
 
 	/*
-	 *
-	 */
-	bool validarCoordenada(int fila, int columna);
-
-	/*
-	 * Post: Devuelve en que columna se realizo la ultima jugada tomada.
-	 */
-	int devolverColumnaDeJugada();
-
-	/*
-	 * Post: Devuelve en que fila se realizo la ultima jugada tomada.
-	 */
-	int devolverFilaDeJugada();
-
-	/*
 	 *Post: indica a que jugador le corresponde hacer su jugada
 	 */
 	void declararTurno();
-
-	/*
-	 * Post: Devuelve el puntaje total del jugador que jugo ultimo.
-	 *	 	 Devuelve 0 si el puntaje es negativo
-	 */
-	int devolverPuntaje();
-
-	/*
-	 *Post: Indica si el casillero tiene bandera o no
-	 */
-	bool tieneBandera();
-
-	/*
-	 *Post: Indica si el casillero tiene bomba o no
-	 */
-	bool tieneBomba();
-
-	/*
-	 *Post: Indica si el casillero esta destapado
-	 */
-	bool estaDescubierto();
 
 	/*
 	 * Post: Remueve la bandera del casillero indicado

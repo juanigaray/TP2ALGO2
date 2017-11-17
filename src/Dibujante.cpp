@@ -194,6 +194,10 @@ void Dibujante::cambiarCuadrante(int columna, int fila, cadena queDibujar, int j
 
 void Dibujante::cambiarPuntaje(int puntaje, int nroJugador){
 
+	if (puntaje < 0){
+		puntaje = 0;
+	}
+
 	int filaDelJugador = filasDelTablero + filasMargenSuperior + 2 * nroJugador;
 
 	cadena strJugador = hacerCadena(nroJugador);
