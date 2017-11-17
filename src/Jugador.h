@@ -8,9 +8,9 @@ class Jugador{
 	private:
 
 		int puntaje;
-		bool eliminado;
 		std::string nombre;
 		unsigned int numeroJugador;
+
 	public:
 
 		/* pre:
@@ -25,12 +25,6 @@ class Jugador{
 		 * la variable puntos es la cantidad de pntos que hizo en el turno
 		 */
 		void sumarPuntaje(int puntos);
-
-		/* pre:
-		 * post: Asigna el estador del jugador
-		 * si fue eliminado lo pone en TRUE, sino FALSE
-		 */
-		void asignarEstado(bool opcion);
 
 		/* pre:
 		 * post: Devuelve el nombre del jugador
@@ -48,10 +42,9 @@ class Jugador{
 		unsigned int consultarNumero();
 
 		/*
-		 * post Devuelve el estado del jugador
+		 *Post: Este jugador adquiere todos los atributos del jugador que se asigna.
 		 */
-		bool consultarEstado();
-
+		void operator=(Jugador* jugadorACopiar);
 
 
 		/// se puede sacar d la lista de jugadores en vez de guardarlo aca

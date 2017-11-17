@@ -203,7 +203,7 @@ void Dibujante::cambiarPuntaje(int puntaje, int nroJugador){
 	cadena strJugador = hacerCadena(nroJugador);
 	cadena strPuntaje = hacerCadena(puntaje);
 
-	for(int cifra = 0; cifra < strPuntaje.size() ; cifra++ ){
+	for(unsigned int cifra = 0; cifra < strPuntaje.size() ; cifra++ ){
 
 		cadena directorio =  directorioDePuntajes + strPuntaje.substr(cifra, 1);
 

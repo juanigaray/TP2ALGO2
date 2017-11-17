@@ -35,7 +35,7 @@ class Juego{
 
 	int filaDeJugada;
 	int columnaDeJugada;
-	//VER DIFERENCIA DE PUNTAJE
+	bool seDebeEliminarJugador;
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.

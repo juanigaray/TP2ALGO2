@@ -17,6 +17,7 @@ Juego::Juego(int dificultad, int numeroDeJugadores, int filas, int columnas, cad
 
 	this->columnaDeJugada = 0;
 	this->filaDeJugada = 0;
+	this->seDebeEliminarJugador = false;
 
 	this->dibujante = new Dibujante(columnas, filas, numeroDeJugadores);
 	this->arbitro = new Arbitro(nombresDeJugadores, numeroDeJugadores, dificultad);
@@ -69,11 +70,11 @@ void Juego::tomarUbicacionDeJugada(){
 }
 
 void Juego::avanzarTurno(){
-	arbitro->avanzarTurno();
+	arbitro->avanzarTurno(seDebeEliminarJugador);
 }
 
 void Juego::tomarJugada(){
-
+	seDebeEliminarJugador = false;
 	cadena queDibujar;
 	bool haJugado = false;
 	int opcionElegida;
@@ -146,7 +147,7 @@ void Juego::descubrirCasillero(int columnaDeCasillero, int filaDeCasillero, int 
 	if (tablero.hayBombaEn(columnaDeCasillero, filaDeCasillero) ){
 
 		queDibujar = bomba;
-		arbitro->eliminarJugador();
+		seDebeEliminarJugador = true;
 		dibujante->eliminarJugador(jugadorActual);
 
 	//No tiene bomba
@@ -181,7 +182,7 @@ void Juego::descubrirCasillerosCircundantes(int columnaDeCasillero, int filaDeCa
 
 
 void Juego::declararTurno(){
-	std::cout << "Es el turno de "<< (arbitro->devolverJugador())->consultarNombre() << std::endl;
+	std::cout << "Es el turno de "<< (arbitro->devolverJugador()).consultarNombre() << std::endl;
 }
 
 bool Juego::terminoLaPartida(){
@@ -192,8 +193,6 @@ bool Juego::terminoLaPartida(){
 	else return false;
 }
 
-
-
 cadena Juego::hacerCadena(int numero){
 	std::ostringstream ossnumero;
 	ossnumero << numero;
@@ -201,7 +200,8 @@ cadena Juego::hacerCadena(int numero){
 }
 
 Juego::~Juego(){
-
+	delete dibujante;
+	delete arbitro;
 }
 
 

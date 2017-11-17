@@ -18,7 +18,8 @@ private:
 
 	int dificultad;
 
-	Cola<Jugador> listaDeJugadores;
+	Cola<Jugador> colaDeJugadores;
+	Jugador actual;
 
 	/*
 	 * Post: inicializa la lista de jugadores con los jugadores creados
@@ -32,7 +33,7 @@ public:
 	/* Pre: La lista debe estar iniciada con el cursor iniciado
 	 * Post: Devuelve puntero al jugador al que le toca jugar.
 	 */
-	Jugador* devolverJugador();
+	Jugador devolverJugador();
 
 	/*
 	 * Elimina al jugador de la listaDeJugadores
@@ -59,12 +60,13 @@ public:
 	 */
 	int devolverNumeroDeTurno();
 
-	/*
+	/* Pre: Se pasa por parametro si quien acaba de jugar perdio
 	 * Post: Es turno del jugador siguiente.
 	 * 		 Si se termina la ronda, vuelve a empezar
 	 * 		 Si no hay más jugadores, no hace nada
+	 *
 	 */
-	void avanzarTurno();
+	void avanzarTurno(bool fueEliminado);
 
 	/*
 	 *

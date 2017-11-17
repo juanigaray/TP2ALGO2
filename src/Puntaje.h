@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-typedef unsigned int int;
-
 // debe ser creado por el arbitro al iniciarlo
 class Puntaje{
 

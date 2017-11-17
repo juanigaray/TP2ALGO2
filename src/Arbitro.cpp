@@ -9,51 +9,47 @@
 
 
 Arbitro::Arbitro(cadena* nombresDeJugadores, int numeroDeJugadores, int dificultadPedida){
-
 	this->dificultad = dificultadPedida;
 	this->inicializarListaDeJugadores(nombresDeJugadores, numeroDeJugadores);
 }
 
-Jugador* Arbitro::devolverJugador(){
-	return listaDeJugadores.obtenerCursor();
-}
-
-void Arbitro::eliminarJugador(){
-	std::cout << devolverJugador()->consultarNombre() << " fue eliminado!" << std::endl;
-	listaDeJugadores.removerNodo( devolverNumeroDeTurno() );
+Jugador Arbitro::devolverJugador(){
+	return actual;
 }
 
 void Arbitro::sumarPuntaje(int puntos){
-	devolverJugador()->sumarPuntaje(puntos);
+	devolverJugador().sumarPuntaje(puntos);
 }
 
 int Arbitro::devolverPuntaje(){
-	return devolverJugador()->consultarPuntaje();
+	return devolverJugador().consultarPuntaje();
 }
 
-void Arbitro::avanzarTurno(){
-	listaDeJugadores.avanzarCursor();
+void Arbitro::avanzarTurno(bool fueEliminado){
+	if (! fueEliminado){
+			colaDeJugadores.acolar(actual);
+	}
+	actual = colaDeJugadores.desacolar();
 }
 
 void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores){
 	for(int i = 0; i < cantidadJugadores; i++){
         Jugador jugador(nombres[i], i + 1);
-        listaDeJugadores.agregarElemento(jugador);
+        colaDeJugadores.acolar(jugador);
 	}
-	listaDeJugadores.iniciarCursor();
 }
 
 int Arbitro::devolverNumeroDeTurno(){
-	int nroJugador = listaDeJugadores.obtenerCursor()->consultarNumero();
+	int nroJugador = actual.consultarNumero();
 	return nroJugador;
 }
 
 bool Arbitro::quedaUno(){
-	return (listaDeJugadores.devolverTamanio() == 1);
+	return (colaDeJugadores.quedaUno());
 }
 
 void Arbitro::anunciarGanador(){
-	Jugador* ganador = listaDeJugadores.obtener(1);
+	Jugador* ganador = colaDeJugadores.desacolar();
 	std::cout << "El ganador es "
 			  << ganador->consultarNombre()
 			  << " con "

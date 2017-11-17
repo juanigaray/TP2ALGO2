@@ -21,7 +21,7 @@ public:
 *Pre: -
 *Post: devuelve el dato del nodo
 */
-    T* obtenerDato();
+    T obtenerDato();
 /*
 *Post: cambia el dato del nodo
 */
@@ -48,8 +48,8 @@ template<class T> void  Nodo<T>::cambiarDato(T datoNuevo){
         dato = datoNuevo;
 }
 
-template<class T> T* Nodo<T>::obtenerDato(){
-        return &dato;
+template<class T> T Nodo<T>::obtenerDato(){
+        return dato;
 }
 
 template<class T> Nodo<T>::Nodo(T dato){

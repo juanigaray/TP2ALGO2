@@ -9,6 +9,15 @@
 
 
 //METODOS DE INICIALIZACION
+
+Tablero::Tablero(){
+	columnaMaxima = 1;
+	filaMaxima = 1;
+	bombasTotales = 0;
+	casillerosDestapados = 0;
+	inicializarMatriz();
+}
+
 Tablero::Tablero(unsigned int columnas,unsigned int filas, unsigned int dificultad){
 	if (columnas == 0 || filas == 0){
 		throw "Intento de crear tablero de tamanyo cero";
@@ -23,13 +32,26 @@ Tablero::Tablero(unsigned int columnas,unsigned int filas, unsigned int dificult
 
 }
 
+void Tablero::asignarDimensionesYDificultad(unsigned int columnas,unsigned int filas, unsigned int dificultad){
+	if (columnas == 0 || filas == 0){
+		throw "Intento de crear tablero de tamano cero";
+	}
+
+	columnaMaxima = columnas;
+	filaMaxima = filas;
+	bombasTotales =  (filas * columnas * dificultad) / 5;
+	casillerosDestapados = 0;
+	inicializarMatriz();
+	crearBombas(bombasTotales);
+}
+
 void Tablero::inicializarMatriz(){
 
 	//A cada columna le asigno un array de n casilleros, n = nro de filas
-	for(int col = 0; col < columnaMaxima; col++){
+	for(unsigned int col = 0; col < columnaMaxima; col++){
 		matriz[col] = new Casillero*[filaMaxima];
 
-		for(int fil = 0; fil < filaMaxima; fil++ ){
+		for(unsigned int fil = 0; fil < filaMaxima; fil++ ){
 			matriz[col][fil] = NULL;
 		}
 	}
@@ -111,12 +133,13 @@ void Tablero::descubrirCasillero(unsigned int columna, unsigned int fila){
 
 //METODOS DE OBTENCION
 
+unsigned int Tablero::obtenerFilaMaxima(){
+	return filaMaxima;
+}
 
-
-
-
-
-
+unsigned int Tablero::obtenerColumnaMaxima(){
+	return columnaMaxima;
+}
 
 
 
@@ -170,8 +193,8 @@ bool Tablero::noQuedanCasilleros(){
 
 
 Tablero::~Tablero(){
-	for(int columna = 0; columna < columnaMaxima; columna++ ){
-		for(int fila = 0; fila < filaMaxima; fila++){
+	for(unsigned int columna = 0; columna < columnaMaxima; columna++ ){
+		for(unsigned int fila = 0; fila < filaMaxima; fila++){
 			if (matriz[columna][fila] != 0){
 				delete matriz[columna][fila];
 			}
