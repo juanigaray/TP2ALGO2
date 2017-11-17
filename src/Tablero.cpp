@@ -18,7 +18,7 @@ Tablero::Tablero(){
 	inicializarMatriz();
 }
 
-Tablero::Tablero(unsigned int columnas,unsigned int filas, unsigned int dificultad){
+Tablero::Tablero(int columnas, int filas, unsigned int dificultad){
 	if (columnas == 0 || filas == 0){
 		throw "Intento de crear tablero de tamanyo cero";
 	}
@@ -32,7 +32,7 @@ Tablero::Tablero(unsigned int columnas,unsigned int filas, unsigned int dificult
 
 }
 
-void Tablero::asignarDimensionesYDificultad(unsigned int columnas,unsigned int filas, unsigned int dificultad){
+void Tablero::asignarDimensionesYDificultad(int columnas, int filas, unsigned int dificultad){
 	if (columnas == 0 || filas == 0){
 		throw "Intento de crear tablero de tamano cero";
 	}
@@ -47,12 +47,16 @@ void Tablero::asignarDimensionesYDificultad(unsigned int columnas,unsigned int f
 
 void Tablero::inicializarMatriz(){
 
-	//A cada columna le asigno un array de n casilleros, n = nro de filas
-	for(unsigned int col = 0; col < columnaMaxima; col++){
-		matriz[col] = new Casillero*[filaMaxima];
+	matriz = new Casillero**[columnaMaxima];
 
-		for(unsigned int fil = 0; fil < filaMaxima; fil++ ){
-			matriz[col][fil] = NULL;
+	//A cada columna le asigno un array de n casilleros, n = nro de filas
+	for ( int columna = 0; columna < columnaMaxima; columna++){
+
+		matriz[columna] = new Casillero*[filaMaxima];
+
+		for ( int fila = 0; fila < filaMaxima; fila++ ){
+
+			matriz[columna][fila] = NULL;
 		}
 	}
 }
@@ -86,7 +90,7 @@ void Tablero::prepararCasillero(int columnaDeCasillero, int filaDeCasillero){
 
 //SET
 
-bool Tablero::colocarBandera(unsigned int columnaDeJugada, unsigned int filaDeJugada, unsigned int jugadorActual){
+bool Tablero::colocarBandera(int columnaDeJugada, int filaDeJugada, unsigned int jugadorActual){
 	if (! esCoordenadaValida(columnaDeJugada, filaDeJugada)){
 		throw "Intenta colocar bandera fuera del tablero";
 	}
@@ -94,7 +98,7 @@ bool Tablero::colocarBandera(unsigned int columnaDeJugada, unsigned int filaDeJu
 	return matriz[columnaDeJugada][filaDeJugada]->tieneBomba();
 }
 
-int Tablero::quitarBandera(unsigned int columnaDeJugada, unsigned int filaDeJugada, unsigned int jugadorActual){
+int Tablero::quitarBandera(int columnaDeJugada, int filaDeJugada, unsigned int jugadorActual){
 
 	int puntajeADevolver = 0;
 	if (! esCoordenadaValida(columnaDeJugada, filaDeJugada)){
@@ -115,7 +119,7 @@ int Tablero::quitarBandera(unsigned int columnaDeJugada, unsigned int filaDeJuga
 	return puntajeADevolver;
 }
 
-void Tablero::descubrirCasillero(unsigned int columna, unsigned int fila){
+void Tablero::descubrirCasillero(int columna, int fila){
 
 	if ( esCoordenadaValida(columna, fila) ){
 		prepararCasillero(columna, fila);
@@ -163,7 +167,7 @@ int Tablero::obtenerNumeroDeBombasCircundantes(unsigned int columnaDeCasillero, 
 
 //METODOS DE VALIDACION
 
-bool Tablero::esCoordenadaValida(unsigned int columna, unsigned int fila){
+bool Tablero::esCoordenadaValida(int columna, int fila){
 	return (columna > columnaMaxima && fila > filaMaxima);
 }
 
@@ -193,8 +197,8 @@ bool Tablero::noQuedanCasilleros(){
 
 
 Tablero::~Tablero(){
-	for(unsigned int columna = 0; columna < columnaMaxima; columna++ ){
-		for(unsigned int fila = 0; fila < filaMaxima; fila++){
+	for(int columna = 0; columna < columnaMaxima; columna++ ){
+		for(int fila = 0; fila < filaMaxima; fila++){
 			if (matriz[columna][fila] != 0){
 				delete matriz[columna][fila];
 			}

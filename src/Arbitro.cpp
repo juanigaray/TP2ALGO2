@@ -26,7 +26,7 @@ int Arbitro::devolverPuntaje(){
 }
 
 void Arbitro::avanzarTurno(bool fueEliminado){
-	if (! fueEliminado){
+	if (! fueEliminado && (actual.consultarNumero() != 0)){
 			colaDeJugadores.acolar(actual);
 	}
 	actual = colaDeJugadores.desacolar();

@@ -71,10 +71,10 @@ void Juego::tomarUbicacionDeJugada(){
 
 void Juego::avanzarTurno(){
 	arbitro->avanzarTurno(seDebeEliminarJugador);
+	seDebeEliminarJugador = false;
 }
 
 void Juego::tomarJugada(){
-	seDebeEliminarJugador = false;
 	cadena queDibujar;
 	bool haJugado = false;
 	int opcionElegida;

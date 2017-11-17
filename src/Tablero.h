@@ -14,8 +14,8 @@ class Tablero{
 private:
 	Casillero*** matriz; //Es un array * de arrays * de punteros *
 
-	unsigned int columnaMaxima;
-	unsigned int filaMaxima;
+	int columnaMaxima;
+	int filaMaxima;
 	unsigned int bombasTotales;
 	unsigned int casillerosDestapados;
 
@@ -24,11 +24,11 @@ public:
 	//SET
 
 
-	Tablero(unsigned int columnas, unsigned int filas, unsigned int dificultad);
+	Tablero(int columnas, int filas, unsigned int dificultad);
 
 	Tablero();
 
-	void asignarDimensionesYDificultad(unsigned int columnas, unsigned int filas, unsigned int dificultad);
+	void asignarDimensionesYDificultad(int columnas, int filas, unsigned int dificultad);
 
 	void inicializarMatriz();
 
@@ -37,19 +37,17 @@ public:
 	/*
 	 * post: Devuelve si la bandera fue colocada sobre un casillero con bomba
 	 */
-	bool colocarBandera(unsigned int columnaDeJugada, unsigned int filaDeJugada, unsigned int jugadorActual);
+	bool colocarBandera(int columnaDeJugada, int filaDeJugada, unsigned int jugadorActual);
 
 	/*
 	 * Post: devuelve 0 si el que quita la bandera es el mismo que la puso, y si es otro jugador:
 	 * 		 	Devuelve -2 si no hay bomba
 	 * 		 	Devuelve 2 si hay bomba
 	 */
-	int quitarBandera(unsigned int columnaDeJugada, unsigned int filaDeJugada, unsigned int jugadorActual);
+	int quitarBandera(int columnaDeJugada, int filaDeJugada, unsigned int jugadorActual);
 
 
-	void descubrirCasillero(unsigned int columna, unsigned int fila);
-
-
+	void descubrirCasillero(int columna, int fila);
 
 
 
@@ -73,7 +71,7 @@ public:
 	 */
 	void prepararCasillero(int columnaDeCasillero, int filaDeCasillero);
 
-	bool esCoordenadaValida(unsigned int columna, unsigned int fila);
+	bool esCoordenadaValida(int columna, int fila);
 
 	bool estaIniciado(unsigned int columna, unsigned int fila);
 
