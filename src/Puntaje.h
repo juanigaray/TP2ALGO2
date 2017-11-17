@@ -3,15 +3,15 @@
 
 #include <iostream>
 
-typedef unsigned int uint;
+typedef unsigned int int;
 
 // debe ser creado por el arbitro al iniciarlo
 class Puntaje{
 
   private:
 
-	uint puntos;
-	uint puntosEspeciales;
+	int puntos;
+	int puntosEspeciales;
 
 
   public:
@@ -19,18 +19,18 @@ class Puntaje{
 	/* Pre puntaje recibe la dificultad
 		 * Post inicializa los puntajes de acuerdo a la dificultad
 		 */
-		Puntaje(uint dificultad);
+		Puntaje(int dificultad);
   
   	/* 
 	 * Post devuelve puntaje estandar
 	 */
-	uint devolverPuntos();
+	int devolverPuntos();
 	
 	/* 
 	 * Post devuelve puntaje especial
 	 * caso de un jugador corrige a otro
 	 */
-	uint devolverPuntosEspeciales();
+	int devolverPuntosEspeciales();
 	
 };
 
