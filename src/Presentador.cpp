@@ -18,9 +18,9 @@ Presentador::Presentador(){
 
 }
 
-uint Presentador::pedirNumero(std::string mensaje){
+int Presentador::pedirNumero(std::string mensaje){
 
-	uint numeroIngresado;
+	int numeroIngresado;
 
 	std::cout << mensaje << std::endl;
 	std::cin >> numeroIngresado;
@@ -31,7 +31,7 @@ uint Presentador::pedirNumero(std::string mensaje){
 	return numeroIngresado;
 }
 
-uint Presentador::pedirNumero(std::string mensaje, int numeroMaximo){
+int Presentador::pedirNumero(std::string mensaje, int numeroMaximo){
 
 	int numeroIngresado;
 
@@ -62,7 +62,7 @@ void Presentador::pedirNombresDeJugadores(){
 	char decision;
 	std::string nombreDeJugador;
 
-	for(uint numeroDeNombre = 0;
+	for(int numeroDeNombre = 0;
 			 numeroDeNombre < devolverNumeroDeJugadores();
 			 numeroDeNombre++){
 
@@ -107,19 +107,19 @@ void Presentador::pedirDatosDeJuego(){
 	this->pedirDimensionesDelTablero();
 }
 
-uint Presentador::devolverColumnas(){
+int Presentador::devolverColumnas(){
 	return this->columnas;
 }
 
-uint Presentador::devolverFilas(){
+int Presentador::devolverFilas(){
 	return this->filas;
 }
 
-uint Presentador::devolverNumeroDeJugadores(){
+int Presentador::devolverNumeroDeJugadores(){
 	return this->cantJugadores;
 }
 
-uint Presentador::devolverDificultad(){
+int Presentador::devolverDificultad(){
 	return this->dificultad;
 }
 

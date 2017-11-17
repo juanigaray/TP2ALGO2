@@ -15,24 +15,24 @@
 class Presentador{
   private:
 
-	uint dificultad;
-	uint cantJugadores;
+	int dificultad;
+	int cantJugadores;
 	cadena* listaDeNombresDeJugadores;
-	uint filas;
-	uint columnas;
+	int filas;
+	int columnas;
 	bool jugarDeNuevo;
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
 	 * 		 Devuelve el numero ingresado.
 	 */
-	uint pedirNumero(std::string mensaje, int numeroMaximo);
+	int pedirNumero(std::string mensaje, int numeroMaximo);
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
 	 * 		 Devuelve el numero ingresado.
 	 */
-	uint pedirNumero(std::string mensaje);
+	int pedirNumero(std::string mensaje);
 
 	/*
 	 * Post: Pide las dimensiones del tablero hasta recibir datos validos.
@@ -78,22 +78,22 @@ class Presentador{
 	/* Pre: Se corrio pedirDatosDeJuego().
 	 * Post: Devuelve el numero de columnas ingresado por el usuario.
 	 */
-	uint devolverColumnas();
+	int devolverColumnas();
 
 	/* Pre: Se corrio pedirDatosDeJuego().
 	 * Post: Devuelve el numero de filas ingresado por el usuario.
 	 */
-	uint devolverFilas();
+	int devolverFilas();
 
 	/* Pre: Se corrio pedirDatosDeJuego().
 	 * Post: Devuelve el numero de jugadores pedido por el usuario.
 	 */
-	uint devolverNumeroDeJugadores();
+	int devolverNumeroDeJugadores();
 
 	/* Pre: Se corrio pedirDatosDeJuego().
 	 * Post: Devuelve el numero de dificultad pedido por el usuario.
 	 */
-	uint devolverDificultad();
+	int devolverDificultad();
 
 	/* Pre: Se corrio pedirDatosDeJuego().
 	 * Post: Devuelve el array de los nombres de los jugadores.

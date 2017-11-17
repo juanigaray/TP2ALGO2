@@ -34,7 +34,7 @@ class Casillero{
 	 /*
 	  *
 	  */
-	 void colocarBandera(uint jugador);
+	 void colocarBandera(int jugador);
 
 	 /*
 	  *
@@ -44,7 +44,7 @@ class Casillero{
 	 /* Pre: El casillero tiene bandera
 	  * Post: Devuelve quien la puso.
 	  */
-	 uint quienPusoLaBandera();
+	 int quienPusoLaBandera();
 
 	 /*
 	  *

@@ -1,14 +1,14 @@
 #include "Nodo.h"
 #include <iostream>
-#ifndef LISTA_H_
-#define LISTA_H_
+#ifndef COLA_H_
+#define COLA_H_
 
 template <class T>
-class Lista{
+class Cola{
 
   private:
 	Nodo<T>* primero;
-    Nodo<T>* cursor;
+    Nodo<T>* ultimo;
 
     unsigned int tamanio;
 
@@ -20,7 +20,7 @@ class Lista{
     /*
      * post: Lista vacía.
      */
-    Lista();
+    Cola();
 
     /*
      * post: deja el cursor de la Lista preparado para hacer un nuevo
@@ -44,7 +44,7 @@ class Lista{
     /*
      * post: indica si la Lista tiene algún elemento.
      */
-    uint devolverTamanio();
+    int devolverTamanio();
 
     /*
      * post: devuelve la cantidad de elementos que tiene la Lista.
@@ -71,12 +71,12 @@ class Lista{
      /*
       * post: libera los recursos asociados a la Lista.
       */
-    ~Lista();
+    ~Cola();
 
 };
 
 template<class T>
-Nodo<T>* Lista<T>::obtenerNodo(int posicion){
+Nodo<T>* Cola<T>::obtenerNodo(int posicion){
 	iniciarCursor();
 
 	for(int i = 1; i <= posicion; i++){
@@ -90,7 +90,7 @@ Nodo<T>* Lista<T>::obtenerNodo(int posicion){
 
 
 template<class T>
-Lista<T>::Lista(){
+Cola<T>::Cola(){
         primero = NULL;
         tamanio = 0;
         cursor = NULL;
@@ -98,12 +98,12 @@ Lista<T>::Lista(){
 
 
 template<class T>
-void Lista<T>::iniciarCursor(){
+void Cola<T>::iniciarCursor(){
     this->cursor = NULL;
 }
 
 template<class T>
-bool Lista<T>::avanzarCursor(){
+bool Cola<T>::avanzarCursor(){
 
         if (cursor == NULL) {
             cursor = primero;
@@ -114,23 +114,23 @@ bool Lista<T>::avanzarCursor(){
 }
 
 template<class T>
-T* Lista<T>::obtenerCursor(){
+T* Cola<T>::obtenerCursor(){
         return cursor->obtenerDato();
 }
 
 
 template<class T>
-uint Lista<T>::devolverTamanio(){
+int Cola<T>::devolverTamanio(){
 	return tamanio;
 }
 
 template<class T>
-unsigned int Lista<T>::contarElementos(){
+unsigned int Cola<T>::contarElementos(){
     	return tamanio;
 }
 
 template<class T>
-void Lista<T>::agregarElemento(T elemento){
+void Cola<T>::agregarElemento(T elemento){
 
 		Nodo<T>* nuevo = new Nodo<T>(elemento);
 
@@ -145,13 +145,13 @@ void Lista<T>::agregarElemento(T elemento){
 }
 
 template<class T>
-T* Lista<T>::obtener(unsigned int posicion){
+T* Cola<T>::obtener(unsigned int posicion){
 
       return obtenerNodo(posicion)->obtenerDato();
 }
 
 template<class T>
-void Lista<T>::removerNodo(unsigned int posicion){
+void Cola<T>::removerNodo(unsigned int posicion){
 
        Nodo<T>* nodoARemover = 0;
 
@@ -172,7 +172,7 @@ void Lista<T>::removerNodo(unsigned int posicion){
 }
 
 template<class T>
-Lista<T>:: ~Lista(){
+Cola<T>:: ~Cola(){
 
     while (primero != NULL) {
 

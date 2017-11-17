@@ -8,7 +8,7 @@
 
 #include "Juego.h"
 
-Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* nombresDeJugadores){
+Juego::Juego(int dificultadPedida, int numeroDeJugadores, int filas, int columnas, cadena* nombresDeJugadores){
 
 	bomba = "boom";
 	bandera = "bandera";
@@ -38,20 +38,20 @@ Juego::Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint col
 void Juego::inicializarTablero(){
 
 	//A cada columna le asigno un array de n casilleros, n = nro de filas
-	for(uint col =0; col < columnaMaxima; col++){
+	for(int col =0; col < columnaMaxima; col++){
 
 		tablero[col] = new Casillero*[filaMaxima];
 
-		for(uint fil = 0; fil < filaMaxima; fil++ ){
+		for(int fil = 0; fil < filaMaxima; fil++ ){
 
 			tablero[col][fil] = NULL;
 		}
 	}
 }
 
-uint Juego::pedirNumero(std::string mensaje){
+int Juego::pedirNumero(std::string mensaje){
 
-	uint numeroIngresado;
+	int numeroIngresado;
 	std::cout << mensaje << std::endl;
 	std::cin >> numeroIngresado;
 	if(numeroIngresado == 0){
@@ -61,9 +61,9 @@ uint Juego::pedirNumero(std::string mensaje){
 	return numeroIngresado;
 }
 
-uint Juego::pedirNumero(std::string mensaje, uint numeroMaximo){
+int Juego::pedirNumero(std::string mensaje, int numeroMaximo){
 
-	uint numeroIngresado;
+	int numeroIngresado;
 	std::cout << mensaje << std::endl;
 	std::cin >> numeroIngresado;
 	if(numeroIngresado == 0 || numeroIngresado > numeroMaximo){
@@ -73,14 +73,14 @@ uint Juego::pedirNumero(std::string mensaje, uint numeroMaximo){
 	return numeroIngresado;
 }
 
-uint Juego::tomarTipoDeJugada(){
+int Juego::tomarTipoDeJugada(){
 
 	std::string pedido = "Ingrese el numero de la opcion elegida: \n";
 	std::string opcion1 = "1) Colocar / quitar bandera \n";
 	std::string opcion2 = "2) Descubrir casillero \n";
 	std::string mensajeDeOpciones = pedido + opcion1 + opcion2;
 
-	uint tipoDeJugada = pedirNumero(mensajeDeOpciones, 3);
+	int tipoDeJugada = pedirNumero(mensajeDeOpciones, 3);
 	return tipoDeJugada;
 }
 
@@ -97,8 +97,8 @@ void Juego::tomarJugada(){
 
 	cadena queDibujar;
 	bool haJugado = false;
-	uint opcionElegida;
-	uint jugadorActual;
+	int opcionElegida;
+	int jugadorActual;
 
 	while (! haJugado){
 
@@ -128,7 +128,7 @@ void Juego::tomarJugada(){
 	this->dibujante->dibujarTablero();
 }
 
-void Juego::cambiarBandera(uint jugadorActual){
+void Juego::cambiarBandera(int jugadorActual){
 
 	cadena queDibujar;
 
@@ -169,7 +169,7 @@ void Juego::cambiarBandera(uint jugadorActual){
 	this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
 }
 
-void Juego::descubrirCasillero(uint columnaDeCasillero, uint filaDeCasillero, uint jugadorActual){
+void Juego::descubrirCasillero(int columnaDeCasillero, int filaDeCasillero, int jugadorActual){
 
 	cadena queDibujar;
 
@@ -185,7 +185,7 @@ void Juego::descubrirCasillero(uint columnaDeCasillero, uint filaDeCasillero, ui
 	//No tiene bomba
 	} else {
 
-		uint numeroDeBombasCircundantes = evaluarBombasCircundantes(columnaDeCasillero, filaDeCasillero);
+		int numeroDeBombasCircundantes = evaluarBombasCircundantes(columnaDeCasillero, filaDeCasillero);
 		queDibujar = hacerCadena(numeroDeBombasCircundantes);
 		if(numeroDeBombasCircundantes == 0){
 
@@ -196,14 +196,14 @@ void Juego::descubrirCasillero(uint columnaDeCasillero, uint filaDeCasillero, ui
 }
 
 
-void Juego::prepararCasillero(uint columnaDeCasillero, uint filaDeCasillero){
+void Juego::prepararCasillero(int columnaDeCasillero, int filaDeCasillero){
 	if(tablero[columnaDeCasillero][filaDeCasillero] == 0)
 		tablero[columnaDeCasillero][filaDeCasillero] = new Casillero();
 }
 
-uint Juego::evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasillero){
+int Juego::evaluarBombasCircundantes(int columnaDeCasillero, int filaDeCasillero){
 
-	uint circundantes = 0;
+	int circundantes = 0;
 	for(int dFila = -1; dFila < 2; dFila++){
 		for(int dColumna = -1; dColumna < 2; dColumna++ ){
 
@@ -275,7 +275,7 @@ bool Juego::estaDescubierto(){
 	return ( ( tablero[columnaDeJugada][filaDeJugada] != 0) && tablero[columnaDeJugada][filaDeJugada]->estaDescubierto()  );
 }
 
-void Juego::crearBombas(uint dificultad){
+void Juego::crearBombas(int dificultad){
 
 	srand (time(NULL));
 	int bombasRestantes = bombasTotales;
@@ -283,8 +283,8 @@ void Juego::crearBombas(uint dificultad){
 	while (bombasRestantes > 0){
 
 		//Genero dos numeros semi-aleatorios para usar de coordenada
-		uint xAleatorio = rand() % (columnaMaxima - 1);
-		uint yAleatorio = rand() % (filaMaxima - 1);
+		int xAleatorio = rand() % (columnaMaxima - 1);
+		int yAleatorio = rand() % (filaMaxima - 1);
 
 		//solo afecta el casillero si no hay una mina ya sobre el
 		if ( tablero[xAleatorio][yAleatorio] == 0 ){
@@ -295,7 +295,7 @@ void Juego::crearBombas(uint dificultad){
 	}
 }
 
-void Juego::eliminarBandera(uint fila, uint columna){
+void Juego::eliminarBandera(int fila, int columna){
 	tablero[columna][fila]->quitarBandera();
 }
 
@@ -319,8 +319,8 @@ cadena Juego::hacerCadena(int numero){
 
 Juego::~Juego(){
 
-	for(uint columna = 0; columna < columnaMaxima; columna++ ){
-		for(uint fila = 0; fila < filaMaxima; fila++){
+	for(int columna = 0; columna < columnaMaxima; columna++ ){
+		for(int fila = 0; fila < filaMaxima; fila++){
 			if (tablero[columna][fila] != 0){
 				delete tablero[columna][fila];
 			}

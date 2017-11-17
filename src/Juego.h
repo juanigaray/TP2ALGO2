@@ -31,29 +31,29 @@ class Juego{
 
 	Casillero*** tablero; //Es un array * de arrays * de punteros *
 
-	uint filaMaxima;
-	uint columnaMaxima;
+	int filaMaxima;
+	int columnaMaxima;
 
 	Arbitro* arbitro;
 
-	uint bombasTotales;
-	uint casillerosDestapados;
+	int bombasTotales;
+	int casillerosDestapados;
 
-	uint filaDeJugada;
-	uint columnaDeJugada;
+	int filaDeJugada;
+	int columnaDeJugada;
 	//VER DIFERENCIA DE PUNTAJE
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
 	 * 		 Devuelve el numero ingresado.
 	 */
-	uint pedirNumero(std::string mensaje);
+	int pedirNumero(std::string mensaje);
 
 	/*
 	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
 	 * 		 Devuelve el numero ingresado.
 	 */
-	uint pedirNumero(std::string mensaje, uint numeroMaximo);
+	int pedirNumero(std::string mensaje, int numeroMaximo);
 
 	/*
 	 * Post: Devuelve una cadena con el numero que se le paso
@@ -68,7 +68,7 @@ class Juego{
 	/*
 	 *Post: Recibe el input de que tipo de jugada va a realizar, "Poner/quitar bandera", "descubrir un casillero"
 	 */
-	uint tomarTipoDeJugada();
+	int tomarTipoDeJugada();
 
 	/*
 	 *Post Toma las coordenadas en la que se realizara la jugada
@@ -78,12 +78,12 @@ class Juego{
 	/*
 	 * Asigna aleatoriamente la cantidad de bombas que reciba el parametro
 	 */
-	void crearBombas(uint cantBombas);
+	void crearBombas(int cantBombas);
 
 	 /*
 	  * Indica si existe una bomba en ese lugar
 	  */
-	bool hayBomba(uint fila, uint columna);
+	bool hayBomba(int fila, int columna);
 
 	 /*
 	  * Post: Indica si existe una bandera en ese lugar
@@ -98,20 +98,20 @@ class Juego{
 	/*
 	 * Post: Crea un casillero sin bomba, sin bandera y tapado
 	 */
-	void prepararCasillero(uint columnaDeCasillero, uint filaDeCasillero);
+	void prepararCasillero(int columnaDeCasillero, int filaDeCasillero);
 
 	/* Pre: 	El casillero de jugada existe
 	 * Post: 	Si no hay una bandera la coloca,
 	 * 			si hay y era del mismo jugador la saca sin que pase nada,
 	 * 			si es de otro, se toma como corregir a otro jugador y se puntua.
 	 */
-	void cambiarBandera(uint jugadorActual);
+	void cambiarBandera(int jugadorActual);
 
 	/* Pre: 	El casillero esta dentro del tablero
 	 * Post: 	Si tiene una bomba elimina al jugador,
 	 * 			si no, destapa el casillero y evalua los circundantes
 	 */
-	void descubrirCasillero(uint columnaDeCasillero, uint filaDeCasillero, uint jugadorActual);
+	void descubrirCasillero(int columnaDeCasillero, int filaDeCasillero, int jugadorActual);
 
 
 
@@ -120,7 +120,7 @@ class Juego{
 	/* Pre: Se le pasan numeros naturales.
 	 * Post: Crea un arbitro listo para pasarle jugadas
 	 */
-	Juego(uint dificultadPedida, uint numeroDeJugadores, uint filas, uint columnas, cadena* listaDeNombresDeJugadores);
+	Juego(int dificultadPedida, int numeroDeJugadores, int filas, int columnas, cadena* listaDeNombresDeJugadores);
 
 	/*
 	 * Post: El jugador actual es el siguiente en la lista
@@ -138,7 +138,7 @@ class Juego{
 	 * Pre: se pasa una coordenada valida.
 	 * Post: Devuelve la cantidad de bombas que rodean el casillero
 	 */
-	uint evaluarBombasCircundantes(uint columnaDeCasillero, uint filaDeCasillero);
+	int evaluarBombasCircundantes(int columnaDeCasillero, int filaDeCasillero);
 
 	/*
 	 *
@@ -153,12 +153,12 @@ class Juego{
 	/*
 	 * Post: Devuelve en que columna se realizo la ultima jugada tomada.
 	 */
-	uint devolverColumnaDeJugada();
+	int devolverColumnaDeJugada();
 
 	/*
 	 * Post: Devuelve en que fila se realizo la ultima jugada tomada.
 	 */
-	uint devolverFilaDeJugada();
+	int devolverFilaDeJugada();
 
 	/*
 	 *Post: indica a que jugador le corresponde hacer su jugada
@@ -189,7 +189,7 @@ class Juego{
 	/*
 	 * Post: Remueve la bandera del casillero indicado
 	 */
-	void eliminarBandera(uint columna, uint fila);
+	void eliminarBandera(int columna, int fila);
 
 	/*
 	 * Post: devuelve true si termino la partida

@@ -8,7 +8,7 @@
 #include "Arbitro.h"
 
 
-Arbitro::Arbitro(cadena* nombresDeJugadores, uint numeroDeJugadores, uint dificultadPedida){
+Arbitro::Arbitro(cadena* nombresDeJugadores, int numeroDeJugadores, int dificultadPedida){
 
 	this->dificultad = dificultadPedida;
 	this->inicializarListaDeJugadores(nombresDeJugadores, numeroDeJugadores);
@@ -27,7 +27,7 @@ void Arbitro::sumarPuntaje(int puntos){
 	devolverJugador()->sumarPuntaje(puntos);
 }
 
-uint Arbitro::devolverPuntaje(){
+int Arbitro::devolverPuntaje(){
 	return devolverJugador()->consultarPuntaje();
 }
 
@@ -35,16 +35,16 @@ void Arbitro::avanzarTurno(){
 	listaDeJugadores.avanzarCursor();
 }
 
-void Arbitro::inicializarListaDeJugadores(cadena* nombres, uint cantidadJugadores){
-	for(uint i = 0; i < cantidadJugadores; i++){
+void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores){
+	for(int i = 0; i < cantidadJugadores; i++){
         Jugador jugador(nombres[i], i + 1);
         listaDeJugadores.agregarElemento(jugador);
 	}
 	listaDeJugadores.iniciarCursor();
 }
 
-uint Arbitro::devolverNumeroDeTurno(){
-	uint nroJugador = listaDeJugadores.obtenerCursor()->consultarNumero();
+int Arbitro::devolverNumeroDeTurno(){
+	int nroJugador = listaDeJugadores.obtenerCursor()->consultarNumero();
 	return nroJugador;
 }
 

@@ -6,7 +6,7 @@
  */
 #include "Dibujante.h"
 
-Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores){
+Dibujante::Dibujante(int cantidadDeColumnas, int cantidadDeFilas, int cantidadDeJugadores){
 
 	//Definen de donde se van a leer los BMPs que componen la imagen
 	directorioDeImagenesFuente= "src/ImagenesFuente/";
@@ -47,10 +47,10 @@ Dibujante::Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantida
 
 }
 
-void Dibujante::inicializarImagen(uint cantidadDeJugadores){
+void Dibujante::inicializarImagen(int cantidadDeJugadores){
 
-	uint pixelesDeAncho = columnasTotalesImagen * anchoDeCuadrante;
-	uint pixelesDeAlto = filasTotalesImagen * alturaDeCuadrante;
+	int pixelesDeAncho = columnasTotalesImagen * anchoDeCuadrante;
+	int pixelesDeAlto = filasTotalesImagen * alturaDeCuadrante;
 
 	imagen.SetSize(pixelesDeAncho, pixelesDeAlto);
 
@@ -60,32 +60,32 @@ void Dibujante::inicializarImagen(uint cantidadDeJugadores){
 
 void Dibujante::inicializarCasilleros(){
 
-	for(uint filaActual = 0; filaActual < filasDelTablero; filaActual++){
-		for(uint columnaActual = 0; columnaActual < columnasDelTablero; columnaActual++){
+	for(int filaActual = 0; filaActual < filasDelTablero; filaActual++){
+		for(int columnaActual = 0; columnaActual < columnasDelTablero; columnaActual++){
 			cambiarCuadrante(columnaActual, filaActual, casilleroCubierto, 0, false);
 		}
 	}
 }
 
-void Dibujante::inicializarPuntajes(uint cantidadDeJugadores){
+void Dibujante::inicializarPuntajes(int cantidadDeJugadores){
 
-	for(uint nroJugador = 1; nroJugador <= cantidadDeJugadores; nroJugador++){
+	for(int nroJugador = 1; nroJugador <= cantidadDeJugadores; nroJugador++){
 
-		uint filaDelJugador = filasMargenSuperior + filasDelTablero + 2 * nroJugador;
+		int filaDelJugador = filasMargenSuperior + filasDelTablero + 2 * nroJugador;
 
 		cadena nombreJugador = "JUGADOR";
 
 		cadena strNroJugador = hacerCadena(nroJugador);
 
 		//Escribe "Jugador"
-		for(uint caracter = 0; caracter < nombreJugador.size() ; caracter++ ){
+		for(int caracter = 0; caracter < nombreJugador.size() ; caracter++ ){
 
 			cadena directorio = nombreJugador.substr(caracter, 1);
 			cambiarCuadrante( 1 + caracter  , filaDelJugador, directorio , 0, true);
 		}
 
 		//Escribe el nro de jugador
-		for(uint cifra = 0; cifra < strNroJugador.size() ; cifra++ ){
+		for(int cifra = 0; cifra < strNroJugador.size() ; cifra++ ){
 
 			cadena directorio = strNroJugador.substr(cifra, 1);
 			cambiarCuadrante( 9 + cifra  , filaDelJugador, directorio , 0, true);
@@ -95,10 +95,10 @@ void Dibujante::inicializarPuntajes(uint cantidadDeJugadores){
 	}
 }
 
-void Dibujante::inicializarMargen(uint cantidadDeJugadores){
+void Dibujante::inicializarMargen(int cantidadDeJugadores){
 
-	uint columnaDeCuadrante;
-	uint filaDeCuadrante;
+	int columnaDeCuadrante;
+	int filaDeCuadrante;
 
 	//Superior
 	for (columnaDeCuadrante = 0; columnaDeCuadrante < columnasTotalesImagen; columnaDeCuadrante++){
@@ -136,14 +136,14 @@ void Dibujante::inicializarMargen(uint cantidadDeJugadores){
 	inicializarPuntajes(cantidadDeJugadores);
 }
 
-uint Dibujante::informarNumeroDeDibujo(){
+int Dibujante::informarNumeroDeDibujo(){
 	return numeroDeDibujo;
 }
 
-void Dibujante::cambiarCuadrante(uint columna, uint fila, cadena queDibujar, uint jugador, bool esMargen){
+void Dibujante::cambiarCuadrante(int columna, int fila, cadena queDibujar, int jugador, bool esMargen){
 
-	uint yAbsolutoDePixel = 0;
-	uint xAbsolutoDePixel = 0;
+	int yAbsolutoDePixel = 0;
+	int xAbsolutoDePixel = 0;
 
 	BMP cuadrante;
 	cadena subdirectorio;
@@ -164,11 +164,11 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, cadena queDibujar, uin
 		cuadrante.CreateStandardColorTable();
 	}
 
-	for ( uint yRelativoDePixel = 0; yRelativoDePixel < alturaDeCuadrante; yRelativoDePixel++){
+	for ( int yRelativoDePixel = 0; yRelativoDePixel < alturaDeCuadrante; yRelativoDePixel++){
 
 		yAbsolutoDePixel = yRelativoDePixel + fila * alturaDeCuadrante;
 
-		for (uint xRelativoDePixel = 0; xRelativoDePixel < anchoDeCuadrante; xRelativoDePixel++){
+		for (int xRelativoDePixel = 0; xRelativoDePixel < anchoDeCuadrante; xRelativoDePixel++){
 
 			xAbsolutoDePixel = xRelativoDePixel + columna * anchoDeCuadrante;
 
@@ -192,14 +192,14 @@ void Dibujante::cambiarCuadrante(uint columna, uint fila, cadena queDibujar, uin
 	}
 }
 
-void Dibujante::cambiarPuntaje(int puntaje, uint nroJugador){
+void Dibujante::cambiarPuntaje(int puntaje, int nroJugador){
 
-	uint filaDelJugador = filasDelTablero + filasMargenSuperior + 2 * nroJugador;
+	int filaDelJugador = filasDelTablero + filasMargenSuperior + 2 * nroJugador;
 
 	cadena strJugador = hacerCadena(nroJugador);
 	cadena strPuntaje = hacerCadena(puntaje);
 
-	for(uint cifra = 0; cifra < strPuntaje.size() ; cifra++ ){
+	for(int cifra = 0; cifra < strPuntaje.size() ; cifra++ ){
 
 		cadena directorio =  directorioDePuntajes + strPuntaje.substr(cifra, 1);
 
@@ -217,15 +217,15 @@ void Dibujante::dibujarTablero(){
 	numeroDeDibujo++;
 }
 
-void Dibujante::eliminarJugador(uint nroJugador){
+void Dibujante::eliminarJugador(int nroJugador){
 
-	uint filaDelJugador = filasDelTablero + 2 * nroJugador + filasMargenSuperior;
-	uint yInicial = alturaDeCuadrante * filaDelJugador + alturaDeCuadrante / 2;
-	uint yMax = yInicial + alturaDeCuadrante / 8;
-	uint xMax = columnasMinimasImagen * anchoDeCuadrante;
+	int filaDelJugador = filasDelTablero + 2 * nroJugador + filasMargenSuperior;
+	int yInicial = alturaDeCuadrante * filaDelJugador + alturaDeCuadrante / 2;
+	int yMax = yInicial + alturaDeCuadrante / 8;
+	int xMax = columnasMinimasImagen * anchoDeCuadrante;
 
-	for(uint xDePixel = 0; xDePixel <  xMax; xDePixel++ ){
-		for(uint yDePixel = yInicial; yDePixel <  yMax; yDePixel++ ){
+	for(int xDePixel = 0; xDePixel <  xMax; xDePixel++ ){
+		for(int yDePixel = yInicial; yDePixel <  yMax; yDePixel++ ){
 			imagen(xDePixel, yDePixel)->Red = 150;
 		}
 	}

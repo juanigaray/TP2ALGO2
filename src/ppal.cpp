@@ -5,7 +5,7 @@
  *      Author: juan
  */
 
-typedef unsigned int uint;
+typedef unsigned int int;
 
 #include "Presentador.h"
 #include "Dibujante.h"

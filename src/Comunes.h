@@ -9,8 +9,6 @@
 #define COMUNES_H_
 #include <iostream>
 
-typedef unsigned int uint;
 typedef std::string cadena;
-
 
 #endif /* COMUNES_H_ */

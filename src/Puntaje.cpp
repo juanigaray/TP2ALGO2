@@ -1,6 +1,6 @@
 #include "Puntaje.h"
 
-Puntaje::Puntaje(uint dificultad){
+Puntaje::Puntaje(int dificultad){
 	
 	if (dificultad == 1){
 		this->puntos = 1;
@@ -20,11 +20,11 @@ Puntaje::Puntaje(uint dificultad){
 	}
 }
 
-uint Puntaje::devolverPuntos(){
+int Puntaje::devolverPuntos(){
 	return this->puntos;
 }
 
-uint Puntaje::devolverPuntosEspeciales(){
+int Puntaje::devolverPuntosEspeciales(){
 	return this->puntosEspeciales;
 }
 

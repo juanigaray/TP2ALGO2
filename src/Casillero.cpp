@@ -19,7 +19,7 @@ Casillero::Casillero(bool conBomba){
 	this->bandera = 0;
 }
 
-void Casillero::colocarBandera(uint jugador){
+void Casillero::colocarBandera(int jugador){
 	if (bandera == 0){
 		bandera = new Bandera;
 	}
@@ -31,7 +31,7 @@ void Casillero::quitarBandera(){
 		bandera = 0;
 }
 
-uint Casillero::quienPusoLaBandera(){
+int Casillero::quienPusoLaBandera(){
 	return ( this->bandera->obtenerJugador() );
 }
 

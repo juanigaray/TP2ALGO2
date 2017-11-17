@@ -25,18 +25,18 @@ class Dibujante{
 	cadena casilleroCubierto;
 	cadena margen;
 
-	uint columnasMinimasImagen;
+	int columnasMinimasImagen;
 
-	uint numeroDeDibujo;
-	uint alturaDeCuadrante;
-	uint anchoDeCuadrante;
-	uint columnasDelTablero;
-	uint filasDelTablero;
-	uint columnasTotalesImagen;
-	uint filasTotalesImagen;
+	int numeroDeDibujo;
+	int alturaDeCuadrante;
+	int anchoDeCuadrante;
+	int columnasDelTablero;
+	int filasDelTablero;
+	int columnasTotalesImagen;
+	int filasTotalesImagen;
 
-	uint columnasMargenLateral;
-	uint filasMargenSuperior;
+	int columnasMargenLateral;
+	int filasMargenSuperior;
 
 
 	BMP imagen;
@@ -49,18 +49,18 @@ class Dibujante{
 	/*
 	 * Post: Se muestran todos los jugadores con sus puntajes en 0.
 	 */
-	void inicializarPuntajes(uint cantidadDeJugadores);
+	void inicializarPuntajes(int cantidadDeJugadores);
 
 	/*
 	 * Post: El tableroo tiene un margen inferior donde se van a dibujar los puntajes.
 	 */
-	void inicializarMargen(uint cantidadDeJugadores);
+	void inicializarMargen(int cantidadDeJugadores);
 
 	/*
 	 * Post: La imagen tiene todos sus casilleros dibujados como cubiertos.
 	 * 		 Se crean los margenes de la imagen con lugar para anotar los puntajes de los jugadores.
 	 */
-	void inicializarImagen(uint cantidadDeJugadores);
+	void inicializarImagen(int cantidadDeJugadores);
 
   public:
 
@@ -68,12 +68,12 @@ class Dibujante{
 	 * Post: El dibujante crea su imagen lista para ser dibujada y modificada
 	 *		 Crea el espacio donde poner los puntajes de los jugadores.
 	 */
-	Dibujante(uint cantidadDeColumnas, uint cantidadDeFilas, uint cantidadDeJugadores);
+	Dibujante(int cantidadDeColumnas, int cantidadDeFilas, int cantidadDeJugadores);
 
 	/*
 	 * Post: Devuelve el numero correspondiente al dibujo que se esta preparando.
 	 */
-	uint informarNumeroDeDibujo();
+	int informarNumeroDeDibujo();
 
 	/* Pre: el numero de fila (o columna) esta dentro del rango [0 .. filas (o columnas) del tablero - 1 ]
 	 * 	    queDibujar es un string con el nombre del archivo fuente sin ".bmp".
@@ -82,12 +82,12 @@ class Dibujante{
 	 * Post: Se superpone el cuadrante en la posicion indicada con el tipo de casillero pedido.
 	 *
 	 */
-	void cambiarCuadrante(uint fila, uint columna, cadena queDibujar, uint jugador, bool esMargen);
+	void cambiarCuadrante(int fila, int columna, cadena queDibujar, int jugador, bool esMargen);
 
 	/* Pre: El nroJugador esta entre 1 y el nro de jugadores pasados al crear el tablero.
 	 * Post: Dibuja el puntaje pasado a la derecha del numero de jugador.
 	 */
-	void cambiarPuntaje(int puntaje, uint nroJugador);
+	void cambiarPuntaje(int puntaje, int nroJugador);
 
 	/* Post:	Guarda una nueva imagen BMP con los cambios aplicados al tablero.
 	 * 			El nombre de la imagen se crea de acuerdo a cuantas veces se llamo este metodo.
@@ -97,7 +97,7 @@ class Dibujante{
 	/*
 	 *
 	 */
-	void eliminarJugador(uint nroJugador);
+	void eliminarJugador(int nroJugador);
 
 	/*
 	 *

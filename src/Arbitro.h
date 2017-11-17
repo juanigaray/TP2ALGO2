@@ -8,26 +8,26 @@
 #ifndef ARBITRO_H_
 #define ARBITRO_H_
 
+#include "Cola.h"
 #include "Comunes.h"
-#include "Lista.h"
 #include "Jugador.h"
 
 class Arbitro{
 
 private:
 
-	uint dificultad;
+	int dificultad;
 
-	Lista<Jugador> listaDeJugadores;
+	Cola<Jugador> listaDeJugadores;
 
 	/*
 	 * Post: inicializa la lista de jugadores con los jugadores creados
 	 */
-	void inicializarListaDeJugadores(cadena* nombres, uint cantidadJugadores);
+	void inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores);
 
 public:
 
-	Arbitro(cadena* nombres, uint cantidadJugadores, uint dificultadPedida);
+	Arbitro(cadena* nombres, int cantidadJugadores, int dificultadPedida);
 
 	/* Pre: La lista debe estar iniciada con el cursor iniciado
 	 * Post: Devuelve puntero al jugador al que le toca jugar.
@@ -50,14 +50,14 @@ public:
 	 * Post: Devuelve el puntaje del jugador actual
 	 *		 Si es menor que 0, devuelve 0.
 	 */
-	uint devolverPuntaje();
+	int devolverPuntaje();
 
 	/*
 	 * Pre: La lista debe estar iniciada con el cursor iniciado
 	 * Post: Devuelve el numero de jugador que realizo la ultima jugada.
 	 * No avanza el cursor
 	 */
-	uint devolverNumeroDeTurno();
+	int devolverNumeroDeTurno();
 
 	/*
 	 * Post: Es turno del jugador siguiente.

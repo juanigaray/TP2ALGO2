@@ -1,6 +1,6 @@
 #include "Bandera.h"
 
-Bandera::Bandera(uint colocadaPor){
+Bandera::Bandera(int colocadaPor){
 	this->jugadorQueColoco = colocadaPor;
 	this->existe = true;
 }
@@ -10,7 +10,7 @@ Bandera::Bandera(){
 	this->existe = false;
 }
 
-uint Bandera::obtenerJugador(){
+int Bandera::obtenerJugador(){
 	return this->jugadorQueColoco;
 }
 
@@ -18,7 +18,7 @@ bool Bandera::hayBandera(){
 	return this->existe;
 }
 
-void Bandera::colocarBandera(uint quienColoco){
+void Bandera::colocarBandera(int quienColoco){
 	jugadorQueColoco = quienColoco;
 	existe = true;
 }

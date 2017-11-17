@@ -14,13 +14,13 @@ private:
 public:
 
 	//Post: hayBandera() y obtenerJugador() devuelve parametro
-	Bandera(uint colocadaPor);
+	Bandera(int colocadaPor);
 
 	//Post: No hayBandera() y obtenerJugador() devuelve cero
 	Bandera();
 
 	//Post: Devuelve quien coloco la bandera
-	uint obtenerJugador();
+	int obtenerJugador();
 
 	//Post: Indica si hay una bandera
 	bool hayBandera();
@@ -28,5 +28,5 @@ public:
 	/* Pre: No hayBandera()
 	 * Post: hayBandera() y obtenerJugador() devuelve parametro
 	 */
-	void colocarBandera(uint colocadaPor);
+	void colocarBandera(int colocadaPor);
 };
