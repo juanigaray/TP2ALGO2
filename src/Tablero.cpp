@@ -25,7 +25,7 @@ Tablero::Tablero(int columnas, int filas,  int dificultad){
 
 	columnaMaxima = columnas;
 	filaMaxima = filas;
-	bombasTotales =  (filas * columnas * dificultad) / 5;
+	bombasTotales =  (filas * columnas * dificultad) / 15;
 	casillerosDestapados = 0;
 	inicializarMatriz();
 	crearBombas(bombasTotales);
@@ -39,7 +39,7 @@ void Tablero::asignarDimensionesYDificultad(int columnas, int filas,  int dificu
 
 	columnaMaxima = columnas;
 	filaMaxima = filas;
-	bombasTotales =  (filas * columnas * dificultad) / 5;
+	bombasTotales =  (filas * columnas * dificultad) / 15;
 	casillerosDestapados = 0;
 	inicializarMatriz();
 	crearBombas(bombasTotales);
