@@ -189,11 +189,11 @@ void Juego::declararTurno(){
 }
 
 bool Juego::terminoLaPartida(){
-	if ( arbitro->quedaUno() || tablero.noQuedanCasilleros() ){
+	bool termino = ( arbitro->quedaUno() || tablero.noQuedanCasilleros() );
+	if ( termino ){
 		arbitro->anunciarGanador();
-		return true;
 	}
-	else return false;
+	return termino;
 }
 
 std::string Juego::hacerCadena(int numero){
