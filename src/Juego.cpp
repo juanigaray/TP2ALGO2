@@ -27,28 +27,38 @@ Juego::Juego(int dificultad, int numeroDeJugadores, int filas, int columnas, std
 	this->dibujante->dibujarTablero();
 }
 
-
+//UI y pedidos de datos
 
 int Juego::pedirNumero(std::string mensaje){
 
 	int numeroIngresado;
 	std::cout << mensaje << std::endl;
 	std::cin >> numeroIngresado;
-	if(numeroIngresado == 0){
+	if(numeroIngresado <= 0 || std::cin.fail()){
+		std::cin.clear();
+		std::cin.ignore();
 		std::cout << "El numero debe ser mayor a cero!" << std::endl;
-		this->pedirNumero(mensaje);
+		numeroIngresado =  pedirNumero(mensaje);
 	}
 	return numeroIngresado;
 }
 
 int Juego::pedirNumero(std::string mensaje, int numeroMaximo){
 
-	int numeroIngresado;
+	int numeroIngresado = 0;
 	std::cout << mensaje << std::endl;
 	std::cin >> numeroIngresado;
-	if(numeroIngresado == 0 || numeroIngresado > numeroMaximo){
+
+	while (std::cin.fail()){
+		std::cin.clear();
+		std::cin.ignore();
+		std::cin >> numeroIngresado;
+	}
+
+	if(numeroIngresado <= 0 || numeroIngresado > numeroMaximo){
+
 		std::cout << "Numero no valido! " << std::endl;
-		this->pedirNumero(mensaje, numeroMaximo);
+		numeroIngresado = pedirNumero(mensaje, numeroMaximo);
 	}
 	return numeroIngresado;
 }
@@ -60,21 +70,13 @@ int Juego::tomarTipoDeJugada(){
 	std::string opcion2 = "2) Descubrir casillero \n";
 	std::string mensajeDeOpciones = pedido + opcion1 + opcion2;
 
-	int tipoDeJugada = pedirNumero(mensajeDeOpciones, 3);
+	int tipoDeJugada = pedirNumero(mensajeDeOpciones, 2);
 	return tipoDeJugada;
 }
 
 void Juego::tomarUbicacionDeJugada(){
 	filaDeJugada = pedirNumero("Por favor, ingrese la fila donde desea realizar la jugada", tablero.obtenerFilaMaxima() ) - 1;
 	columnaDeJugada = pedirNumero("Por favor, ingrese la columna donde desea realizar la jugada", tablero.obtenerColumnaMaxima() ) - 1;
-}
-
-void Juego::avanzarTurno(){
-	if (seDebeEliminarJugador){
-		std::cout << arbitro->devolverJugador().consultarNombre() << " fue eliminado!" << std::endl;
-	}
-	arbitro->avanzarTurno(seDebeEliminarJugador);
-	seDebeEliminarJugador = false;
 }
 
 void Juego::tomarJugada(){
@@ -107,6 +109,16 @@ void Juego::tomarJugada(){
 	}
 
 	this->dibujante->dibujarTablero();
+}
+
+//Logica de juego
+
+void Juego::avanzarTurno(){
+	if (seDebeEliminarJugador){
+		std::cout << arbitro->devolverJugador().consultarNombre() << " fue eliminado!" << std::endl;
+	}
+	arbitro->avanzarTurno(seDebeEliminarJugador);
+	seDebeEliminarJugador = false;
 }
 
 void Juego::cambiarBandera(int jugadorActual){
@@ -195,7 +207,6 @@ void Juego::descubrirCasillerosCircundantes(int columnaDeCasillero, int filaDeCa
 		}
 	}
 }
-
 
 void Juego::declararTurno(){
 	std::cout << "Es el turno de "<< (arbitro->devolverJugador()).consultarNombre() << std::endl;

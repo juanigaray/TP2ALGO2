@@ -5,9 +5,9 @@ Puntaje::Puntaje(int dificultad){
 	if (dificultad == 1){
 		this->puntos = 1;
 		this->puntosEspeciales = 2;
-		
-	} else {
-		
+
+	} else if (dificultad > 1) {
+
 		if (dificultad == 2){
 			this->puntos = 2;
 			this->puntosEspeciales = 3;

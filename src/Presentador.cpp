@@ -18,15 +18,26 @@ Presentador::Presentador(){
 
 }
 
+//UI y Pedidos de datos
+
 int Presentador::pedirNumero(std::string mensaje){
 
 	int numeroIngresado;
 
 	std::cout << mensaje << std::endl;
 	std::cin >> numeroIngresado;
-	if(numeroIngresado == 0){
+
+	if (std::cin.fail()){
+		std::cin.clear();
+		std::cin.ignore();
+		numeroIngresado = -1;
+	}
+
+	if(numeroIngresado <= 0){
+		std::cin.clear();
+		std::cin.ignore();
 		std::cout << "El numero debe ser mayor a cero!" << std::endl;
-		this->pedirNumero(mensaje);
+		numeroIngresado = pedirNumero(mensaje);
 	}
 	return numeroIngresado;
 }
@@ -37,9 +48,17 @@ int Presentador::pedirNumero(std::string mensaje, int numeroMaximo){
 
 	std::cout << mensaje;
 	std::cin >> numeroIngresado;
-	if (numeroIngresado == 0 || numeroIngresado > numeroMaximo){
+
+	if (std::cin.fail()){
+		std::cin.clear();
+		std::cin.ignore();
+		numeroIngresado = -1;
+	}
+
+	if (numeroIngresado <= 0 || numeroIngresado){
+
 		std::cout << "Numero no valido! " << std::endl;
-		this->pedirNumero(mensaje, numeroMaximo);
+		numeroIngresado = pedirNumero(mensaje, numeroMaximo);
 	}
 	return numeroIngresado;
 }
@@ -107,6 +126,46 @@ void Presentador::pedirDatosDeJuego(){
 	this->pedirDimensionesDelTablero();
 }
 
+void Presentador::consultarSiJugarDeNuevo(){
+	char decision;
+	bool preguntarDeNuevo = true;
+
+	while (preguntarDeNuevo) {
+
+		std::cout 	<< "Desea jugar de nuevo? (S/N): ";
+
+		std::cin 	>> decision;
+
+		if (std::cin.fail()){
+			std::cin.clear();
+			std::cin.ignore();
+			decision = 'r';
+		}
+
+		if( decision == 's' || decision == 'S'){
+
+			this->jugarDeNuevo = true;
+			preguntarDeNuevo = false;
+
+		} else if (decision == 'n' || decision == 'N'){
+
+			this->jugarDeNuevo = false;
+			preguntarDeNuevo = false;
+
+		} else {
+			std::cout << "Opcion no valida!" << std::endl;
+		}
+	}
+
+}
+
+void Presentador::declararFinDelJuego(){
+	std::cout << "Juego terminado!" << std::endl;
+}
+
+
+//Get
+
 int Presentador::devolverColumnas(){
 	return this->columnas;
 }
@@ -125,37 +184,6 @@ int Presentador::devolverDificultad(){
 
 std::string* Presentador::devolverNombresDeLosJugadores(){
 	return this->listaDeNombresDeJugadores;
-}
-
-void Presentador::declararFinDelJuego(){
-	std::cout << "Juego terminado!" << std::endl;
-}
-
-void Presentador::consultarSiJugarDeNuevo(){
-	char decision;
-	bool preguntarDeNuevo = true;
-
-	while (preguntarDeNuevo) {
-
-		std::cout 	<< "Desea jugar de nuevo? (S/N): ";
-
-		std::cin 	>> decision;
-
-		if( decision == 's' || decision == 'S'){
-
-			this->jugarDeNuevo = true;
-			preguntarDeNuevo = false;
-
-		} else if (decision == 'n' || decision == 'N'){
-
-			this->jugarDeNuevo = false;
-			preguntarDeNuevo = false;
-
-		} else {
-			std::cout << "Opcion no valida!" << std::endl;
-		}
-	}
-
 }
 
 bool Presentador::devolverSiJugarDeNuevo(){
