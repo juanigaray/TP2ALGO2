@@ -129,10 +129,23 @@ void Juego::cambiarBandera(int jugadorActual){
 	//Hay bandera, saca
 	} else {
 
-		int cuantoSuma = tablero.quitarBandera(columnaDeJugada, filaDeJugada, jugadorActual);
 		queDibujar = casilleroCubierto;
+		int quienPuso = tablero.obtenerJugadorQueColocoBandera(columnaDeJugada, filaDeJugada);
+		bool bienQuitada = tablero.quitarBandera(columnaDeJugada, filaDeJugada, jugadorActual);
+		this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
+		this->tomarUbicacionDeJugada();
+		bool pusoBien = tablero.colocarBandera(columnaDeJugada, filaDeJugada, jugadorActual);
+		int puntajeADevolver = 0;
+		if( quienPuso != jugadorActual ){
+			if (bienQuitada && pusoBien){
+				puntajeADevolver = 2;
+			} else{
+				puntajeADevolver = -2;
+			}
+		}
+		queDibujar = bandera;
 
-		this->arbitro->sumarPuntaje(cuantoSuma);
+		this->arbitro->sumarPuntaje(puntajeADevolver);
 	}
 
 	int puntaje = arbitro->devolverPuntaje();

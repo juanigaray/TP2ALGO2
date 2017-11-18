@@ -45,7 +45,7 @@ public:
 	 * 		 	Devuelve -2 si no hay bomba
 	 * 		 	Devuelve 2 si hay bomba
 	 */
-	int quitarBandera(int columnaDeJugada, int filaDeJugada,  int jugadorActual);
+	bool quitarBandera(int columnaDeJugada, int filaDeJugada,  int jugadorActual);
 
 
 	void descubrirCasillero(int columna, int fila);
@@ -61,6 +61,7 @@ public:
 
 	bool noQuedanCasilleros();
 
+	int obtenerJugadorQueColocoBandera(int columnaDeJugada, int filaDeJugada);
 	/*
 	 * Pre: se pasa una coordenada valida.
 	 * Post: Devuelve la cantidad de bombas que rodean el casillero

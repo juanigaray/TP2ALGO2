@@ -25,7 +25,7 @@ Tablero::Tablero(int columnas, int filas,  int dificultad){
 
 	columnaMaxima = columnas;
 	filaMaxima = filas;
-	bombasTotales =  (filas * columnas * dificultad) / 15;
+	bombasTotales =  (filas * columnas * dificultad) / 20;
 	casillerosDestapados = 0;
 	inicializarMatriz();
 	crearBombas(bombasTotales);
@@ -39,7 +39,7 @@ void Tablero::asignarDimensionesYDificultad(int columnas, int filas,  int dificu
 
 	columnaMaxima = columnas;
 	filaMaxima = filas;
-	bombasTotales =  (filas * columnas * dificultad) / 15;
+	bombasTotales =  (filas * columnas * dificultad) / 20;
 	casillerosDestapados = 0;
 	inicializarMatriz();
 	crearBombas(bombasTotales);
@@ -100,25 +100,15 @@ bool Tablero::colocarBandera(int columnaDeJugada, int filaDeJugada, int jugadorA
 	return matriz[columnaDeJugada][filaDeJugada]->tieneBomba();
 }
 
-int Tablero::quitarBandera(int columnaDeJugada, int filaDeJugada,  int jugadorActual){
+bool Tablero::quitarBandera(int columnaDeJugada, int filaDeJugada,  int jugadorActual){
 
-	int puntajeADevolver = 0;
+
 	if (! esCoordenadaValida(columnaDeJugada, filaDeJugada)){
 		throw "Intenta quitar bandera fuera del tablero";
 	}
-	 int quienLaPuso = matriz[columnaDeJugada][filaDeJugada]->quienPusoLaBandera();
-	bool fueBienQuitada = (! matriz[columnaDeJugada][filaDeJugada]->tieneBomba());
-
-	if( quienLaPuso != jugadorActual ){
-		if (fueBienQuitada){
-			puntajeADevolver = 2;
-		} else{
-			puntajeADevolver = -2;
-		}
-	}
 
 	matriz[columnaDeJugada][filaDeJugada]->quitarBandera();
-	return puntajeADevolver;
+	return (! matriz[columnaDeJugada][filaDeJugada]->tieneBomba());
 }
 
 void Tablero::descubrirCasillero(int columna, int fila){
@@ -148,7 +138,9 @@ void Tablero::descubrirCasillero(int columna, int fila){
 	return columnaMaxima;
 }
 
-
+ int Tablero::obtenerJugadorQueColocoBandera(int columnaDeJugada, int filaDeJugada){
+  return matriz[columnaDeJugada][filaDeJugada]->quienPusoLaBandera();
+ }
 
 int Tablero::obtenerNumeroDeBombasCircundantes( int columnaDeCasillero,  int filaDeCasillero){
 
