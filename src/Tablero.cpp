@@ -170,7 +170,7 @@ int Tablero::obtenerNumeroDeBombasCircundantes( int columnaDeCasillero,  int fil
 //METODOS DE VALIDACION
 
 bool Tablero::esCoordenadaValida(int columna, int fila){
-	return (columna < columnaMaxima && fila < filaMaxima);
+	return ( columna >= 0 && fila >= 0 && columna < columnaMaxima && fila < filaMaxima);
 }
 
 bool Tablero::estaIniciado( int columna,  int fila){
@@ -178,7 +178,7 @@ bool Tablero::estaIniciado( int columna,  int fila){
 }
 
 bool Tablero::existe( int columna,  int fila){
-	return ( esCoordenadaValida(columna, fila) && estaIniciado(columna, fila) );
+	return (esCoordenadaValida(columna, fila) && estaIniciado(columna, fila));
 }
 
 bool Tablero::hayBombaEn( int columna,  int fila){
