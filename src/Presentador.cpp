@@ -27,15 +27,13 @@ int Presentador::pedirNumero(std::string mensaje){
 	std::cout << mensaje << std::endl;
 	std::cin >> numeroIngresado;
 
-	if (std::cin.fail()){
+	while (std::cin.fail()){
 		std::cin.clear();
 		std::cin.ignore();
-		numeroIngresado = -1;
+		std::cin >> numeroIngresado;
 	}
-
 	if(numeroIngresado <= 0){
-		std::cin.clear();
-		std::cin.ignore();
+
 		std::cout << "El numero debe ser mayor a cero!" << std::endl;
 		numeroIngresado = pedirNumero(mensaje);
 	}
@@ -49,13 +47,12 @@ int Presentador::pedirNumero(std::string mensaje, int numeroMaximo){
 	std::cout << mensaje;
 	std::cin >> numeroIngresado;
 
-	if (std::cin.fail()){
+	while (std::cin.fail()){
 		std::cin.clear();
 		std::cin.ignore();
-		numeroIngresado = -1;
+		std::cin >> numeroIngresado;
 	}
-
-	if (numeroIngresado <= 0 || numeroIngresado){
+	if (numeroIngresado <= 0 || numeroIngresado > numeroMaximo){
 
 		std::cout << "Numero no valido! " << std::endl;
 		numeroIngresado = pedirNumero(mensaje, numeroMaximo);
@@ -82,30 +79,32 @@ void Presentador::pedirNombresDeJugadores(){
 	std::string nombreDeJugador;
 
 	for(int numeroDeNombre = 0;
-			 numeroDeNombre < devolverNumeroDeJugadores();
-			 numeroDeNombre++){
+			numeroDeNombre < devolverNumeroDeJugadores();
+			numeroDeNombre++){
 
 		estaseguro = false;
 
 		while(! estaseguro){
-			std::cout 	<< "Ingrese el nombre del jugador "
+			std::cout 	<< "Ingrese el nombre del jugador (hta 7 caracteres)"
 						<<  (numeroDeNombre + 1)
 						<< ": ";
 
 			std::cin 	>> nombreDeJugador;
 
-			std::cout 	<< std::endl
-						<< "El nombre del jugador "
-						<<  (numeroDeNombre + 1)
-						<< " es "
-						<< nombreDeJugador
-						<< ". Esta seguro de que quiere conservar ese nombre? (S/N)"
-						<< std::endl;
+			if (nombreDeJugador.size() < 7){
+				std::cout 	<< std::endl
+							<< "El nombre del jugador "
+							<<  (numeroDeNombre + 1)
+							<< " es "
+							<< nombreDeJugador
+							<< ". Esta seguro de que quiere conservar ese nombre? (S/N)"
+							<< std::endl;
 
-			std::cin 	>> decision;
-			if( decision == 's' || decision == 'S'){
-				listaDeNombresDeJugadores[numeroDeNombre] = nombreDeJugador;
-				estaseguro = true;
+				std::cin 	>> decision;
+				if( decision == 's' || decision == 'S'){
+					listaDeNombresDeJugadores[numeroDeNombre] = nombreDeJugador;
+					estaseguro = true;
+				}
 			}
 		}
 	}
@@ -133,25 +132,21 @@ void Presentador::consultarSiJugarDeNuevo(){
 	while (preguntarDeNuevo) {
 
 		std::cout 	<< "Desea jugar de nuevo? (S/N): ";
-
 		std::cin 	>> decision;
 
-		if (std::cin.fail()){
+		while (std::cin.fail()){
 			std::cin.clear();
 			std::cin.ignore();
-			decision = 'r';
+			std::cin >> decision;
 		}
-
 		if( decision == 's' || decision == 'S'){
 
 			this->jugarDeNuevo = true;
 			preguntarDeNuevo = false;
-
 		} else if (decision == 'n' || decision == 'N'){
 
 			this->jugarDeNuevo = false;
 			preguntarDeNuevo = false;
-
 		} else {
 			std::cout << "Opcion no valida!" << std::endl;
 		}

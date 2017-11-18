@@ -6,7 +6,7 @@
  */
 #include "Dibujante.h"
 
-Dibujante::Dibujante(int cantidadDeColumnas, int cantidadDeFilas, int cantidadDeJugadores){
+Dibujante::Dibujante(int cantidadDeColumnas, int cantidadDeFilas, int cantidadDeJugadores, std::string* nombres){
 
 	//Definen de donde se van a leer los BMPs que componen la imagen
 	directorioDeImagenesFuente= "src/ImagenesFuente/";
@@ -43,11 +43,11 @@ Dibujante::Dibujante(int cantidadDeColumnas, int cantidadDeFilas, int cantidadDe
 	alturaDeCuadrante = ejemploDeImagenFuente.TellHeight();
 	anchoDeCuadrante = ejemploDeImagenFuente.TellWidth();
 
-	inicializarImagen(cantidadDeJugadores);
+	inicializarImagen(cantidadDeJugadores, nombres);
 
 }
 
-void Dibujante::inicializarImagen(int cantidadDeJugadores){
+void Dibujante::inicializarImagen(int cantidadDeJugadores, std::string* nombres){
 
 	int pixelesDeAncho = columnasTotalesImagen * anchoDeCuadrante;
 	int pixelesDeAlto = filasTotalesImagen * alturaDeCuadrante;
@@ -55,7 +55,7 @@ void Dibujante::inicializarImagen(int cantidadDeJugadores){
 	imagen.SetSize(pixelesDeAncho, pixelesDeAlto);
 
 	inicializarCasilleros();
-	inicializarMargen(cantidadDeJugadores);
+	inicializarMargen(cantidadDeJugadores, nombres);
 }
 
 void Dibujante::inicializarCasilleros(){
@@ -67,25 +67,28 @@ void Dibujante::inicializarCasilleros(){
 	}
 }
 
-void Dibujante::inicializarPuntajes(int cantidadDeJugadores){
+void Dibujante::inicializarPuntajes(int cantidadDeJugadores, std::string* nombres){
 
 	for(int nroJugador = 1; nroJugador <= cantidadDeJugadores; nroJugador++){
 
 		int filaDelJugador = filasMargenSuperior + filasDelTablero + 2 * nroJugador;
 
-		std::string nombreJugador = "JUGADOR";
+		std::string nombreJugador = nombres[nroJugador - 1];
 
 		std::string strNroJugador = hacerCadena(nroJugador);
 
-		//Escribe "Jugador"
-		for(int caracter = 0; caracter < nombreJugador.size() ; caracter++ ){
+		//Escribe nombre de jugador
+		for(int caracter = 0; caracter < (int)nombreJugador.size() ; caracter++ ){
 
 			std::string directorio = nombreJugador.substr(caracter, 1);
+			transform(directorio.begin(), directorio.end(), directorio.begin(), ::toupper);
 			cambiarCuadrante( 1 + caracter  , filaDelJugador, directorio , 0, true);
 		}
 
+
+
 		//Escribe el nro de jugador
-		for(int cifra = 0; cifra < strNroJugador.size() ; cifra++ ){
+		for(int cifra = 0; cifra < (int)strNroJugador.size() ; cifra++ ){
 
 			std::string directorio = strNroJugador.substr(cifra, 1);
 			cambiarCuadrante( 9 + cifra  , filaDelJugador, directorio , 0, true);
@@ -95,7 +98,7 @@ void Dibujante::inicializarPuntajes(int cantidadDeJugadores){
 	}
 }
 
-void Dibujante::inicializarMargen(int cantidadDeJugadores){
+void Dibujante::inicializarMargen(int cantidadDeJugadores, std::string* nombres){
 
 	int columnaDeCuadrante;
 	int filaDeCuadrante;
@@ -133,7 +136,7 @@ void Dibujante::inicializarMargen(int cantidadDeJugadores){
 		}
 	}
 
-	inicializarPuntajes(cantidadDeJugadores);
+	inicializarPuntajes(cantidadDeJugadores, nombres);
 }
 
 int Dibujante::informarNumeroDeDibujo(){

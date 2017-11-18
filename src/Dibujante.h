@@ -10,6 +10,7 @@
 
 #include "EasyBMP/EasyBMP.h"
 #include <sstream>
+#include <algorithm>
 
 class Dibujante{
 
@@ -48,18 +49,18 @@ class Dibujante{
 	/*
 	 * Post: Se muestran todos los jugadores con sus puntajes en 0.
 	 */
-	void inicializarPuntajes(int cantidadDeJugadores);
+	void inicializarPuntajes(int cantidadDeJugadores, std::string* nombres);
 
 	/*
 	 * Post: El tableroo tiene un margen inferior donde se van a dibujar los puntajes.
 	 */
-	void inicializarMargen(int cantidadDeJugadores);
+	void inicializarMargen(int cantidadDeJugadores, std::string* nombres);
 
 	/*
 	 * Post: La imagen tiene todos sus casilleros dibujados como cubiertos.
 	 * 		 Se crean los margenes de la imagen con lugar para anotar los puntajes de los jugadores.
 	 */
-	void inicializarImagen(int cantidadDeJugadores);
+	void inicializarImagen(int cantidadDeJugadores, std::string* nombres);
 
   public:
 
@@ -67,7 +68,7 @@ class Dibujante{
 	 * Post: El dibujante crea su imagen lista para ser dibujada y modificada
 	 *		 Crea el espacio donde poner los puntajes de los jugadores.
 	 */
-	Dibujante(int cantidadDeColumnas, int cantidadDeFilas, int cantidadDeJugadores);
+	Dibujante(int cantidadDeColumnas, int cantidadDeFilas, int cantidadDeJugadores, std::string* nombres);
 
 	/*
 	 * Post: Devuelve el numero correspondiente al dibujo que se esta preparando.

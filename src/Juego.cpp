@@ -19,7 +19,7 @@ Juego::Juego(int dificultad, int numeroDeJugadores, int filas, int columnas, std
 	this->filaDeJugada = 0;
 	this->seDebeEliminarJugador = false;
 
-	this->dibujante = new Dibujante(columnas, filas, numeroDeJugadores);
+	this->dibujante = new Dibujante(columnas, filas, numeroDeJugadores, nombresDeJugadores);
 	this->arbitro = new Arbitro(nombresDeJugadores, numeroDeJugadores, dificultad);
 
 	tablero.asignarDimensionesYDificultad(columnas, filas, dificultad);
@@ -34,9 +34,15 @@ int Juego::pedirNumero(std::string mensaje){
 	int numeroIngresado;
 	std::cout << mensaje << std::endl;
 	std::cin >> numeroIngresado;
-	if(numeroIngresado <= 0 || std::cin.fail()){
+
+	while (std::cin.fail()){
 		std::cin.clear();
 		std::cin.ignore();
+		std::cin >> numeroIngresado;
+	}
+
+	if(numeroIngresado <= 0){
+
 		std::cout << "El numero debe ser mayor a cero!" << std::endl;
 		numeroIngresado =  pedirNumero(mensaje);
 	}
