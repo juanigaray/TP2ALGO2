@@ -18,7 +18,7 @@ Jugador Arbitro::devolverJugador(){
 }
 
 void Arbitro::sumarPuntaje(int puntos){
-	devolverJugador().sumarPuntaje(puntos);
+	actual.sumarPuntaje(puntos);
 }
 
 int Arbitro::devolverPuntaje(){
@@ -45,12 +45,12 @@ int Arbitro::devolverNumeroDeTurno(){
 }
 
 bool Arbitro::quedaUno(){
-	return (colaDeJugadores.quedaUno());
+	return (colaDeJugadores.estaVacia());
 }
 
 void Arbitro::anunciarGanador(){
 	int puntajeMaximo = 0;
-	Jugador ganador;
+	Jugador ganador = actual;
 	Jugador posibleGanador;
 
 	while(! colaDeJugadores.estaVacia() ){
