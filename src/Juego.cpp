@@ -70,6 +70,9 @@ void Juego::tomarUbicacionDeJugada(){
 }
 
 void Juego::avanzarTurno(){
+	if (seDebeEliminarJugador){
+		std::cout << arbitro->devolverJugador().consultarNombre() << " fue eliminado!" << std::endl;
+	}
 	arbitro->avanzarTurno(seDebeEliminarJugador);
 	seDebeEliminarJugador = false;
 }
@@ -126,7 +129,7 @@ void Juego::cambiarBandera(int jugadorActual){
 	//Hay bandera, saca
 	} else {
 
-		unsigned int cuantoSuma = tablero.quitarBandera(columnaDeJugada, filaDeJugada, jugadorActual);
+		int cuantoSuma = tablero.quitarBandera(columnaDeJugada, filaDeJugada, jugadorActual);
 		queDibujar = casilleroCubierto;
 
 		this->arbitro->sumarPuntaje(cuantoSuma);

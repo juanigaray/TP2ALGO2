@@ -31,11 +31,7 @@ int Jugador::consultarNumero() const{
 
 Jugador Jugador::operator=(const Jugador& otroJugador){
 	this->puntaje = otroJugador.consultarPuntaje();
-	std::cout << puntaje << std::endl;
-	std::cout << otroJugador.consultarPuntaje() << std::endl;
 	this->nombre = otroJugador.consultarNombre();
-	std::cout << nombre << std::endl;
-	std::cout << otroJugador.consultarNombre() << std::endl;
 	this->numeroJugador = otroJugador.consultarNumero();
 	return *this;
 }
