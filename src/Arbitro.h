@@ -9,7 +9,6 @@
 #define ARBITRO_H_
 
 #include "Cola.h"
-#include "Comunes.h"
 #include "Jugador.h"
 
 class Arbitro{
@@ -24,11 +23,11 @@ private:
 	/*
 	 * Post: inicializa la lista de jugadores con los jugadores creados
 	 */
-	void inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores);
+	void inicializarListaDeJugadores(std::string* nombres, int cantidadJugadores);
 
 public:
 
-	Arbitro(cadena* nombres, int cantidadJugadores, int dificultadPedida);
+	Arbitro(std::string* nombres, int cantidadJugadores, int dificultadPedida);
 
 	/* Pre: La lista debe estar iniciada con el cursor iniciado
 	 * Post: Devuelve puntero al jugador al que le toca jugar.

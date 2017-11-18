@@ -15,17 +15,16 @@
 #include "Dibujante.h"
 #include "Casillero.h"
 #include "Arbitro.h"
-#include "Comunes.h"
 #include "Tablero.h"
 
 class Juego{
 
   private:
 
-	cadena bomba;
-	cadena bandera;
-	cadena casilleroCubierto;
-	cadena margen;
+	std::string bomba;
+	std::string bandera;
+	std::string casilleroCubierto;
+	std::string margen;
 
 	Tablero tablero;
 
@@ -50,9 +49,9 @@ class Juego{
 	int pedirNumero(std::string mensaje, int numeroMaximo);
 
 	/*
-	 * Post: Devuelve una cadena con el numero que se le paso
+	 * Post: Devuelve una std::string con el numero que se le paso
 	 */
-	cadena hacerCadena(int numero);
+	std::string hacerCadena(int numero);
 
 	/*
 	 * Post: inicializa el tablero correspondiendo a la cantidad de filas y columnas pasadas
@@ -112,7 +111,7 @@ class Juego{
 	/* Pre: Se le pasan numeros naturales.
 	 * Post: Crea un arbitro listo para pasarle jugadas
 	 */
-	Juego(int dificultadPedida, int numeroDeJugadores, int filas, int columnas, cadena* listaDeNombresDeJugadores);
+	Juego(int dificultadPedida, int numeroDeJugadores, int filas, int columnas, std::string* listaDeNombresDeJugadores);
 
 	/*
 	 * Post: El jugador actual es el siguiente en la lista

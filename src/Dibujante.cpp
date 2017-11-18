@@ -36,7 +36,7 @@ Dibujante::Dibujante(int cantidadDeColumnas, int cantidadDeFilas, int cantidadDe
 	filasTotalesImagen = filasDelTablero + 2 * (cantidadDeJugadores + 1) + filasMargenSuperior;
 
 	BMP ejemploDeImagenFuente;
-	cadena directorioDeEjemplo = directorioDeImagenesFuente + directorioDeCasilleros + casilleroCubierto + ".bmp";
+	std::string directorioDeEjemplo = directorioDeImagenesFuente + directorioDeCasilleros + casilleroCubierto + ".bmp";
 	char* directorioLegible = &directorioDeEjemplo[0];
 	ejemploDeImagenFuente.ReadFromFile(directorioLegible);
 
@@ -73,21 +73,21 @@ void Dibujante::inicializarPuntajes(int cantidadDeJugadores){
 
 		int filaDelJugador = filasMargenSuperior + filasDelTablero + 2 * nroJugador;
 
-		cadena nombreJugador = "JUGADOR";
+		std::string nombreJugador = "JUGADOR";
 
-		cadena strNroJugador = hacerCadena(nroJugador);
+		std::string strNroJugador = hacerCadena(nroJugador);
 
 		//Escribe "Jugador"
 		for(int caracter = 0; caracter < nombreJugador.size() ; caracter++ ){
 
-			cadena directorio = nombreJugador.substr(caracter, 1);
+			std::string directorio = nombreJugador.substr(caracter, 1);
 			cambiarCuadrante( 1 + caracter  , filaDelJugador, directorio , 0, true);
 		}
 
 		//Escribe el nro de jugador
 		for(int cifra = 0; cifra < strNroJugador.size() ; cifra++ ){
 
-			cadena directorio = strNroJugador.substr(cifra, 1);
+			std::string directorio = strNroJugador.substr(cifra, 1);
 			cambiarCuadrante( 9 + cifra  , filaDelJugador, directorio , 0, true);
 		}
 
@@ -140,13 +140,13 @@ int Dibujante::informarNumeroDeDibujo(){
 	return numeroDeDibujo;
 }
 
-void Dibujante::cambiarCuadrante(int columna, int fila, cadena queDibujar, int jugador, bool esMargen){
+void Dibujante::cambiarCuadrante(int columna, int fila, std::string queDibujar, int jugador, bool esMargen){
 
 	int yAbsolutoDePixel = 0;
 	int xAbsolutoDePixel = 0;
 
 	BMP cuadrante;
-	cadena subdirectorio;
+	std::string subdirectorio;
 
 	if(esMargen){
 		subdirectorio = directorioDeMargenes;
@@ -156,7 +156,7 @@ void Dibujante::cambiarCuadrante(int columna, int fila, cadena queDibujar, int j
 		columna += columnasMargenLateral;
 	}
 
-	cadena nombre = (directorioDeImagenesFuente + subdirectorio) + (queDibujar + ".bmp");
+	std::string nombre = (directorioDeImagenesFuente + subdirectorio) + (queDibujar + ".bmp");
 	char* nombreCompatible = &nombre[0];
 	cuadrante.ReadFromFile( nombreCompatible );
 
@@ -200,12 +200,12 @@ void Dibujante::cambiarPuntaje(int puntaje, int nroJugador){
 
 	int filaDelJugador = filasDelTablero + filasMargenSuperior + 2 * nroJugador;
 
-	cadena strJugador = hacerCadena(nroJugador);
-	cadena strPuntaje = hacerCadena(puntaje);
+	std::string strJugador = hacerCadena(nroJugador);
+	std::string strPuntaje = hacerCadena(puntaje);
 
 	for(unsigned int cifra = 0; cifra < strPuntaje.size() ; cifra++ ){
 
-		cadena directorio =  directorioDePuntajes + strPuntaje.substr(cifra, 1);
+		std::string directorio =  directorioDePuntajes + strPuntaje.substr(cifra, 1);
 
 		cambiarCuadrante( 15 + cifra  , filaDelJugador, directorio , 0, true);
 	}
@@ -213,7 +213,7 @@ void Dibujante::cambiarPuntaje(int puntaje, int nroJugador){
 
 void Dibujante::dibujarTablero(){
 
-	cadena nombreDeArchivo = "Imagen " + hacerCadena(numeroDeDibujo) +".bmp";
+	std::string nombreDeArchivo = "Imagen " + hacerCadena(numeroDeDibujo) +".bmp";
 	char* nombreCompatible = &nombreDeArchivo[0];
 
 	imagen.WriteToFile( nombreCompatible );
@@ -235,7 +235,7 @@ void Dibujante::eliminarJugador(int nroJugador){
 	}
 }
 
-cadena Dibujante::hacerCadena(int numero){
+std::string Dibujante::hacerCadena(int numero){
 	std::ostringstream ossnumero;
 	ossnumero << numero;
 	return ossnumero.str();

@@ -3,8 +3,6 @@
 #define BANDERA_H
 #endif
 
-#include "Comunes.h"
-
 class Bandera{
 private:
 

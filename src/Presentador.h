@@ -10,14 +10,12 @@
 
 #include <iostream>
 
-#include "Comunes.h"
-
 class Presentador{
   private:
 
 	int dificultad;
 	int cantJugadores;
-	cadena* listaDeNombresDeJugadores;
+	std::string* listaDeNombresDeJugadores;
 	int filas;
 	int columnas;
 	bool jugarDeNuevo;

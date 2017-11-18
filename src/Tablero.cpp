@@ -63,7 +63,7 @@ void Tablero::inicializarMatriz(){
 
 void Tablero::crearBombas(unsigned int dificultad){
 
-	srand (time(NULL));
+	srand(time(NULL));
 	int bombasRestantes = bombasTotales;
 
 	while (bombasRestantes > 0){

@@ -8,7 +8,7 @@
 
 #include "Juego.h"
 
-Juego::Juego(int dificultad, int numeroDeJugadores, int filas, int columnas, cadena* nombresDeJugadores){
+Juego::Juego(int dificultad, int numeroDeJugadores, int filas, int columnas, std::string* nombresDeJugadores){
 
 	bomba = "boom";
 	bandera = "bandera";
@@ -75,7 +75,7 @@ void Juego::avanzarTurno(){
 }
 
 void Juego::tomarJugada(){
-	cadena queDibujar;
+	std::string queDibujar;
 	bool haJugado = false;
 	int opcionElegida;
 	int jugadorActual;
@@ -108,7 +108,7 @@ void Juego::tomarJugada(){
 
 void Juego::cambiarBandera(int jugadorActual){
 
-	cadena queDibujar;
+	std::string queDibujar;
 
 	//No hay bandera, la pone
 	if ( ! tablero.hayBanderaEn(columnaDeJugada, filaDeJugada) ){
@@ -139,7 +139,7 @@ void Juego::cambiarBandera(int jugadorActual){
 
 void Juego::descubrirCasillero(int columnaDeCasillero, int filaDeCasillero, int jugadorActual){
 
-	cadena queDibujar = "";
+	std::string queDibujar = "";
 
 	tablero.descubrirCasillero(columnaDeCasillero, filaDeCasillero);
 
@@ -172,7 +172,7 @@ void Juego::descubrirCasillerosCircundantes(int columnaDeCasillero, int filaDeCa
 			int columnaAEvaluar = columnaDeCasillero + dColumna;
 			int filaAEvaluar = filaDeCasillero + dFila;
 
-			if (! tablero.estaDescubierto(columnaAEvaluar, filaAEvaluar) ){
+			if ((tablero.esCoordenadaValida(columnaAEvaluar,filaAEvaluar)) && (! tablero.estaDescubierto(columnaAEvaluar, filaAEvaluar)) ){
 				//Llamada recursiva entre el metodo actual y descubrirCasillero.
 				descubrirCasillero(columnaAEvaluar, filaAEvaluar, 0);
 			}
@@ -193,7 +193,7 @@ bool Juego::terminoLaPartida(){
 	else return false;
 }
 
-cadena Juego::hacerCadena(int numero){
+std::string Juego::hacerCadena(int numero){
 	std::ostringstream ossnumero;
 	ossnumero << numero;
 	return ossnumero.str();

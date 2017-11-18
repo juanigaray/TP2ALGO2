@@ -10,20 +10,19 @@
 
 #include "EasyBMP/EasyBMP.h"
 #include <sstream>
-#include "Comunes.h"
 
 class Dibujante{
 
   private:
 
-	cadena directorioDeImagenesFuente;
-	cadena directorioDeCasilleros;
-	cadena directorioDeMargenes;
-	cadena directorioDePuntajes;
-	cadena bomba;
-	cadena bandera;
-	cadena casilleroCubierto;
-	cadena margen;
+	std::string directorioDeImagenesFuente;
+	std::string directorioDeCasilleros;
+	std::string directorioDeMargenes;
+	std::string directorioDePuntajes;
+	std::string bomba;
+	std::string bandera;
+	std::string casilleroCubierto;
+	std::string margen;
 
 	int columnasMinimasImagen;
 
@@ -82,7 +81,7 @@ class Dibujante{
 	 * Post: Se superpone el cuadrante en la posicion indicada con el tipo de casillero pedido.
 	 *
 	 */
-	void cambiarCuadrante(int fila, int columna, cadena queDibujar, int jugador, bool esMargen);
+	void cambiarCuadrante(int fila, int columna, std::string queDibujar, int jugador, bool esMargen);
 
 	/* Pre: El nroJugador esta entre 1 y el nro de jugadores pasados al crear el tablero.
 	 * Post: Dibuja el puntaje pasado a la derecha del numero de jugador.
@@ -102,7 +101,7 @@ class Dibujante{
 	/*
 	 *
 	 */
-	cadena hacerCadena(int numero);
+	std::string hacerCadena(int numero);
 
 };
 

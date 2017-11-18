@@ -8,7 +8,7 @@
 #include "Arbitro.h"
 
 
-Arbitro::Arbitro(cadena* nombresDeJugadores, int numeroDeJugadores, int dificultadPedida){
+Arbitro::Arbitro(std::string* nombresDeJugadores, int numeroDeJugadores, int dificultadPedida){
 	this->dificultad = dificultadPedida;
 	this->inicializarListaDeJugadores(nombresDeJugadores, numeroDeJugadores);
 }
@@ -32,7 +32,7 @@ void Arbitro::avanzarTurno(bool fueEliminado){
 	actual = colaDeJugadores.desacolar();
 }
 
-void Arbitro::inicializarListaDeJugadores(cadena* nombres, int cantidadJugadores){
+void Arbitro::inicializarListaDeJugadores(std::string* nombres, int cantidadJugadores){
 	for(int i = 0; i < cantidadJugadores; i++){
         Jugador jugador(nombres[i], i + 1);
         colaDeJugadores.acolar(jugador);
@@ -49,11 +49,23 @@ bool Arbitro::quedaUno(){
 }
 
 void Arbitro::anunciarGanador(){
-	Jugador* ganador = colaDeJugadores.desacolar();
+	int puntajeMaximo = 0;
+	Jugador ganador;
+	Jugador* posibleGanador;
+
+	while(! colaDeJugadores.estaVacia() ){
+
+		posibleGanador = colaDeJugadores.desacolar();
+
+		if (posibleGanador->consultarPuntaje() > puntajeMaximo ){
+			ganador = *posibleGanador;
+		}
+	}
+
 	std::cout << "El ganador es "
-			  << ganador->consultarNombre()
+			  << ganador.consultarNombre()
 			  << " con "
-			  << ganador->consultarPuntaje()
+			  << ganador.consultarPuntaje()
 			  << " puntos!"
 			  << std::endl;
 }

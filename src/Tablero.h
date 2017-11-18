@@ -9,6 +9,7 @@
 #define TABLERO_H_
 #include "Casillero.h"
 #include <stdlib.h>
+#include <iostream>
 
 class Tablero{
 private:
