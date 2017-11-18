@@ -59,6 +59,7 @@ void Arbitro::anunciarGanador(){
 
 		if (posibleGanador.consultarPuntaje() > puntajeMaximo ){
 			ganador = posibleGanador;
+			puntajeMaximo = posibleGanador.consultarPuntaje();
 		}
 	}
 
