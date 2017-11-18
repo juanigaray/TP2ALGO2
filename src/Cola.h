@@ -36,7 +36,7 @@ class Cola{
      * pre : no estaVacia()
      * post: devuelve el elemento del frente de la cola
      */
-    T* desacolar();
+    T desacolar();
 
      /*
       * post: libera los recursos asociados a la Cola.
@@ -76,13 +76,12 @@ void Cola<T>::acolar(T elemento){
 }
 
 template<class T>
-T* Cola<T>::desacolar(){
+T Cola<T>::desacolar(){
 
 	if ( estaVacia() ){
 		throw "Error en cola: Intenta desacolar de cola vacia!";
 	}
-	T* aDevolver = new T;
-	*aDevolver = (primero->obtenerDato());
+	T aDevolver = (primero->obtenerDato());
 	Nodo<T>* siguiente = primero->obtenerSiguiente();
 	delete primero;
 	primero = siguiente;

@@ -13,25 +13,29 @@ Jugador::Jugador(){
 	this->numeroJugador = 0;
 }
 
-
 void Jugador::sumarPuntaje(int puntos){
 	this->puntaje += puntos;
 }
 
-int Jugador::consultarPuntaje(){
+int Jugador::consultarPuntaje() const{
 	return this->puntaje;
 }
 
-std::string Jugador::consultarNombre(){
+std::string Jugador::consultarNombre() const{
 	return this->nombre;
 }
 
-unsigned int Jugador::consultarNumero(){
+int Jugador::consultarNumero() const{
     return this->numeroJugador;
 }
 
-void Jugador::operator=(Jugador* jugadorACopiar){
-	 this->nombre = jugadorACopiar->consultarNombre();
-	 this->puntaje = jugadorACopiar->consultarPuntaje();
-	 this->numeroJugador = jugadorACopiar->consultarNumero();
+Jugador Jugador::operator=(const Jugador& otroJugador){
+	this->puntaje = otroJugador.consultarPuntaje();
+	std::cout << puntaje << std::endl;
+	std::cout << otroJugador.consultarPuntaje() << std::endl;
+	this->nombre = otroJugador.consultarNombre();
+	std::cout << nombre << std::endl;
+	std::cout << otroJugador.consultarNombre() << std::endl;
+	this->numeroJugador = otroJugador.consultarNumero();
+	return *this;
 }

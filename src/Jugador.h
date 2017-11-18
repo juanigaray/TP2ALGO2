@@ -9,7 +9,7 @@ class Jugador{
 
 		int puntaje;
 		std::string nombre;
-		unsigned int numeroJugador;
+		int numeroJugador;
 
 	public:
 
@@ -29,22 +29,22 @@ class Jugador{
 		/* pre:
 		 * post: Devuelve el nombre del jugador
 		 */
-		std::string consultarNombre();
+		std::string consultarNombre() const;
 
 		/* pre:
 		 * post: Devuelve el puntaje del jugador
 		 */
-		int consultarPuntaje();
+		int consultarPuntaje() const;
 
 		/* pre:
 		 * post: Devuelve el numero del jugador
 		 */
-		unsigned int consultarNumero();
+		int consultarNumero() const;
 
 		/*
 		 *Post: Este jugador adquiere todos los atributos del jugador que se asigna.
 		 */
-		void operator=(Jugador* jugadorACopiar);
+		Jugador operator=(const Jugador& otroJugador);
 
 
 		/// se puede sacar d la lista de jugadores en vez de guardarlo aca

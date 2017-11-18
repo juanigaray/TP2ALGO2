@@ -18,7 +18,7 @@ Tablero::Tablero(){
 	inicializarMatriz();
 }
 
-Tablero::Tablero(int columnas, int filas, unsigned int dificultad){
+Tablero::Tablero(int columnas, int filas,  int dificultad){
 	if (columnas == 0 || filas == 0){
 		throw "Intento de crear tablero de tamanyo cero";
 	}
@@ -32,7 +32,7 @@ Tablero::Tablero(int columnas, int filas, unsigned int dificultad){
 
 }
 
-void Tablero::asignarDimensionesYDificultad(int columnas, int filas, unsigned int dificultad){
+void Tablero::asignarDimensionesYDificultad(int columnas, int filas,  int dificultad){
 	if (columnas == 0 || filas == 0){
 		throw "Intento de crear tablero de tamano cero";
 	}
@@ -61,7 +61,7 @@ void Tablero::inicializarMatriz(){
 	}
 }
 
-void Tablero::crearBombas(unsigned int dificultad){
+void Tablero::crearBombas( int dificultad){
 
 	srand(time(NULL));
 	int bombasRestantes = bombasTotales;
@@ -90,21 +90,23 @@ void Tablero::prepararCasillero(int columnaDeCasillero, int filaDeCasillero){
 
 //SET
 
-bool Tablero::colocarBandera(int columnaDeJugada, int filaDeJugada, unsigned int jugadorActual){
+bool Tablero::colocarBandera(int columnaDeJugada, int filaDeJugada, int jugadorActual){
 	if (! esCoordenadaValida(columnaDeJugada, filaDeJugada)){
-		throw "Intenta colocar bandera fuera del tablero";
+		std::string mensaje = "Intenta colocar bandera fuera del tablero";
+		throw mensaje;
 	}
+	prepararCasillero(columnaDeJugada, filaDeJugada);
 	matriz[columnaDeJugada][filaDeJugada]->colocarBandera(jugadorActual);
 	return matriz[columnaDeJugada][filaDeJugada]->tieneBomba();
 }
 
-int Tablero::quitarBandera(int columnaDeJugada, int filaDeJugada, unsigned int jugadorActual){
+int Tablero::quitarBandera(int columnaDeJugada, int filaDeJugada,  int jugadorActual){
 
 	int puntajeADevolver = 0;
 	if (! esCoordenadaValida(columnaDeJugada, filaDeJugada)){
 		throw "Intenta quitar bandera fuera del tablero";
 	}
-	unsigned int quienLaPuso = matriz[columnaDeJugada][filaDeJugada]->quienPusoLaBandera();
+	 int quienLaPuso = matriz[columnaDeJugada][filaDeJugada]->quienPusoLaBandera();
 	bool fueBienQuitada = (! matriz[columnaDeJugada][filaDeJugada]->tieneBomba());
 
 	if( quienLaPuso != jugadorActual ){
@@ -137,17 +139,17 @@ void Tablero::descubrirCasillero(int columna, int fila){
 
 //METODOS DE OBTENCION
 
-unsigned int Tablero::obtenerFilaMaxima(){
+ int Tablero::obtenerFilaMaxima(){
 	return filaMaxima;
 }
 
-unsigned int Tablero::obtenerColumnaMaxima(){
+ int Tablero::obtenerColumnaMaxima(){
 	return columnaMaxima;
 }
 
 
 
-int Tablero::obtenerNumeroDeBombasCircundantes(unsigned int columnaDeCasillero, unsigned int filaDeCasillero){
+int Tablero::obtenerNumeroDeBombasCircundantes( int columnaDeCasillero,  int filaDeCasillero){
 
 	int circundantes = 0;
 	for(int dFila = -1; dFila < 2; dFila++){
@@ -168,26 +170,26 @@ int Tablero::obtenerNumeroDeBombasCircundantes(unsigned int columnaDeCasillero, 
 //METODOS DE VALIDACION
 
 bool Tablero::esCoordenadaValida(int columna, int fila){
-	return (columna > columnaMaxima && fila > filaMaxima);
+	return (columna < columnaMaxima && fila < filaMaxima);
 }
 
-bool Tablero::estaIniciado(unsigned int columna, unsigned int fila){
+bool Tablero::estaIniciado( int columna,  int fila){
 	return (matriz[columna][fila] != NULL);
 }
 
-bool Tablero::existe(unsigned int columna, unsigned int fila){
+bool Tablero::existe( int columna,  int fila){
 	return ( esCoordenadaValida(columna, fila) && estaIniciado(columna, fila) );
 }
 
-bool Tablero::hayBombaEn(unsigned int columna, unsigned int fila){
+bool Tablero::hayBombaEn( int columna,  int fila){
 	return ( existe(columna, fila) && matriz[columna][fila]->tieneBomba() );
 }
 
-bool Tablero::hayBanderaEn(unsigned int columna, unsigned int fila){
+bool Tablero::hayBanderaEn( int columna,  int fila){
 	return ( existe(columna, fila) && matriz[columna][fila]->tieneBandera() );
 }
 
-bool Tablero::estaDescubierto(unsigned int columna, unsigned int fila){
+bool Tablero::estaDescubierto( int columna,  int fila){
 	return ( existe(columna, fila) && matriz[columna][fila]->estaDescubierto());
 }
 

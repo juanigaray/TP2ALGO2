@@ -17,35 +17,35 @@ private:
 
 	int columnaMaxima;
 	int filaMaxima;
-	unsigned int bombasTotales;
-	unsigned int casillerosDestapados;
+	 int bombasTotales;
+	 int casillerosDestapados;
 
 public:
 
 	//SET
 
 
-	Tablero(int columnas, int filas, unsigned int dificultad);
+	Tablero(int columnas, int filas,  int dificultad);
 
 	Tablero();
 
-	void asignarDimensionesYDificultad(int columnas, int filas, unsigned int dificultad);
+	void asignarDimensionesYDificultad(int columnas, int filas,  int dificultad);
 
 	void inicializarMatriz();
 
-	void crearBombas(unsigned int dificultad);
+	void crearBombas( int dificultad);
 
 	/*
 	 * post: Devuelve si la bandera fue colocada sobre un casillero con bomba
 	 */
-	bool colocarBandera(int columnaDeJugada, int filaDeJugada, unsigned int jugadorActual);
+	bool colocarBandera(int columnaDeJugada, int filaDeJugada, int jugadorActual);
 
 	/*
 	 * Post: devuelve 0 si el que quita la bandera es el mismo que la puso, y si es otro jugador:
 	 * 		 	Devuelve -2 si no hay bomba
 	 * 		 	Devuelve 2 si hay bomba
 	 */
-	int quitarBandera(int columnaDeJugada, int filaDeJugada, unsigned int jugadorActual);
+	int quitarBandera(int columnaDeJugada, int filaDeJugada,  int jugadorActual);
 
 
 	void descubrirCasillero(int columna, int fila);
@@ -55,9 +55,9 @@ public:
 	//GET
 
 
-	unsigned int obtenerFilaMaxima();
+	 int obtenerFilaMaxima();
 
-	unsigned int obtenerColumnaMaxima();
+	 int obtenerColumnaMaxima();
 
 	bool noQuedanCasilleros();
 
@@ -65,7 +65,7 @@ public:
 	 * Pre: se pasa una coordenada valida.
 	 * Post: Devuelve la cantidad de bombas que rodean el casillero
 	 */
-	int obtenerNumeroDeBombasCircundantes(unsigned int columnaDeCasillero, unsigned int filaDeCasillero);
+	int obtenerNumeroDeBombasCircundantes( int columnaDeCasillero, int filaDeCasillero);
 
 	/*
 	 * Post: Crea un casillero sin bomba, sin bandera y tapado
@@ -74,24 +74,24 @@ public:
 
 	bool esCoordenadaValida(int columna, int fila);
 
-	bool estaIniciado(unsigned int columna, unsigned int fila);
+	bool estaIniciado( int columna, int fila);
 
-	bool existe(unsigned int columna, unsigned int fila);
+	bool existe( int columna, int fila);
 
 	/*
 	 *Post: Indica si el casillero tiene bomba o no
 	 */
-	bool hayBombaEn(unsigned int columna, unsigned int fila);
+	bool hayBombaEn( int columna, int fila);
 
 	/*
 	 *Post: Indica si el casillero tiene bandera o no
 	 */
-	bool hayBanderaEn(unsigned int columna, unsigned int fila);
+	bool hayBanderaEn( int columna, int fila);
 
 	/*
 	 *Post: Indica si el casillero esta destapado
 	 */
-	bool estaDescubierto(unsigned int columna, unsigned int fila);
+	bool estaDescubierto( int columna, int fila);
 
 	~Tablero();
 

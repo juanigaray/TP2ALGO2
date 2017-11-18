@@ -108,7 +108,7 @@ void Juego::tomarJugada(){
 
 void Juego::cambiarBandera(int jugadorActual){
 
-	std::string queDibujar;
+	std::string queDibujar = "";
 
 	//No hay bandera, la pone
 	if ( ! tablero.hayBanderaEn(columnaDeJugada, filaDeJugada) ){

@@ -51,14 +51,14 @@ bool Arbitro::quedaUno(){
 void Arbitro::anunciarGanador(){
 	int puntajeMaximo = 0;
 	Jugador ganador;
-	Jugador* posibleGanador;
+	Jugador posibleGanador;
 
 	while(! colaDeJugadores.estaVacia() ){
 
 		posibleGanador = colaDeJugadores.desacolar();
 
-		if (posibleGanador->consultarPuntaje() > puntajeMaximo ){
-			ganador = *posibleGanador;
+		if (posibleGanador.consultarPuntaje() > puntajeMaximo ){
+			ganador = posibleGanador;
 		}
 	}
 
