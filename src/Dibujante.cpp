@@ -83,9 +83,8 @@ void Dibujante::inicializarPuntajes(int cantidadDeJugadores, std::string* nombre
 			std::string directorio = nombreJugador.substr(caracter, 1);
 			transform(directorio.begin(), directorio.end(), directorio.begin(), ::toupper);
 			cambiarCuadrante( 1 + caracter  , filaDelJugador, directorio , 0, true);
+
 		}
-
-
 
 		//Escribe el nro de jugador
 		for(int cifra = 0; cifra < (int)strNroJugador.size() ; cifra++ ){

@@ -36,7 +36,6 @@ int main(){
 			juego.tomarJugada();
 			finDeLaPartida = juego.terminoLaPartida();
 		}
-
 		presentador.consultarSiJugarDeNuevo();
 		jugarDeNuevo = presentador.devolverSiJugarDeNuevo();
 	}
