@@ -81,8 +81,8 @@ int Juego::tomarTipoDeJugada(){
 }
 
 void Juego::tomarUbicacionDeJugada(){
-	filaDeJugada = pedirNumero("Por favor, ingrese la fila donde desea realizar la jugada", tablero.obtenerFilaMaxima() ) - 1;
-	columnaDeJugada = pedirNumero("Por favor, ingrese la columna donde desea realizar la jugada", tablero.obtenerColumnaMaxima() ) - 1;
+	filaDeJugada = pedirNumero("Por favor, ingrese la FILA donde desea realizar la jugada", tablero.obtenerFilaMaxima() ) - 1;
+	columnaDeJugada = pedirNumero("Por favor, ingrese la COLUMNA donde desea realizar la jugada", tablero.obtenerColumnaMaxima() ) - 1;
 }
 
 void Juego::tomarJugada(){
@@ -121,7 +121,7 @@ void Juego::tomarJugada(){
 
 void Juego::avanzarTurno(){
 	if (seDebeEliminarJugador){
-		std::cout << arbitro->devolverJugador().consultarNombre() << " fue eliminado!" << std::endl;
+		std::cout << (arbitro->devolverJugador()).consultarNombre() << " fue eliminado!" << std::endl;
 	}
 	arbitro->avanzarTurno(seDebeEliminarJugador);
 	seDebeEliminarJugador = false;
@@ -149,7 +149,7 @@ void Juego::cambiarBandera(int jugadorActual){
 
 		queDibujar = casilleroCubierto;
 		int quienPuso = tablero.obtenerJugadorQueColocoBandera(columnaDeJugada, filaDeJugada);
-		bool bienQuitada = tablero.quitarBandera(columnaDeJugada, filaDeJugada, jugadorActual);
+		bool bienQuitada = tablero.quitarBandera(columnaDeJugada, filaDeJugada);
 		this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
 		this->tomarUbicacionDeJugada();
 		bool pusoBien = tablero.colocarBandera(columnaDeJugada, filaDeJugada, jugadorActual);

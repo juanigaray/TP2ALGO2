@@ -13,9 +13,7 @@ Jugador::Jugador(){
 	this->numeroJugador = 0;
 }
 
-void Jugador::sumarPuntaje(int puntos){
-	this->puntaje += puntos;
-}
+//GET
 
 int Jugador::consultarPuntaje() const{
 	return this->puntaje;
@@ -27,6 +25,12 @@ std::string Jugador::consultarNombre() const{
 
 int Jugador::consultarNumero() const{
     return this->numeroJugador;
+}
+
+//SET
+
+void Jugador::sumarPuntaje(int puntos){
+	this->puntaje += puntos;
 }
 
 Jugador Jugador::operator=(const Jugador& otroJugador){

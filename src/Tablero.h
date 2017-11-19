@@ -12,40 +12,63 @@
 #include <iostream>
 
 class Tablero{
-private:
+
+  private:
+
 	Casillero*** matriz; //Es un array * de arrays * de punteros *
 
 	int columnaMaxima;
 	int filaMaxima;
-	 int bombasTotales;
-	 int casillerosDestapados;
+	int bombasTotales;
+	int casillerosDestapados;
 
-public:
+  public:
+
+	//METODOS DE INICIALIZACION
+
+	/*
+	 * post: se crea un tablero de tamanio columnas*filas con una cantidad de bombas que depende de la dificultad pasada.
+	 * 		 Queda listo para jugar
+	 */
+	Tablero(int columnas, int filas,  int dificultad);
+
+	/*
+	 * post: Se crea una instancia de tablero que debe ser inicializada con asignarDimensionesYDificultad()
+	 */
+	Tablero();
+
+	/*
+	 * post: se inicializa un tablero de tamanio columnas*filas con una cantidad de bombas que depende de la dificultad pasada.
+	 *		 Queda listo para jugar
+	 */
+	void asignarDimensionesYDificultad(int columnas, int filas,  int dificultad);
+
+	/*
+	 * post: queda creada la matriz de casilleros,
+	 * 		 pero cada casillero no existe hasta que se corre prepararCasillero() con su coordenada
+	 */
+	void inicializarMatriz();
+
+	/*
+	 * post: Se le asignan bombas al tablero de acuerdo a la dificultad elgida
+	 */
+	void crearBombas( int dificultad);
+
+
 
 	//SET
 
-
-	Tablero(int columnas, int filas,  int dificultad);
-
-	Tablero();
-
-	void asignarDimensionesYDificultad(int columnas, int filas,  int dificultad);
-
-	void inicializarMatriz();
-
-	void crearBombas( int dificultad);
-
 	/*
-	 * post: Devuelve si la bandera fue colocada sobre un casillero con bomba
+	 * post: Coloca una bandera en el casillero, que recuerda quién la puso
+	 * 		 Devuelve si la bandera fue colocada sobre un casillero con bomba
 	 */
 	bool colocarBandera(int columnaDeJugada, int filaDeJugada, int jugadorActual);
 
 	/*
-	 * Post: devuelve 0 si el que quita la bandera es el mismo que la puso, y si es otro jugador:
-	 * 		 	Devuelve -2 si no hay bomba
-	 * 		 	Devuelve 2 si hay bomba
+	 * Post: elimina la bandera del casillero
+	 * 		 Devuelve si la bandera fue quitada de un casillero con bomba
 	 */
-	bool quitarBandera(int columnaDeJugada, int filaDeJugada,  int jugadorActual);
+	bool quitarBandera(int columnaDeJugada, int filaDeJugada);
 
 
 	void descubrirCasillero(int columna, int fila);

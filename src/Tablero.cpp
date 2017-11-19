@@ -15,7 +15,7 @@ Tablero::Tablero(){
 	filaMaxima = 1;
 	bombasTotales = 0;
 	casillerosDestapados = 0;
-	inicializarMatriz();
+	matriz = 0;
 }
 
 Tablero::Tablero(int columnas, int filas,  int dificultad){
@@ -29,7 +29,6 @@ Tablero::Tablero(int columnas, int filas,  int dificultad){
 	casillerosDestapados = 0;
 	inicializarMatriz();
 	crearBombas(bombasTotales);
-
 }
 
 void Tablero::asignarDimensionesYDificultad(int columnas, int filas,  int dificultad){
@@ -91,6 +90,7 @@ void Tablero::prepararCasillero(int columnaDeCasillero, int filaDeCasillero){
 //SET
 
 bool Tablero::colocarBandera(int columnaDeJugada, int filaDeJugada, int jugadorActual){
+
 	if (! esCoordenadaValida(columnaDeJugada, filaDeJugada)){
 		std::string mensaje = "Intenta colocar bandera fuera del tablero";
 		throw mensaje;
@@ -100,13 +100,11 @@ bool Tablero::colocarBandera(int columnaDeJugada, int filaDeJugada, int jugadorA
 	return matriz[columnaDeJugada][filaDeJugada]->tieneBomba();
 }
 
-bool Tablero::quitarBandera(int columnaDeJugada, int filaDeJugada,  int jugadorActual){
-
+bool Tablero::quitarBandera(int columnaDeJugada, int filaDeJugada){
 
 	if (! esCoordenadaValida(columnaDeJugada, filaDeJugada)){
 		throw "Intenta quitar bandera fuera del tablero";
 	}
-
 	matriz[columnaDeJugada][filaDeJugada]->quitarBandera();
 	return (! matriz[columnaDeJugada][filaDeJugada]->tieneBomba());
 }
@@ -119,12 +117,6 @@ void Tablero::descubrirCasillero(int columna, int fila){
 		this->casillerosDestapados ++;
 	}
 }
-
-
-
-
-
-
 
 
 

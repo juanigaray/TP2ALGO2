@@ -13,41 +13,47 @@ class Jugador{
 
 	public:
 
-		/* pre:
-		 * post: Crea un jugador con valores iniciales y su nombre
+		/*
+		 * post: Crea un jugador con puntaje y numero de jugador en cero
 		 */
 		Jugador(std::string nom, int numeroJugador);
 
+		/*
+		 * post: Crea un jugador con valores default: todos en cero y nombre "JUGADOR AUXILIAR"
+		 */
 		Jugador();
 
-		/*
-		 * post: Asigna el puntaje al jugador
-		 * la variable puntos es la cantidad de pntos que hizo en el turno
-		 */
-		void sumarPuntaje(int puntos);
+		//GET
 
-		/* pre:
+		/*
 		 * post: Devuelve el nombre del jugador
 		 */
 		std::string consultarNombre() const;
 
-		/* pre:
+		/*
 		 * post: Devuelve el puntaje del jugador
 		 */
 		int consultarPuntaje() const;
 
-		/* pre:
+		/*
 		 * post: Devuelve el numero del jugador
 		 */
 		int consultarNumero() const;
 
+		//SET
+
 		/*
-		 *Post: Este jugador adquiere todos los atributos del jugador que se asigna.
+		 * post: Suma a los puntos del jugador el numero pasado
+		 */
+		void sumarPuntaje(int puntos);
+
+		/*
+		 * post: Este jugador adquiere todos los atributos del jugador que se asigna.
 		 */
 		Jugador operator=(const Jugador& otroJugador);
 
 
-		/// se puede sacar d la lista de jugadores en vez de guardarlo aca
+
 };
 
 

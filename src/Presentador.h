@@ -11,6 +11,7 @@
 #include <iostream>
 
 class Presentador{
+
   private:
 
 	int dificultad;
@@ -20,8 +21,17 @@ class Presentador{
 	int columnas;
 	bool jugarDeNuevo;
 
+  public:
+
 	/*
-	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero.
+	 * Post: Se crea un presentador listo para pedir los datos del juego.
+	 */
+	Presentador();
+
+	//UI
+
+	/*
+	 * Post: Pide que el usuario ingrese un numero hasta recibir uno mayor a cero y menor o igual al numero maximo
 	 * 		 Devuelve el numero ingresado.
 	 */
 	int pedirNumero(std::string mensaje, int numeroMaximo);
@@ -44,8 +54,8 @@ class Presentador{
 	void pedirNumeroDeJugadores();
 
 	/*
-	 * Post: Pide cantidad de jugadores hasta recibir
-	 * "devolverNumeroDeJugadores()" datos validos.
+	 * Post: 	Pide cantidad de jugadores hasta recibir
+	 * 			"devolverNumeroDeJugadores()" datos validos.
 	 */
 	void pedirNombresDeJugadores();
 
@@ -59,19 +69,21 @@ class Presentador{
 	 */
 	void pedirDificultad();
 
-
-  public:
-
-	/*
-	 * Post: Se crea un presentador listo para pedir los datos del juego.
-	 */
-	Presentador();
-
-	//void mostrarPresentacion();
-
 	/* Post: Pide datos de jugadores y dimensiones de tablero hasta recibir datos validos.
 	 */
 	void pedirDatosDeJuego();
+
+	/*
+	 * Post: Consulta al usuario si quiere jugar una nueva partida.
+	 */
+	void consultarSiJugarDeNuevo();
+
+	/*
+	 * post: anuncia por consola el fin del juego.
+	 */
+	void declararFinDelJuego();
+
+	//GET
 
 	/* Pre: Se corrio pedirDatosDeJuego().
 	 * Post: Devuelve el numero de columnas ingresado por el usuario.
@@ -98,18 +110,14 @@ class Presentador{
 	 */
 	std::string* devolverNombresDeLosJugadores();
 
-	void declararFinDelJuego();
-
-	/*
-	 * Post: Consulta al usuario si quiere jugar una nueva partida.
-	 */
-	void consultarSiJugarDeNuevo();
-
 	/* Pre: Se corrio consultarSiJugarDeNuevo().
 	 * Post: Devuelve la eleccion del usuario.
 	 */
 	bool devolverSiJugarDeNuevo();
 
+	/*
+	 * post: libera los recursos asociados, especificamente la memoria pedida para la lista de nombres de los jugadores.
+	 */
 	~Presentador();
 
 };

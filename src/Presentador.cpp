@@ -69,7 +69,7 @@ void Presentador::pedirDimensionesDelTablero(){
 void Presentador::pedirNumeroDeJugadores(){
 
 	this->cantJugadores = this->pedirNumero("Ingrese la cantidad de jugadores: ");
-	this->listaDeNombresDeJugadores = new std::string [this->cantJugadores];
+	this->listaDeNombresDeJugadores = new std::string [cantJugadores];
 }
 
 void Presentador::pedirNombresDeJugadores(){
@@ -85,13 +85,13 @@ void Presentador::pedirNombresDeJugadores(){
 		estaseguro = false;
 
 		while(! estaseguro){
-			std::cout 	<< "Ingrese el nombre del jugador (hta 7 caracteres)"
+			std::cout 	<< "Ingrese el nombre del jugador "
 						<<  (numeroDeNombre + 1)
-						<< ": ";
+						<< " (hta 7 caracteres): ";
 
 			std::cin 	>> nombreDeJugador;
 
-			if (nombreDeJugador.size() < 7){
+			if (nombreDeJugador.size() <= 7){
 				std::cout 	<< std::endl
 							<< "El nombre del jugador "
 							<<  (numeroDeNombre + 1)
