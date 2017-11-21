@@ -58,7 +58,8 @@ class Juego{
 	void avanzarTurno();
 
 	/*
-	 *
+	 * Post si el casillero seleccionado es 0 descubre los circundantes que tambien tengan cero
+	 * hasta encontrar casilleros con bombas cercanas
 	 */
 	void descubrirCasillerosCircundantes(int fila, int columna);
 

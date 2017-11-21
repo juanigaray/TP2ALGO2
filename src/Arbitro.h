@@ -68,12 +68,12 @@ public:
 	void avanzarTurno(bool fueEliminado);
 
 	/*
-	 *
+	 *Post Devuelve si queda un jugador (Este jugador queda almacenado en la variable "actual")
 	 */
 	bool quedaUno();
 
 	/*
-	 *
+	 *Post Anuncia el ganador de la partida
 	 */
 	void anunciarGanador();
 };

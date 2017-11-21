@@ -29,15 +29,16 @@ int main(){
 						 presentador.devolverColumnas(),
 			       		 presentador.devolverNombresDeLosJugadores() );
 
-		while(! finDeLaPartida){
-
-			juego.avanzarTurno();
+		juego.avanzarTurno();
+		do{
 			juego.declararTurno();
 			juego.tomarJugada();
+			juego.avanzarTurno();
 			finDeLaPartida = juego.terminoLaPartida();
-		}
+		}while(! finDeLaPartida);
 		presentador.consultarSiJugarDeNuevo();
 		jugarDeNuevo = presentador.devolverSiJugarDeNuevo();
 	}
 	return 0;
 }
+

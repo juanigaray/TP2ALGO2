@@ -1,10 +1,3 @@
-/*
- * Casillero.h
- *
- *  Created on: Nov 7, 2017
- *      Author: juan
- */
-
 #ifndef CASILLERO_H_
 #define CASILLERO_H_
 
@@ -31,12 +24,12 @@ class Casillero{
 	 Casillero(bool conBomba);
 
 	 /*
-	  *
+	  *Post coloca la bandera en el casillero elegido
 	  */
 	 void colocarBandera(int jugador);
 
 	 /*
-	  *
+	  * Post quita la bandera en el casillero elegido
 	  */
 	 void quitarBandera();
 
@@ -46,22 +39,22 @@ class Casillero{
 	 int quienPusoLaBandera();
 
 	 /*
-	  *
+	  *Post Devuelve si tiene bomba el casillero
 	  */
 	 bool tieneBomba();
 
 	 /*
-	  *
+	  *Post Devuelve si tiene Bandera el casillero
 	  */
 	 bool tieneBandera();
 
 	 /*
-	  *
+	  *Post Devuelve si fue descubierto el casillero
 	  */
 	 bool estaDescubierto();
 
 	 /*
-	  *
+	  *Post destapa el casillero
 	  */
 	 void destapar();
 

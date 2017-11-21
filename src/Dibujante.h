@@ -95,12 +95,12 @@ class Dibujante{
 	void dibujarTablero();
 
 	/*
-	 *
+	 *Post elimina el jugador le dibuja una raya roja
 	 */
 	void eliminarJugador(int nroJugador);
 
 	/*
-	 *
+	 *Post convierte en string un tipo de dato int
 	 */
 	std::string hacerCadena(int numero);
 

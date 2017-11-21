@@ -71,19 +71,30 @@ class Tablero{
 	bool quitarBandera(int columnaDeJugada, int filaDeJugada);
 
 
+	/*
+	 * Post Muestra el contenido del casillero deseado
+	 */
 	void descubrirCasillero(int columna, int fila);
 
 
 
 	//GET
 
-
-	 int obtenerFilaMaxima();
-
+	/*
+	 * post Devuelve la fila maxima
+	 */
+	int obtenerFilaMaxima();
+	/*
+	 * post devuelve la columna maxima
+	 */
 	 int obtenerColumnaMaxima();
-
+	 /*
+	  * Post devuelve si quedan casilleros o no
+	  */
 	bool noQuedanCasilleros();
-
+	/*
+	 * Post Devuelve el jugador que coloco la bandera
+	 */
 	int obtenerJugadorQueColocoBandera(int columnaDeJugada, int filaDeJugada);
 	/*
 	 * Pre: se pasa una coordenada valida.
@@ -96,10 +107,19 @@ class Tablero{
 	 */
 	void prepararCasillero(int columnaDeCasillero, int filaDeCasillero);
 
+	/*
+	 * Post: devuelve si la coordenada ingresada es valida
+	 */
 	bool esCoordenadaValida(int columna, int fila);
 
+	/*
+	 * Post: Devuelve si el casillero esta iniciado o no
+	 */
 	bool estaIniciado( int columna, int fila);
 
+	/*
+	 * Post devuelve si el casillero esta iniciado y si la coordenada es valida
+	 */
 	bool existe( int columna, int fila);
 
 	/*
@@ -117,6 +137,9 @@ class Tablero{
 	 */
 	bool estaDescubierto( int columna, int fila);
 
+	/*
+	 * Destructor
+	 */
 	~Tablero();
 
 
