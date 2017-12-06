@@ -131,6 +131,7 @@ void Juego::avanzarTurno(){
 void Juego::cambiarBandera(int jugadorActual){
 
 	std::string queDibujar = "";
+	int puntajeADevolver = 0;
 
 	//No hay bandera, la pone
 	if ( ! tablero.hayBanderaEn(columnaDeJugada, filaDeJugada) ){
@@ -139,34 +140,30 @@ void Juego::cambiarBandera(int jugadorActual){
 		queDibujar = bandera;
 
 		if (pusoBien){
-			arbitro->sumarPuntaje(1);
+			puntajeADevolver = 1;
 
 		} else {
-			arbitro->sumarPuntaje(-1);
+			puntajeADevolver = -1;
 		}
 
 	//Hay bandera, saca
 	} else {
 
-		queDibujar = casilleroCubierto;
 		int quienPuso = tablero.obtenerJugadorQueColocoBandera(columnaDeJugada, filaDeJugada);
 		bool bienQuitada = tablero.quitarBandera(columnaDeJugada, filaDeJugada);
-		this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
-		this->tomarUbicacionDeJugada();
-		bool pusoBien = tablero.colocarBandera(columnaDeJugada, filaDeJugada, jugadorActual);
-		int puntajeADevolver = 0;
 		if( quienPuso != jugadorActual ){
-			if (bienQuitada && pusoBien){
+			if (bienQuitada){
 				puntajeADevolver = 2;
 			} else{
 				puntajeADevolver = -2;
 			}
 		}
-		queDibujar = bandera;
 
-		this->arbitro->sumarPuntaje(puntajeADevolver);
+		queDibujar = casilleroCubierto;
+		this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
 	}
 
+	this->arbitro->sumarPuntaje(puntajeADevolver);
 	int puntaje = arbitro->devolverPuntaje();
 	this->dibujante->cambiarPuntaje( puntaje, jugadorActual );
 	this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
