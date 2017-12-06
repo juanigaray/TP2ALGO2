@@ -82,7 +82,7 @@ void Dibujante::inicializarPuntajes(int cantidadDeJugadores, std::string* nombre
 
 			std::string directorio = nombreJugador.substr(caracter, 1);
 			for(std::string::size_type i = 0; i < directorio.size(); ++i) {
-				if(! isprint(directorio[i])){
+				if(! isprint(directorio[i]) || (! isalpha(directorio[i]))){
 					directorio[i] = 'X';
 				}
 			}
