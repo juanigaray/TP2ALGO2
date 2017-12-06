@@ -8,8 +8,7 @@
 #include "Arbitro.h"
 
 
-Arbitro::Arbitro(std::string* nombresDeJugadores, int numeroDeJugadores, int dificultadPedida){
-	this->dificultad = dificultadPedida;
+Arbitro::Arbitro(std::string* nombresDeJugadores, int numeroDeJugadores){
 	this->inicializarListaDeJugadores(nombresDeJugadores, numeroDeJugadores);
 }
 

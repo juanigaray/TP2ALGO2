@@ -23,7 +23,7 @@ Juego::Juego(int dificultad, int numeroDeJugadores, int filas, int columnas, std
 	this->seDebeEliminarJugador = false;
 
 	this->dibujante = new Dibujante(columnas, filas, numeroDeJugadores, nombresDeJugadores);
-	this->arbitro = new Arbitro(nombresDeJugadores, numeroDeJugadores, dificultad);
+	this->arbitro = new Arbitro(nombresDeJugadores, numeroDeJugadores);
 
 	tablero.asignarDimensionesYDificultad(columnas, filas, dificultad);
 

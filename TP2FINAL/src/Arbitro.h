@@ -15,8 +15,6 @@ class Arbitro{
 
 private:
 
-	int dificultad;
-
 	Cola<Jugador> colaDeJugadores;
 	Jugador actual;
 
@@ -27,7 +25,10 @@ private:
 
 public:
 
-	Arbitro(std::string* nombres, int cantidadJugadores, int dificultadPedida);
+	/*
+	 * Post: inicializa la ronda de jugadores. Queda listo para avanzar turnos.
+	 */
+	Arbitro(std::string* nombres, int cantidadJugadores);
 
 	/* Pre: La lista debe estar iniciada con el cursor iniciado
 	 * Post: Devuelve puntero al jugador al que le toca jugar.
