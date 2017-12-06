@@ -40,8 +40,7 @@ void Arbitro::inicializarListaDeJugadores(std::string* nombres, int cantidadJuga
 }
 
 int Arbitro::devolverNumeroDeTurno(){
-	int nroJugador = actual.consultarNumero();
-	return nroJugador;
+	return actual.consultarNumero();
 }
 
 bool Arbitro::quedaUno(){
