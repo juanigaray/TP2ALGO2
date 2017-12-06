@@ -12,6 +12,7 @@ class Cola{
     Nodo<T>* ultimo;
 
   public:
+
     /*
      * post: Cola vacía.
      */

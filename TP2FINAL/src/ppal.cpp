@@ -7,7 +7,6 @@
 
 
 #include "Presentador.h"
-#include "Dibujante.h"
 #include "Juego.h"
 
 
@@ -44,19 +43,15 @@ int main(){
 				juego.tomarJugada();
 				juego.avanzarTurno();
 
-				if (esMultijugador){
+				finDeLaPartida = juego.terminoLaPartida(esMultijugador);
 
-					finDeLaPartida = juego.terminoLaPartida();
-
-				} else {
-
-					finDeLaPartida = juego.noQuedanCasilleros();
+				if (finDeLaPartida){
+					juego.anunciarResultado(esMultijugador);
 				}
 
 				juego.dibujarTablero();
 
 			} while(! finDeLaPartida);
-			juego.anunciarGanador();
 
 			presentador.consultarSiJugarDeNuevo();
 			jugarDeNuevo = presentador.devolverSiJugarDeNuevo();

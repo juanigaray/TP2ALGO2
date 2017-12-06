@@ -8,8 +8,7 @@
 #include "Arbitro.h"
 
 
-Arbitro::Arbitro(std::string* nombresDeJugadores, int numeroDeJugadores, int dificultadPedida){
-	this->dificultad = dificultadPedida;
+Arbitro::Arbitro(std::string* nombresDeJugadores, int numeroDeJugadores){
 	this->inicializarListaDeJugadores(nombresDeJugadores, numeroDeJugadores);
 }
 
@@ -26,12 +25,17 @@ int Arbitro::devolverPuntaje(){
 }
 
 void Arbitro::avanzarTurno(bool fueEliminado){
-	//La segunda condicion chequea que el jugador a apilar no tenga sus valores en default,
-	//cosa que puede pasar en la primera jugada.
-	if (! fueEliminado && ( actual.consultarNumero() != 0 ) ){
+
+							/* La segunda condicion chequea que el jugador a apilar
+							 * no tenga sus valores en default,
+							 * cosa que puede pasar en la primera jugada.
+							 */
+	if (! fueEliminado && ( devolverNumeroDeTurno() != 0 ) ){
 		colaDeJugadores.acolar(actual);
 	}
-	actual = colaDeJugadores.desacolar();
+	if (! colaDeJugadores.estaVacia() ){
+		actual = colaDeJugadores.desacolar();
+	}
 }
 
 void Arbitro::inicializarListaDeJugadores(std::string* nombres, int cantidadJugadores){
@@ -48,6 +52,11 @@ int Arbitro::devolverNumeroDeTurno(){
 bool Arbitro::quedaUno(){
 	return (colaDeJugadores.estaVacia());
 }
+
+bool Arbitro::noQuedanJugadores(){
+	return ( devolverNumeroDeTurno() == 0);
+}
+
 
 void Arbitro::anunciarGanador(){
 	int puntajeMaximo = 0;

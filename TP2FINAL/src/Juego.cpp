@@ -23,7 +23,7 @@ Juego::Juego(int dificultad, int numeroDeJugadores, int filas, int columnas, std
 	this->seDebeEliminarJugador = false;
 
 	this->dibujante = new Dibujante(columnas, filas, numeroDeJugadores, nombresDeJugadores);
-	this->arbitro = new Arbitro(nombresDeJugadores, numeroDeJugadores, dificultad);
+	this->arbitro = new Arbitro(nombresDeJugadores, numeroDeJugadores);
 
 	tablero.asignarDimensionesYDificultad(columnas, filas, dificultad);
 
@@ -150,12 +150,19 @@ void Juego::cambiarBandera(int jugadorActual){
 	} else {
 
 		int quienPuso = tablero.obtenerJugadorQueColocoBandera(columnaDeJugada, filaDeJugada);
+
 		bool bienQuitada = tablero.quitarBandera(columnaDeJugada, filaDeJugada);
+
 		if( quienPuso != jugadorActual ){
+
 			if (bienQuitada){
+
 				puntajeADevolver = 2;
+
 			} else{
+
 				puntajeADevolver = -2;
+
 			}
 		}
 
@@ -165,8 +172,11 @@ void Juego::cambiarBandera(int jugadorActual){
 
 	this->arbitro->sumarPuntaje(puntajeADevolver);
 	int puntaje = arbitro->devolverPuntaje();
-	this->dibujante->cambiarPuntaje( puntaje, jugadorActual );
-	this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
+
+	dibujante->cambiarPuntaje( puntaje, jugadorActual );
+
+	dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
+
 }
 
 void Juego::descubrirCasillero(int columnaDeCasillero, int filaDeCasillero, int jugadorActual){
@@ -220,13 +230,27 @@ void Juego::dibujarTablero(){
 	dibujante->dibujarTablero();
 }
 
-void Juego::anunciarGanador(){
-	arbitro->anunciarGanador();
+void Juego::anunciarResultado(bool esMultijugador){
+	if (esMultijugador){
+		arbitro->anunciarGanador();
+	}
+	else {
+		if (noQuedanCasilleros()){
+			std::cout << "Victoria!!" << std::endl;
+		} else {
+			std::cout << "Derrota!" << std::endl;
+		}
+	}
 }
 
-bool Juego::terminoLaPartida(){
-	bool termino = ( arbitro->quedaUno() || noQuedanCasilleros() );
+bool Juego::terminoLaPartida(bool esMultijugador){
+	bool termino;
+	termino = ( (arbitro->quedaUno() && esMultijugador)
+				|| noQuedanCasilleros()
+				|| ( arbitro->noQuedanJugadores() ) );
+
 	return termino;
+
 }
 
 bool Juego::noQuedanCasilleros(){

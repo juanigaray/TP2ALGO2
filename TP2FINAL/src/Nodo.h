@@ -11,30 +11,35 @@ private:
     Nodo<T>* siguiente;
 public:
 
-/*
- * Pre: -
- * Post: Crea un nodo con la informacion dada, sin siguiente
- */
+	/*
+	 * Pre: -
+	 * Post: Crea un nodo con la informacion dada, sin siguiente
+	 */
     Nodo(T dato);
 
-/*
-*Pre: -
-*Post: devuelve el dato del nodo
-*/
+	/*
+	*Pre: -
+	*Post: devuelve el dato del nodo
+	*/
     T obtenerDato();
-/*
-*Post: cambia el dato del nodo
-*/
+
+	/*
+	*Post: cambia el dato del nodo
+	*/
     void cambiarDato(T datoNuevo);
-/*
-*Post: Devuelve el siguiente del nodo actual
-*/
+
+	/*
+	*Post: Devuelve el siguiente del nodo actual
+	*/
     Nodo<T>* obtenerSiguiente();
-/*
-*Post: Cambia el siguiente del nodo actual
-*/
+
+	/*
+	*Post: Cambia el siguiente del nodo actual
+	*/
     void cambiarSiguiente(Nodo<T>* siguienteNuevo);
+
 };
+
 
 template<class T> void Nodo<T>::cambiarSiguiente(Nodo<T>* siguienteNuevo){
         this->siguiente = siguienteNuevo;
