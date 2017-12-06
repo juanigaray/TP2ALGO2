@@ -126,8 +126,10 @@ void Presentador::pedirDatosDeJuego(){
 }
 
 void Presentador::consultarSiJugarDeNuevo(){
+
 	char decision;
 	bool preguntarDeNuevo = true;
+	jugarDeNuevo = false;
 
 	while (preguntarDeNuevo) {
 
@@ -139,19 +141,14 @@ void Presentador::consultarSiJugarDeNuevo(){
 			std::cin.ignore();
 			std::cin >> decision;
 		}
-		if( decision == 's' || decision == 'S'){
 
-			this->jugarDeNuevo = true;
-			preguntarDeNuevo = false;
-		} else if (decision == 'n' || decision == 'N'){
+		jugarDeNuevo = ( decision == 's' || decision == 'S');
+		preguntarDeNuevo = ( (! jugarDeNuevo) && (decision != 'n') && (decision != 'N') );
 
-			this->jugarDeNuevo = false;
-			preguntarDeNuevo = false;
-		} else {
+		if (preguntarDeNuevo){
 			std::cout << "Opcion no valida!" << std::endl;
 		}
 	}
-
 }
 
 void Presentador::declararFinDelJuego(){
@@ -186,5 +183,7 @@ bool Presentador::devolverSiJugarDeNuevo(){
 }
 
 Presentador::~Presentador(){
-	delete [] listaDeNombresDeJugadores;
+	if(listaDeNombresDeJugadores != NULL){
+		delete [] listaDeNombresDeJugadores;
+	}
 }
