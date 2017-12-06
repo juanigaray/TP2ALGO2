@@ -79,7 +79,7 @@ template<class T>
 T Cola<T>::desacolar(){
 
 	if ( estaVacia() ){
-		throw "Error en cola: Intenta desacolar de cola vacia!";
+		throw std::string("Error en cola: Intenta desacolar de cola vacia!");
 	}
 	T aDevolver = (primero->obtenerDato());
 	Nodo<T>* siguiente = primero->obtenerSiguiente();
