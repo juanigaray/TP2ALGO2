@@ -194,5 +194,7 @@ Tablero::~Tablero(){
 			}
 		}
 	}
-	delete [] matriz;
+	if (matriz != 0){
+		delete [] matriz;
+	}
 }
