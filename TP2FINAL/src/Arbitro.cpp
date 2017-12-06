@@ -31,7 +31,9 @@ void Arbitro::avanzarTurno(bool fueEliminado){
 	if (! fueEliminado && ( actual.consultarNumero() != 0 ) ){
 		colaDeJugadores.acolar(actual);
 	}
-	actual = colaDeJugadores.desacolar();
+	if (! colaDeJugadores.estaVacia() ){
+		actual = colaDeJugadores.desacolar();
+	}
 }
 
 void Arbitro::inicializarListaDeJugadores(std::string* nombres, int cantidadJugadores){
@@ -48,6 +50,11 @@ int Arbitro::devolverNumeroDeTurno(){
 bool Arbitro::quedaUno(){
 	return (colaDeJugadores.estaVacia());
 }
+
+bool Arbitro::noQuedanJugadores(){
+	return (actual.consultarNumero() == 0);
+}
+
 
 void Arbitro::anunciarGanador(){
 	int puntajeMaximo = 0;

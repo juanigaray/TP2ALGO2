@@ -72,6 +72,11 @@ public:
 	 */
 	bool quedaUno();
 
+	/* Pre: Se jugo al menos un turno
+	 * Post: devuelve si no queda ningun jugador
+	 */
+	bool noQuedanJugadores();
+
 	/*
 	 *Post Anuncia el ganador de la partida
 	 */

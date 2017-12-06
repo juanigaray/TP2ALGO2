@@ -223,13 +223,27 @@ void Juego::dibujarTablero(){
 	dibujante->dibujarTablero();
 }
 
-void Juego::anunciarGanador(){
-	arbitro->anunciarGanador();
+void Juego::anunciarResultado(bool esMultijugador){
+	if (esMultijugador){
+		arbitro->anunciarGanador();
+	}
+	else {
+		if (noQuedanCasilleros()){
+			std::cout << "Victoria!!" << std::endl;
+		} else {
+			std::cout << "Derrota!" << std::endl;
+		}
+	}
 }
 
-bool Juego::terminoLaPartida(){
-	bool termino = ( arbitro->quedaUno() || noQuedanCasilleros() );
+bool Juego::terminoLaPartida(bool esMultijugador){
+	bool termino;
+	termino = ( (arbitro->quedaUno() && esMultijugador)
+				|| noQuedanCasilleros()
+				|| ( arbitro->noQuedanJugadores() ) );
+
 	return termino;
+
 }
 
 bool Juego::noQuedanCasilleros(){

@@ -123,13 +123,14 @@ class Juego{
 
 	/* Pre: terminoLaPartida()
 	 * Post: Anuncia el jugador que ha ganado.
+	 * 		 Si es un solo jugador, anuncia si gano o perdio
 	 */
-	void anunciarGanador();
+	void anunciarResultado(bool esMultijugador);
 
 	/*
 	 * Post: devuelve true si termino la partida
 	 */
-	bool terminoLaPartida();
+	bool terminoLaPartida(bool esMultijugador);
 
 	/*
 	 * Post: indica que no quedan casilleros por descubrir
