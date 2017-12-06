@@ -27,7 +27,7 @@ Juego::Juego(int dificultad, int numeroDeJugadores, int filas, int columnas, std
 
 	tablero.asignarDimensionesYDificultad(columnas, filas, dificultad);
 
-	this->dibujante->dibujarTablero();
+	dibujarTablero();
 }
 
 //UI y pedidos de datos
@@ -116,8 +116,6 @@ void Juego::tomarJugada(){
 			std::cout << "Esa jugada no es valida!" << std::endl;
 		}
 	}
-
-	this->dibujante->dibujarTablero();
 }
 
 //Logica de juego
@@ -221,12 +219,21 @@ void Juego::declararTurno(){
 	std::cout << "Es el turno de "<< (arbitro->devolverJugador()).consultarNombre() << std::endl;
 }
 
+void Juego::dibujarTablero(){
+	dibujante->dibujarTablero();
+}
+
+void Juego::anunciarGanador(){
+	arbitro->anunciarGanador();
+}
+
 bool Juego::terminoLaPartida(){
-	bool termino = ( arbitro->quedaUno() || tablero.noQuedanCasilleros() );
-	if ( termino ){
-		arbitro->anunciarGanador();
-	}
+	bool termino = ( arbitro->quedaUno() || noQuedanCasilleros() );
 	return termino;
+}
+
+bool Juego::noQuedanCasilleros(){
+	return tablero.noQuedanCasilleros();
 }
 
 std::string Juego::hacerCadena(int numero){

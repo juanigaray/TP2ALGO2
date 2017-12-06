@@ -40,11 +40,23 @@ int main(){
 				if (esMultijugador){
 					juego.declararTurno();
 				}
+
 				juego.tomarJugada();
 				juego.avanzarTurno();
-				finDeLaPartida = juego.terminoLaPartida();
+
+				if (esMultijugador){
+
+					finDeLaPartida = juego.terminoLaPartida();
+
+				} else {
+
+					finDeLaPartida = juego.noQuedanCasilleros();
+				}
+
+				juego.dibujarTablero();
 
 			} while(! finDeLaPartida);
+			juego.anunciarGanador();
 
 			presentador.consultarSiJugarDeNuevo();
 			jugarDeNuevo = presentador.devolverSiJugarDeNuevo();

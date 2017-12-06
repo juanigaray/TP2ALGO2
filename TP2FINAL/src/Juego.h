@@ -117,9 +117,24 @@ class Juego{
 	void declararTurno();
 
 	/*
+	 * Post: dibuja el tablero en su estado actual.
+	 */
+	void dibujarTablero();
+
+	/* Pre: terminoLaPartida()
+	 * Post: Anuncia el jugador que ha ganado.
+	 */
+	void anunciarGanador();
+
+	/*
 	 * Post: devuelve true si termino la partida
 	 */
 	bool terminoLaPartida();
+
+	/*
+	 * Post: indica que no quedan casilleros por descubrir
+	 */
+	bool noQuedanCasilleros();
 
 	/*
 	 * Post: Devuelve una std::string con el numero que se le paso
