@@ -81,6 +81,12 @@ void Dibujante::inicializarPuntajes(int cantidadDeJugadores, std::string* nombre
 		for(int caracter = 0; caracter < (int)nombreJugador.size() ; caracter++ ){
 
 			std::string directorio = nombreJugador.substr(caracter, 1);
+			for(std::string::size_type i = 0; i < directorio.size(); ++i) {
+				if(! isprint(directorio[i])){
+					directorio[i] = 'X';
+				}
+			}
+
 			transform(directorio.begin(), directorio.end(), directorio.begin(), ::toupper);
 			cambiarCuadrante( 1 + caracter  , filaDelJugador, directorio , 0, true);
 
@@ -135,7 +141,13 @@ void Dibujante::inicializarMargen(int cantidadDeJugadores, std::string* nombres)
 		}
 	}
 
-	inicializarPuntajes(cantidadDeJugadores, nombres);
+	try{
+		inicializarPuntajes(cantidadDeJugadores, nombres);
+	} catch(...){
+		std::cout << "Error al intentar inicializar puntajes" << std::endl;
+	}
+
+
 }
 
 int Dibujante::informarNumeroDeDibujo(){
