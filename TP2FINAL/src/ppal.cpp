@@ -44,6 +44,10 @@ int main(){
 
 			std::cout << error << std::endl;
 
+		} catch (char* error){
+
+			std::cout << error << std::endl;
+
 		}
 
 	}
