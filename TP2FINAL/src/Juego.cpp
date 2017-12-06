@@ -98,6 +98,9 @@ void Juego::tomarJugada(){
 
 	int jugadorActual;
 
+	bool esJugada1Valida = false;
+	bool esJugada2Valida = false;
+
 	while (! haJugado){
 
 		opcionElegida = tomarTipoDeJugada();
@@ -106,21 +109,22 @@ void Juego::tomarJugada(){
 
 		tomarUbicacionDeJugada();
 
+		esJugada1Valida = ((opcionElegida == 1) && (! tablero.estaDescubierto(columnaDeJugada, filaDeJugada) ));
+		esJugada2Valida = ( (! esJugada1Valida) &&  ( ! tablero.hayBanderaEn(columnaDeJugada, filaDeJugada) ) );
+		haJugado = (esJugada1Valida || esJugada2Valida);
+
 		//Es colocar/quitar bandera:
-		if ((opcionElegida == 1) && (! tablero.estaDescubierto(columnaDeJugada, filaDeJugada) )){
+		if (esJugada1Valida){
 
 			cambiarBandera(jugadorActual);
 
-			haJugado = true;
-
 		//Es destapar
-		} else if ( ! tablero.hayBanderaEn(columnaDeJugada, filaDeJugada) ) {
+		} else if (esJugada2Valida) {
 
 			descubrirCasillero(columnaDeJugada, filaDeJugada, jugadorActual);
 
-			haJugado = true;
-
 		} else {
+
 			std::cout << "Esa jugada no es valida!" << std::endl;
 		}
 	}
@@ -171,7 +175,7 @@ void Juego::cambiarBandera(int jugadorActual){
 
 				puntajeADevolver = 2;
 
-			} else{
+			} else {
 
 				puntajeADevolver = -2;
 
@@ -197,11 +201,12 @@ void Juego::descubrirCasillero(int columnaDeCasillero, int filaDeCasillero, int 
 
 	tablero.descubrirCasillero(columnaDeCasillero, filaDeCasillero);
 
+	seDebeEliminarJugador = (tablero.hayBombaEn(columnaDeCasillero, filaDeCasillero) );
+
 	//Tiene bomba
-	if (tablero.hayBombaEn(columnaDeCasillero, filaDeCasillero) ){
+	if (seDebeEliminarJugador){
 
 		queDibujar = bomba;
-		seDebeEliminarJugador = true;
 		dibujante->eliminarJugador(jugadorActual);
 
 	//No tiene bomba
