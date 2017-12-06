@@ -36,12 +36,6 @@ class Juego{
 	int columnaDeJugada;
 	bool seDebeEliminarJugador;
 
-
-
-
-
-
-
   public:
 
 	/*

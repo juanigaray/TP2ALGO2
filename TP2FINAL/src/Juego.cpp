@@ -89,27 +89,35 @@ void Juego::tomarUbicacionDeJugada(){
 }
 
 void Juego::tomarJugada(){
+
 	std::string queDibujar;
+
 	bool haJugado = false;
+
 	int opcionElegida;
+
 	int jugadorActual;
 
 	while (! haJugado){
 
 		opcionElegida = tomarTipoDeJugada();
+
 		jugadorActual = arbitro->devolverNumeroDeTurno();
+
 		tomarUbicacionDeJugada();
 
 		//Es colocar/quitar bandera:
 		if ((opcionElegida == 1) && (! tablero.estaDescubierto(columnaDeJugada, filaDeJugada) )){
 
 			cambiarBandera(jugadorActual);
+
 			haJugado = true;
 
 		//Es destapar
 		} else if ( ! tablero.hayBanderaEn(columnaDeJugada, filaDeJugada) ) {
 
 			descubrirCasillero(columnaDeJugada, filaDeJugada, jugadorActual);
+
 			haJugado = true;
 
 		} else {
@@ -121,10 +129,14 @@ void Juego::tomarJugada(){
 //Logica de juego
 
 void Juego::avanzarTurno(){
+
 	if (seDebeEliminarJugador){
+
 		std::cout << (arbitro->devolverJugador()).consultarNombre() << " fue eliminado!" << std::endl;
 	}
+
 	arbitro->avanzarTurno(seDebeEliminarJugador);
+
 	seDebeEliminarJugador = false;
 }
 
@@ -167,10 +179,10 @@ void Juego::cambiarBandera(int jugadorActual){
 		}
 
 		queDibujar = casilleroCubierto;
-		this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
 	}
 
 	this->arbitro->sumarPuntaje(puntajeADevolver);
+
 	int puntaje = arbitro->devolverPuntaje();
 
 	dibujante->cambiarPuntaje( puntaje, jugadorActual );
@@ -244,12 +256,8 @@ void Juego::anunciarResultado(bool esMultijugador){
 }
 
 bool Juego::terminoLaPartida(bool esMultijugador){
-	bool termino;
-	termino = ( (arbitro->quedaUno() && esMultijugador)
-				|| noQuedanCasilleros()
-				|| ( arbitro->noQuedanJugadores() ) );
 
-	return termino;
+	return ( (arbitro->quedaUno() && esMultijugador) || noQuedanCasilleros() || ( arbitro->noQuedanJugadores() ) );
 
 }
 
