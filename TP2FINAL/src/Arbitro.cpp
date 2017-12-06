@@ -26,8 +26,8 @@ int Arbitro::devolverPuntaje(){
 }
 
 void Arbitro::avanzarTurno(bool fueEliminado){
-	if (! fueEliminado && (actual.consultarNumero() != 0)){
-			colaDeJugadores.acolar(actual);
+	if (! fueEliminado){
+		colaDeJugadores.acolar(actual);
 	}
 	actual = colaDeJugadores.desacolar();
 }
@@ -55,7 +55,6 @@ void Arbitro::anunciarGanador(){
 	while(! colaDeJugadores.estaVacia() ){
 
 		posibleGanador = colaDeJugadores.desacolar();
-		std::cout << "posible ganador: " << posibleGanador.consultarNombre() << std::endl;
 
 		if (posibleGanador.consultarPuntaje() > puntajeMaximo ){
 			ganador = posibleGanador;

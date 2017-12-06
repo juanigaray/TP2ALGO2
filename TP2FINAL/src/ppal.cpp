@@ -16,6 +16,7 @@ int main(){
 	bool jugarDeNuevo = true;
 	bool finDeLaPartida;
 	Presentador presentador;
+	bool esMultijugador;
 
 	while(jugarDeNuevo){
 
@@ -24,6 +25,8 @@ int main(){
 			finDeLaPartida = false;
 			presentador.pedirDatosDeJuego();
 
+			esMultijugador = (presentador.devolverNumeroDeJugadores() != 1);
+
 			Juego juego( 	 presentador.devolverDificultad(),
 							 presentador.devolverNumeroDeJugadores(),
 							 presentador.devolverFilas(),
@@ -31,12 +34,18 @@ int main(){
 							 presentador.devolverNombresDeLosJugadores() );
 
 			juego.avanzarTurno();
+
 			do{
-				juego.declararTurno();
+
+				if (esMultijugador){
+					juego.declararTurno();
+				}
 				juego.tomarJugada();
 				juego.avanzarTurno();
 				finDeLaPartida = juego.terminoLaPartida();
-			}while(! finDeLaPartida);
+
+			} while(! finDeLaPartida);
+
 			presentador.consultarSiJugarDeNuevo();
 			jugarDeNuevo = presentador.devolverSiJugarDeNuevo();
 
@@ -44,14 +53,8 @@ int main(){
 
 			std::cout << error << std::endl;
 
-		} catch (char* error){
-
-			std::cout << error << std::endl;
-
 		}
-
 	}
-
 	return 0;
 }
 
