@@ -193,8 +193,7 @@ Tablero::~Tablero(){
 				delete matriz[columna][fila];
 			}
 		}
+		delete [] matriz[columna];
 	}
-	if (matriz != 0){
-		delete [] matriz;
-	}
+	delete [] matriz;
 }
