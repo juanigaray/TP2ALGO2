@@ -7,7 +7,6 @@
 
 
 #include "Presentador.h"
-#include "Dibujante.h"
 #include "Juego.h"
 
 
