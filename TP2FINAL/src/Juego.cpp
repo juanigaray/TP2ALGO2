@@ -10,6 +10,9 @@
 
 Juego::Juego(int dificultad, int numeroDeJugadores, int filas, int columnas, std::string* nombresDeJugadores){
 
+	if (filas < 0 || columnas < 0){
+		throw std::string("Error: Intenta crear tablero con dimension negativa.");
+	}
 	bomba = "boom";
 	bandera = "bandera";
 	casilleroCubierto = "cubierto";
