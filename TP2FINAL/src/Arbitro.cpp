@@ -28,7 +28,7 @@ int Arbitro::devolverPuntaje(){
 void Arbitro::avanzarTurno(bool fueEliminado){
 	//La segunda condicion chequea que el jugador a apilar no tenga sus valores en default,
 	//cosa que puede pasar en la primera jugada.
-	if (! fueEliminado && ( actual.consultarNumero() != 0 ) ){
+	if (! fueEliminado && ( devolverNumeroDeTurno() != 0 ) ){
 		colaDeJugadores.acolar(actual);
 	}
 	if (! colaDeJugadores.estaVacia() ){
@@ -52,7 +52,7 @@ bool Arbitro::quedaUno(){
 }
 
 bool Arbitro::noQuedanJugadores(){
-	return (actual.consultarNumero() == 0);
+	return ( devolverNumeroDeTurno() == 0);
 }
 
 
