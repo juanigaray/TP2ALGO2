@@ -149,27 +149,43 @@ void Juego::cambiarBandera(int jugadorActual){
 	} else {
 
 		queDibujar = casilleroCubierto;
+
 		int quienPuso = tablero.obtenerJugadorQueColocoBandera(columnaDeJugada, filaDeJugada);
+
 		bool bienQuitada = tablero.quitarBandera(columnaDeJugada, filaDeJugada);
-		this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
-		this->tomarUbicacionDeJugada();
+
+		dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
+
+		tomarUbicacionDeJugada();
+
 		bool pusoBien = tablero.colocarBandera(columnaDeJugada, filaDeJugada, jugadorActual);
+
 		int puntajeADevolver = 0;
+
 		if( quienPuso != jugadorActual ){
+
 			if (bienQuitada && pusoBien){
+
 				puntajeADevolver = 2;
+
 			} else{
+
 				puntajeADevolver = -2;
+
 			}
 		}
+
 		queDibujar = bandera;
 
-		this->arbitro->sumarPuntaje(puntajeADevolver);
+		arbitro->sumarPuntaje(puntajeADevolver);
 	}
 
 	int puntaje = arbitro->devolverPuntaje();
-	this->dibujante->cambiarPuntaje( puntaje, jugadorActual );
-	this->dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
+
+	dibujante->cambiarPuntaje( puntaje, jugadorActual );
+
+	dibujante->cambiarCuadrante(columnaDeJugada, filaDeJugada, queDibujar, jugadorActual, false);
+
 }
 
 void Juego::descubrirCasillero(int columnaDeCasillero, int filaDeCasillero, int jugadorActual){
