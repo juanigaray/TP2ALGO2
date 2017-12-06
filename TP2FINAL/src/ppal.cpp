@@ -19,26 +19,39 @@ int main(){
 
 	while(jugarDeNuevo){
 
-		finDeLaPartida = false;
+		try{
 
-		presentador.pedirDatosDeJuego();
+			finDeLaPartida = false;
+			presentador.pedirDatosDeJuego();
 
-		Juego juego( 	 presentador.devolverDificultad(),
-						 presentador.devolverNumeroDeJugadores(),
-						 presentador.devolverFilas(),
-						 presentador.devolverColumnas(),
-			       		 presentador.devolverNombresDeLosJugadores() );
+			Juego juego( 	 presentador.devolverDificultad(),
+							 presentador.devolverNumeroDeJugadores(),
+							 presentador.devolverFilas(),
+							 presentador.devolverColumnas(),
+							 presentador.devolverNombresDeLosJugadores() );
 
-		juego.avanzarTurno();
-		do{
-			juego.declararTurno();
-			juego.tomarJugada();
 			juego.avanzarTurno();
-			finDeLaPartida = juego.terminoLaPartida();
-		}while(! finDeLaPartida);
-		presentador.consultarSiJugarDeNuevo();
-		jugarDeNuevo = presentador.devolverSiJugarDeNuevo();
+			do{
+				juego.declararTurno();
+				juego.tomarJugada();
+				juego.avanzarTurno();
+				finDeLaPartida = juego.terminoLaPartida();
+			}while(! finDeLaPartida);
+			presentador.consultarSiJugarDeNuevo();
+			jugarDeNuevo = presentador.devolverSiJugarDeNuevo();
+
+		} catch(std::string& error){
+
+			std::cout << error << std::endl;
+
+		} catch (char* error){
+
+			std::cout << error << std::endl;
+
+		}
+
 	}
+
 	return 0;
 }
 

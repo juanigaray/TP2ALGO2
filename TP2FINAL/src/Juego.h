@@ -45,7 +45,8 @@ class Juego{
   public:
 
 	/*
-	 * Post:
+	 * Pre: filas y columnas mayores a cero. lista de nombres no vacia.
+	 * Post: El juego esta listo para ejecutarse.
 	 */
 	Juego(int dificultadPedida, int numeroDeJugadores, int filas, int columnas, std::string* listaDeNombresDeJugadores);
 
@@ -58,8 +59,9 @@ class Juego{
 	void avanzarTurno();
 
 	/*
-	 * Post si el casillero seleccionado es 0 descubre los circundantes que tambien tengan cero
-	 * hasta encontrar casilleros con bombas cercanas
+	 * Pre: fila y columna validas, dentro del tablero.
+	 * Post: corre descubrirCasillero() sobre cada casillero que circunda al de las coordenadas pasadas.
+	 *
 	 */
 	void descubrirCasillerosCircundantes(int fila, int columna);
 
@@ -118,8 +120,6 @@ class Juego{
 	 * Post: devuelve true si termino la partida
 	 */
 	bool terminoLaPartida();
-
-
 
 	/*
 	 * Post: Devuelve una std::string con el numero que se le paso
