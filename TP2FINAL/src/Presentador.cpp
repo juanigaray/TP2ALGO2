@@ -101,9 +101,9 @@ void Presentador::pedirNombresDeJugadores(){
 							<< std::endl;
 
 				std::cin 	>> decision;
-				if( decision == 's' || decision == 'S'){
+				estaseguro = (decision == 's' || decision == 'S');
+				if (estaseguro){
 					listaDeNombresDeJugadores[numeroDeNombre] = nombreDeJugador;
-					estaseguro = true;
 				}
 			}
 		}
