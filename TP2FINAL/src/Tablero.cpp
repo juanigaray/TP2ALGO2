@@ -116,8 +116,10 @@ void Tablero::descubrirCasillero(int columna, int fila){
 
 	if ( esCoordenadaValida(columna, fila) ){
 		prepararCasillero(columna, fila);
-		matriz[columna][fila]->destapar();
-		this->casillerosDestapados ++;
+		if( ! matriz[columna][fila]->estaDescubierto() ){
+			matriz[columna][fila]->destapar();
+			this->casillerosDestapados ++;
+		}
 	}
 }
 
